@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Links | Vitor Hugo</title>
+    <title>Links | Lauany Fagundes</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='pasta_menu_links/menu_links.css') }}">
 </head>
 <body>
-
     <button id="theme-toggle" class="theme-toggle" aria-label="Alternar modo de cor">
         <i class="fas fa-moon"></i>
     </button>
@@ -16,40 +15,36 @@
     <div class="bio-container">
         <header class="bio-header">
             <div class="profile-img">
-                <img src="{{ url_for('static', filename='images/bloco_1/imagem_3.png') }}" alt="Vitor Hugo">
+                <img src="{{ url_for('static', filename='images/bloco_1/imagem_1.png') }}" alt="Lauany Fagundes">
             </div>
-            <h1>Vitor Hugo</h1>
-            <p>Desenvolvedor Full Stack | Python</p>
+            <h1>Lauany Fagundes</h1>
+            <p>Nutricionista | Personal Trainer</p>
         </header>
 
         <nav class="bio-links">
-            <a href="https://vitorhugoadp.com.br" class="bio-link" target="_blank">
-                <i class="fas fa-globe"></i> Meu Portfólio Oficial
+            <a href="#" class="bio-link" target="_blank">
+                <i class="fas fa-heart-pulse"></i> Acompanhamento Nutricional
             </a>
             
-            <a href="{{ url_for('inicio.ini_tela_projetos') }}" class="bio-link" target="_blank">
-                <i class="fas fa-rocket"></i> Ver Meus Projetos
+            <a href="#" class="bio-link" target="_blank">
+                <i class="fas fa-dumbbell"></i> Treinos Personalizados
             </a>
 
-            <a href="https://wa.me/5565999757941" class="bio-link whatsapp" target="_blank">
-                <i class="fab fa-whatsapp"></i> Conversar no WhatsApp
+            <a href="#" class="bio-link whatsapp" target="_blank">
+                <i class="fab fa-whatsapp"></i> Agendar Consulta WhatsApp
             </a>
 
-            <a href="https://github.com/vitorhugoarcanjo" class="bio-link" target="_blank">
-                <i class="fab fa-github"></i> Meus Projetos (GitHub)
-            </a>
-
-            <a href="https://linkedin.com/in/vitor-hugo-arcanjo-dias-pereira-5919b5334/" class="bio-link" target="_blank">
-                <i class="fab fa-linkedin"></i> Perfil Profissional
+            <a href="#" class="bio-link" target="_blank">
+                <i class="fas fa-calendar-check"></i> Marcar Avaliação Inicial
             </a>
 
             <a href="mailto:dias.vitorhd@gmail.com" class="bio-link" target="_blank">
-                <i class="fas fa-envelope"></i> Enviar E-mail
+                <i class="fas fa-envelope"></i> Enviar Mensagem
             </a>
         </nav>
 
         <footer class="bio-footer">
-            <p>© 2026 Vitor Hugo</p>
+            <p>© 2026 Lauany Fagundes | Transformando vidas com saúde</p>
         </footer>
     </div>
 
@@ -58,24 +53,19 @@
         const html = document.documentElement;
         const icon = themeToggle.querySelector('i');
 
-        // 1. Verificar preferência salva ou do sistema
         const savedTheme = localStorage.getItem('theme-links') || 
                           (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
 
-        // 2. Aplicar o tema inicial
         html.setAttribute('data-theme', savedTheme);
         updateIcon(savedTheme);
 
-        // 3. Evento de clique
         themeToggle.addEventListener('click', () => {
             const currentTheme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-            
             html.setAttribute('data-theme', currentTheme);
             localStorage.setItem('theme-links', currentTheme);
             updateIcon(currentTheme);
         });
 
-        // 4. Função para trocar o ícone (Sol/Lua)
         function updateIcon(theme) {
             if (theme === 'dark') {
                 icon.className = 'fas fa-sun';
@@ -84,6 +74,5 @@
             }
         }
     </script>
-
 </body>
 </html>

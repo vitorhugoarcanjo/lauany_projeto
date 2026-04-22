@@ -1,25 +1,25 @@
-/* ==================== CONFIGURAÇÃO DE CORES (TEMAS) ==================== */
+/* ==================== PALETA FEMININA WELLNESS ==================== */
 :root {
-    /* MODO CLARO (Default) */
-    --bg-gradient: radial-gradient(circle at top, #e2e8f0 0%, #f8fafc 100%);
+    /* MODO CLARO - Tons femininos suaves e elegantes */
+    --bg-gradient: linear-gradient(135deg, #fdf2f8 0%, #f8fafc 50%, #ecfdf5 100%);
     --text-main: #1e293b;
     --text-muted: #64748b;
-    --accent-color: #007bff;
+    --accent-color: #ec4899;        /* Rosa elegante */
     --whatsapp-color: #25d366;
-    --glass-bg: rgba(0, 0, 0, 0.05);
-    --glass-border: rgba(0, 0, 0, 0.1);
-    --shadow: rgba(0, 0, 0, 0.1);
+    --glass-bg: rgba(255, 255, 255, 0.85);
+    --glass-border: rgba(236, 72, 153, 0.2);
+    --shadow: rgba(236, 72, 153, 0.15);
 }
 
 [data-theme="dark"] {
-    /* MODO ESCURO */
-    --bg-gradient: radial-gradient(circle at top, #1e293b 0%, #0f172a 100%);
-    --text-main: #ffffff;
-    --text-muted: #94a3b8;
-    --accent-color: #3793ff;
-    --glass-bg: rgba(255, 255, 255, 0.08);
-    --glass-border: rgba(255, 255, 255, 0.15);
-    --shadow: rgba(0, 0, 0, 0.4);
+    /* MODO ESCURO - Rosa profundo + neutros quentes */
+    --bg-gradient: linear-gradient(135deg, #1e1b4b 0%, #2d1b69 50%, #1a1b41 100%);
+    --text-main: #f8fafc;
+    --text-muted: #cbd5e1;
+    --accent-color: #f472b6;        /* Rosa neon suave */
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(244, 114, 182, 0.3);
+    --shadow: rgba(236, 72, 153, 0.25);
 }
 
 /* ==================== BASE ==================== */
@@ -27,7 +27,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 body {
@@ -38,16 +38,16 @@ body {
     justify-content: center;
     padding: 60px 20px;
     overflow-x: hidden;
-    transition: background 0.4s ease, color 0.4s ease; /* Transição suave */
+    transition: background 0.4s ease, color 0.4s ease;
 }
 
 .bio-container {
     width: 100%;
-    max-width: 400px;
+    max-width: 420px;
     text-align: center;
 }
 
-/* ==================== BOTÃO DE TEMA (FLUTUANTE) ==================== */
+/* ==================== BOTÃO DE TEMA ==================== */
 .theme-toggle {
     position: fixed;
     top: 20px;
@@ -55,19 +55,20 @@ body {
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
     color: var(--text-main);
-    width: 45px;
-    height: 45px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     cursor: pointer;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(15px);
     z-index: 100;
-    transition: 0.3s;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 32px var(--shadow);
 }
 
 .theme-toggle:hover {
-    transform: scale(1.1);
-    color: var(--accent-color);
+    transform: scale(1.1) rotate(10deg);
+    background: var(--accent-color);
+    color: white;
 }
 
 /* ==================== HEADER (PERFIL) ==================== */
@@ -76,94 +77,143 @@ body {
 }
 
 .profile-img img {
-    width: 110px;
-    height: 110px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
-    border: 3px solid var(--accent-color);
-    margin-bottom: 20px;
+    border: 4px solid var(--accent-color);
+    margin-bottom: 24px;
     object-fit: cover;
-    box-shadow: 0 0 20px var(--shadow);
+    box-shadow: 0 0 30px var(--shadow);
+    transition: all 0.3s ease;
+}
+
+.profile-img:hover img {
+    transform: scale(1.05);
 }
 
 .bio-header h1 {
-    font-size: 1.8rem;
-    font-weight: 700;
-    margin-bottom: 8px;
-    letter-spacing: -0.5px;
-    color: var(--text-main);
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+    letter-spacing: -0.8px;
+    background: linear-gradient(135deg, var(--text-main), var(--accent-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .bio-header p {
-    font-size: 1rem;
+    font-size: 1.1rem;
     color: var(--text-muted);
-    margin-bottom: 40px;
+    font-weight: 500;
+    margin-bottom: 48px;
+    letter-spacing: 0.5px;
 }
 
-/* ==================== LINKS (GLASSMORPHISM) ==================== */
+/* ==================== LINKS (GLASSMORPHISM FEMININO) ==================== */
 .bio-links {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 18px;
 }
 
 .bio-link {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
+    gap: 14px;
     background: var(--glass-bg);
     color: var(--text-main);
     text-decoration: none;
-    padding: 18px;
-    border-radius: 16px;
-    border: 1px solid var(--glass-border);
+    padding: 20px 24px;
+    border-radius: 24px;
+    border: 2px solid var(--glass-border);
     font-weight: 600;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    font-size: 1rem;
+    backdrop-filter: blur(20px);
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    
     opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.5s forwards;
+    transform: translateY(30px);
+    animation: fadeInUp 0.6s forwards;
+    position: relative;
+    overflow: hidden;
 }
 
-/* Delays para animação */
+.bio-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.6s;
+}
+
+.bio-link:hover::before {
+    left: 100%;
+}
+
 .bio-link:nth-child(1) { animation-delay: 0.1s; }
 .bio-link:nth-child(2) { animation-delay: 0.2s; }
 .bio-link:nth-child(3) { animation-delay: 0.3s; }
 .bio-link:nth-child(4) { animation-delay: 0.4s; }
 .bio-link:nth-child(5) { animation-delay: 0.5s; }
-.bio-link:nth-child(6) { animation-delay: 0.6s; }
 
 .bio-link:hover {
-    transform: scale(1.03);
-    background: var(--glass-border); /* Inverte o brilho no hover */
+    transform: translateY(-4px) scale(1.02);
+    background: var(--accent-color);
+    color: white;
     border-color: var(--accent-color);
-    box-shadow: 0 10px 25px var(--shadow);
+    box-shadow: 0 20px 40px var(--shadow);
 }
 
 .bio-link i {
-    font-size: 1.3rem;
-    color: var(--accent-color);
+    font-size: 1.4rem;
+    transition: all 0.3s ease;
 }
 
-.bio-link.whatsapp:hover i { color: var(--whatsapp-color); }
-.bio-link.whatsapp:hover { border-color: var(--whatsapp-color); }
+.bio-link.whatsapp:hover {
+    background: var(--whatsapp-color);
+    border-color: var(--whatsapp-color);
+}
+
+.bio-link.whatsapp:hover i {
+    transform: scale(1.2);
+}
 
 /* ==================== RODAPÉ ==================== */
 .bio-footer {
-    margin-top: 50px;
-    font-size: 0.85rem;
+    margin-top: 60px;
+    font-size: 0.9rem;
     color: var(--text-muted);
     opacity: 0.8;
+    font-weight: 500;
+    letter-spacing: 0.3px;
 }
 
 /* ==================== ANIMAÇÕES ==================== */
 @keyframes fadeInDown {
-    from { opacity: 0; transform: translateY(-30px); }
+    from { opacity: 0; transform: translateY(-40px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeInUp {
     to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==================== RESPONSIVO ==================== */
+@media (max-width: 480px) {
+    body {
+        padding: 40px 16px;
+    }
+    
+    .bio-header h1 {
+        font-size: 1.7rem;
+    }
+    
+    .profile-img img {
+        width: 100px;
+        height: 100px;
+    }
 }
