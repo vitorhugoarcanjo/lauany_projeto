@@ -19,6 +19,12 @@
             </p>
         </div>
 
+        <!-- Aviso sobre spam -->
+        <div class="aviso-spam">
+            <i class="fas fa-triangle-exclamation"></i>
+            <span>Não achou o e-mail? Verifica a caixa de <strong>spam</strong> ou <strong>lixeira</strong>.</span>
+        </div>
+
         <form id="formConfirmarEmail" class="auth-form">
             <input type="hidden" name="user_id" value="{{ user_id }}">
 
@@ -48,7 +54,7 @@
         </form>
 
         <div class="auth-actions">
-            <a href="{{ url_for('cadastre_se.reenviar_codigo', user_id=user_id) }}" class="auth-link">
+            <a href="{{ url_for('cadastre_se.reenviar_codigo', user_id=user_id) }}" class="auth-link" id="linkReenviar">
                 Reenviar código
             </a>
             <span class="auth-sep">·</span>
@@ -59,6 +65,14 @@
 
     </div>
 
+</div>
+
+<!-- OVERLAY DE LOADING -->
+<div class="overlay-loading" id="overlayLoading">
+    <div class="spinner"></div>
+    <div class="texto">Verificando código...</div>
+    <div class="subtexto">Validando seu e-mail</div>
+    <div class="barra-progresso"></div>
 </div>
 {% endblock %}
 

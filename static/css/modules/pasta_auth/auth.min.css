@@ -1,4 +1,4 @@
-/* AUTH — 18/10/2026 12:45 */
+/* AUTH — 18/10/2026 13:34 */
 
 /* ===== auth.css ===== */
 /* static/css/modules/pasta_auth/auth.css
@@ -435,11 +435,11 @@ AUTH — Blue Cosmic (compacto)
     color: rgba(96, 165, 250, 0.8);
 }
 
-/* ==================== LOADING ==================== */
+/* ==================== LOADING (botão) ==================== */
 .btn .btn-loading {
     display: none;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
 }
 
 .btn .btn-texto {
@@ -454,6 +454,125 @@ AUTH — Blue Cosmic (compacto)
 
 .btn.loading .btn-loading {
     display: inline-flex;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* ==================== OVERLAY DE LOADING — TELA CHEIA ==================== */
+.overlay-loading {
+    position: fixed;
+    inset: 0;
+    background: rgba(5, 8, 16, 0.88);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 22px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.overlay-loading.ativo {
+    display: flex;
+    opacity: 1;
+}
+
+.overlay-loading .spinner {
+    width: 64px;
+    height: 64px;
+    border: 3px solid rgba(59, 130, 246, 0.15);
+    border-top-color: #3b82f6;
+    border-right-color: #06b6d4;
+    border-radius: 50%;
+    animation: girarSpinner 0.9s linear infinite;
+    box-shadow:
+        0 0 30px rgba(59, 130, 246, 0.3),
+        inset 0 0 20px rgba(59, 130, 246, 0.1);
+}
+
+@keyframes girarSpinner {
+    to { transform: rotate(360deg); }
+}
+
+.overlay-loading .texto {
+    color: #ffffff;
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    text-align: center;
+    font-family: var(--fonte-principal);
+    animation: pulseTexto 1.8s ease-in-out infinite;
+}
+
+@keyframes pulseTexto {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.7; }
+}
+
+.overlay-loading .subtexto {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.85rem;
+    font-weight: 400;
+    margin-top: -10px;
+    text-align: center;
+}
+
+/* BARRINHA DE PROGRESSO INFINITA */
+.overlay-loading .barra-progresso {
+    width: 200px;
+    height: 3px;
+    background: rgba(59, 130, 246, 0.15);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-top: 4px;
+}
+
+.overlay-loading .barra-progresso::after {
+    content: '';
+    display: block;
+    height: 100%;
+    width: 40%;
+    background: linear-gradient(90deg, #3b82f6, #06b6d4, #60a5fa);
+    border-radius: 999px;
+    animation: barraPulando 1.4s ease-in-out infinite;
+}
+
+@keyframes barraPulando {
+    0%   { transform: translateX(-100%); }
+    100% { transform: translateX(350%); }
+}
+
+/* BOTÃO COM SHIMMER DURANTE LOADING */
+.btn.loading {
+    cursor: wait;
+    pointer-events: none;
+}
+
+.btn.loading::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    animation: shimmerBtn 1.6s infinite;
+    border-radius: inherit;
+    pointer-events: none;
+}
+
+@keyframes shimmerBtn {
+    0%   { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
 }
 
 /* ==================== CAMPO USERNAME ==================== */

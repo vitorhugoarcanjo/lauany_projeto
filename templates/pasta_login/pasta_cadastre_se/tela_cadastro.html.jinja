@@ -87,11 +87,19 @@
 
         <div class="auth-status-bar">
             <span class="auth-status-dot">sistema_online</span>
-            <span>v1.0.0</span>
+            <span>v{{ versao_sistema }}</span>
         </div>
 
     </div>
 
+</div>
+
+<!-- OVERLAY DE LOADING -->
+<div class="overlay-loading" id="overlayLoading">
+    <div class="spinner"></div>
+    <div class="texto">Criando sua conta...</div>
+    <div class="subtexto">Isso leva só um instante</div>
+    <div class="barra-progresso"></div>
 </div>
 {% endblock %}
 

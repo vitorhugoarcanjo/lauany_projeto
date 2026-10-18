@@ -1,6 +1,6 @@
 /* static/js/modules/pasta_auth/auth.js
 ============================================
-AUTH — Login + Cadastro (AJAX)
+AUTH — Login + Cadastro + Confirmar (AJAX)
 ============================================ */
 
 (function() {
@@ -9,15 +9,27 @@ AUTH — Login + Cadastro (AJAX)
     // ==========================================================
     // HELPERS
     // ==========================================================
-    function comLoading(btn, acao) {
-        if (!btn) return Promise.resolve(acao());
-        btn.classList.add('loading');
-        btn.disabled = true;
+    function comLoading(btn, acao, mensagemOverlay) {
+        const overlay = document.getElementById('overlayLoading');
+        if (overlay) {
+            if (mensagemOverlay) {
+                const textoEl = overlay.querySelector('.texto');
+                if (textoEl) textoEl.textContent = mensagemOverlay;
+            }
+            overlay.classList.add('ativo');
+        }
+        if (btn) {
+            btn.classList.add('loading');
+            btn.disabled = true;
+        }
 
         return Promise.resolve(acao())
             .finally(() => {
-                btn.classList.remove('loading');
-                btn.disabled = false;
+                if (overlay) overlay.classList.remove('ativo');
+                if (btn) {
+                    btn.classList.remove('loading');
+                    btn.disabled = false;
+                }
             });
     }
 
@@ -41,7 +53,6 @@ AUTH — Login + Cadastro (AJAX)
                 .then(r => r.json().then(j => ({ ok: r.ok, data: j })))
                 .then(({ ok, data }) => {
                     if (!ok || !data.success) {
-                        // Se for email não confirmado, avisa E redireciona
                         if (data.redirect) {
                             Notificacao.aviso(data.message || 'Verifique seu email.');
                             setTimeout(() => {
@@ -60,7 +71,7 @@ AUTH — Login + Cadastro (AJAX)
                     }, 600);
                 })
                 .catch(() => Notificacao.erro('Erro de conexão. Tente novamente.'));
-            });
+            }, 'Entrando...');
         });
     }
 
@@ -83,7 +94,7 @@ AUTH — Login + Cadastro (AJAX)
             });
         }
 
-                // Verificação de username em tempo real
+        // Verificação de username em tempo real
         const inputUsername = formCadastro.querySelector('input[name="username"]');
         const feedbackUsername = document.getElementById('username-feedback');
 
@@ -92,7 +103,7 @@ AUTH — Login + Cadastro (AJAX)
 
             inputUsername.addEventListener('input', function() {
                 const username = this.value.trim().toLowerCase();
-                this.value = username; // força minúsculo
+                this.value = username;
 
                 clearTimeout(timeoutUsername);
 
@@ -102,7 +113,6 @@ AUTH — Login + Cadastro (AJAX)
                     return;
                 }
 
-                // Validação local primeiro
                 if (username.length < 3) {
                     feedbackUsername.textContent = 'Mínimo 3 caracteres.';
                     feedbackUsername.className = 'form-hint form-hint-erro';
@@ -115,7 +125,6 @@ AUTH — Login + Cadastro (AJAX)
                     return;
                 }
 
-                // Verifica no backend (com debounce)
                 feedbackUsername.textContent = 'Verificando...';
                 feedbackUsername.className = 'form-hint form-hint-verificando';
 
@@ -158,10 +167,8 @@ AUTH — Login + Cadastro (AJAX)
                         return;
                     }
 
-                    // Sucesso
                     Notificacao.sucesso(data.message || 'Cadastro realizado!');
 
-                    // Redireciona pro /confirmar-email/<user_id>
                     setTimeout(() => {
                         if (data.redirect) {
                             window.location.href = data.redirect;
@@ -171,7 +178,7 @@ AUTH — Login + Cadastro (AJAX)
                     }, 800);
                 })
                 .catch(() => Notificacao.erro('Erro de conexão. Tente novamente.'));
-            });
+            }, 'Criando sua conta...');
         });
     }
 
@@ -210,8 +217,30 @@ AUTH — Login + Cadastro (AJAX)
                     }, 800);
                 })
                 .catch(() => Notificacao.erro('Erro de conexão. Tente novamente.'));
-            });
+            }, 'Verificando código...');
         });
+
+        // Reenviar código com overlay
+        const linkReenviar = document.getElementById('linkReenviar');
+        if (linkReenviar) {
+            linkReenviar.addEventListener('click', function(e) {
+                e.preventDefault();
+                const url = this.getAttribute('href');
+
+                comLoading(null, () => {
+                    return fetch(url)
+                        .then(r => r.json().then(j => ({ ok: r.ok, data: j })))
+                        .then(({ ok, data }) => {
+                            if (!ok || !data.success) {
+                                Notificacao.erro(data.message || 'Erro ao reenviar.');
+                                return;
+                            }
+                            Notificacao.sucesso(data.message || 'Código reenviado!');
+                        })
+                        .catch(() => Notificacao.erro('Erro de conexão.'));
+                }, 'Reenviando código...');
+            });
+        }
     }
 
 })();
