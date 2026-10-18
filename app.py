@@ -1,11 +1,13 @@
 # app.py
 """ARQUIVO PRINCIPAL — MeuLinks"""
 
+from dotenv import load_dotenv
 import os
+load_dotenv()
+
 import hashlib
 from datetime import timedelta
 from flask import Flask, redirect, url_for
-from dotenv import load_dotenv
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 import logging
@@ -18,7 +20,6 @@ from config.imports_rotas import logica_imports
 from utils.database.conexao_global import init_conexao
 
 
-load_dotenv()
 
 app = Flask(__name__)
 
