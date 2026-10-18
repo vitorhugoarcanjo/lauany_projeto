@@ -1,0 +1,130 @@
+{# templates/components/mockup_preview.html.jinja #}
+
+{% set _primaria   = perfil.cor_primaria   if perfil and perfil.cor_primaria   else '#3b82f6' %}
+{% set _secundaria = perfil.cor_secundaria if perfil and perfil.cor_secundaria else '#06b6d4' %}
+{% set _fundo      = perfil.cor_fundo      if perfil and perfil.cor_fundo      else '#f5f7fa' %}
+{% set _texto      = perfil.cor_texto      if perfil and perfil.cor_texto      else '#1a1a1a' %}
+{% set _fonte      = perfil.fonte          if perfil and perfil.fonte          else 'padrao' %}
+{% set _estilo     = perfil.estilo_botao   if perfil and perfil.estilo_botao   else 'arredondado' %}
+{% set _tamanho_foto = perfil.tamanho_foto if perfil and perfil.tamanho_foto else 'medio' %}
+{% set _tamanho_link = perfil.tamanho_link if perfil and perfil.tamanho_link else 'medio' %}
+{% set _gap         = perfil.espacamento_links if perfil and perfil.espacamento_links else 'medio' %}
+{% set _borda       = perfil.borda_link    if perfil and perfil.borda_link    else 'media' %}
+{% set _hover       = perfil.hover_efeito  if perfil and perfil.hover_efeito  else 'subir' %}
+{% set _animacao    = perfil.animacao_entrada if perfil and perfil.animacao_entrada else 'fade' %}
+{% set _foto_posicao = perfil.foto_posicao if perfil and perfil.foto_posicao else 'top' %}
+
+{% set _raios = {'arredondado': '12px', 'quadrado': '4px', 'pilula': '999px'} %}
+{% set _raio = _raios.get(_estilo, '12px') %}
+
+{# Escala do mockup: ~0.57x do público (pra caber no celular) #}
+{% set _fotos = {'pequena': '64px', 'medio': '80px', 'grande': '96px'} %}
+{% set _foto_px = _fotos.get(_tamanho_foto, '80px') %}
+
+{% set _links_px = {'pequeno': '36px', 'medio': '42px', 'grande': '48px'} %}
+{% set _link_px = _links_px.get(_tamanho_link, '42px') %}
+
+{% set _gaps = {'compacto': '6px', 'medio': '10px', 'espacoso': '14px'} %}
+{% set _gap_px = _gaps.get(_gap, '10px') %}
+
+{% set _bordas = {'sem': '0px', 'fina': '1px', 'media': '2px', 'grossa': '3px'} %}
+{% set _borda_px = _bordas.get(_borda, '2px') %}
+
+{% set _hover_transform = {'nenhum': 'none', 'subir': 'translateY(-4px)', 'escalar': 'scale(1.05)', 'brilho': 'none'} %}
+{% set _hover_brilho = {'nenhum': 'none', 'subir': 'none', 'escalar': 'none', 'brilho': 'brightness(1.15)'} %}
+
+{% set _fontes = {
+    'padrao': "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif",
+    'serif': "Georgia, 'Times New Roman', serif",
+    'mono': "'Courier New', Consolas, monospace",
+    'handwritten': "'Comic Sans MS', 'Caveat', cursive"
+} %}
+{% set _font_family = _fontes.get(_fonte, _fontes['padrao']) %}
+
+{% set _lista_links = perfil.links_preview if perfil and perfil.links_preview else [] %}
+
+<div class="mockup-preview">
+    <div class="mockup-preview-header">
+        <span class="mockup-preview-tag">
+            <i class="fas fa-mobile-screen"></i> Preview ao vivo
+        </span>
+        <div class="mockup-preview-acoes">
+            {% if url_publica %}
+            <a href="{{ url_publica }}"
+               target="_blank" rel="noopener noreferrer"
+               class="mockup-acao mockup-acao-primaria"
+               title="Abrir página real em nova aba">
+                <i class="fas fa-external-link-alt"></i>
+                <span>Abrir página</span>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="mockup-celular">
+        <div class="mockup-celular-notch"></div>
+
+        <div class="mockup-celular-tela anim-{{ _animacao }}" id="mockupTela"
+             data-animacao="{{ _animacao }}"
+             style="
+                --perfil-cor-primaria: {{ _primaria }};
+                --perfil-cor-secundaria: {{ _secundaria }};
+                --perfil-cor-fundo: {{ _fundo }};
+                --perfil-cor-texto: {{ _texto }};
+                --perfil-raio-link: {{ _raio }};
+                --mockup-foto-tamanho: {{ _foto_px }};
+                --mockup-link-tamanho: {{ _link_px }};
+                --mockup-gap: {{ _gap_px }};
+                --mockup-borda-tamanho: {{ _borda_px }};
+                --mockup-hover-transform: {{ _hover_transform.get(_hover, 'none') }};
+                --mockup-hover-brilho: {{ _hover_brilho.get(_hover, 'none') }};
+                font-family: {{ _font_family }};
+             ">
+
+            <div class="mockup-celular-foto" id="mockupFoto">
+                {% if perfil and perfil.foto %}
+                    <img src="{{ url_for('static', filename=perfil.foto) }}"
+                         alt="Foto"
+                         style="object-position: center {{ _foto_posicao }};">
+                {% else %}
+                    <i class="fas fa-user"></i>
+                {% endif %}
+            </div>
+
+            <h2 class="mockup-celular-nome" id="mockupNome">
+                {{ perfil.nome_display if perfil and perfil.nome_display else 'Seu nome' }}
+            </h2>
+
+            <p class="mockup-celular-bio" id="mockupBio">
+                {{ perfil.bio if perfil and perfil.bio else 'Sua bio aparece aqui...' }}
+            </p>
+
+            <div class="mockup-celular-links" id="mockupLinks">
+                {% if _lista_links|length > 0 %}
+                    {% for link in _lista_links[:4] %}
+                    <div class="mockup-celular-link">
+                        <i class="fas {{ link.icone or 'fa-link' }}"></i>
+                        <span>{{ link.titulo }}</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="mockup-celular-link mockup-celular-link-vazio">
+                        <i class="fas fa-link"></i>
+                        <span>Seus links aparecem aqui</span>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="mockup-celular-rodape">
+                <i class="fas fa-bolt"></i> Feito pelo MeuLinks
+            </div>
+
+        </div>
+    </div>
+
+    <div class="mockup-preview-aviso">
+        <i class="fas fa-info-circle"></i>
+        Rascunho em tempo real. <strong>Nada é salvo</strong> até clicar em <em>Salvar</em>.
+    </div>
+</div>

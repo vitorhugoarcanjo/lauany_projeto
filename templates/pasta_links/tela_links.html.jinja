@@ -1,0 +1,163 @@
+{# templates/pasta_links/tela_links.html.jinja #}
+{% extends 'tela_base_pos_login/base.html.jinja' %}
+
+{% block titulo %}Meus links | MeuLinks{% endblock %}
+
+{% block css_extra %}
+<link rel="stylesheet" href="{{ static_v('css/modules/pasta_links/links.min.css') }}">
+{% endblock %}
+
+{% block tela_header %}
+<h1 class="tela-header-titulo">
+    <i class="fas fa-link"></i> Meus links
+    <span class="tela-header-tag">{{ links|length }} total</span>
+</h1>
+{% endblock %}
+
+{% block footer_titulo %}MEUS LINKS{% endblock %}
+
+{% block footer_esquerda %}
+<button
+    type="button"
+    class="btn-footer btn-footer-primary"
+    hx-get="{{ url_for('links.insert_links.novo_link_modal') }}"
+    hx-target="#modal-novo-container"
+    hx-swap="innerHTML">
+    <i class="fas fa-plus"></i>
+    <span>NOVO LINK</span>
+</button>
+{% endblock %}
+
+{% block footer_direita %}
+<div class="totalizador-footer-padrao">
+    <div class="total-item-footer">
+        <label>📊 Total</label>
+        <span>{{ links|length }}</span>
+    </div>
+</div>
+{% endblock %}
+
+{% block conteudo %}
+
+<section class="tela-grid-1col">
+
+    <div>
+        <!-- FILTROS -->
+        <div class="tela-bloco">
+            <div class="tela-bloco-titulo">
+                <i class="fas fa-filter"></i>
+                <span>Filtros</span>
+            </div>
+
+            <form
+                id="form-filtros"
+                hx-post="{{ url_for('links.ini_links') }}"
+                hx-target="#tabela-container"
+                hx-swap="outerHTML"
+                hx-sync="this:replace"
+                hx-indicator="#links-loading"
+                hx-trigger="submit, change delay:400ms from:.filter-auto"
+                style="position: relative;">
+
+                <div class="filtros-container">
+                    <!-- BUSCAR -->
+                    <div class="bloco-filtro bloco-pesquisa-fim">
+                        <div class="bloco-titulo">🔍 BUSCAR</div>
+                        <input
+                            type="text"
+                            name="descricao"
+                            class="form-input filter-auto"
+                            placeholder="Título do link..."
+                            value="{{ descricao or '' }}"
+                            hx-trigger="input changed delay:300ms, search">
+                    </div>
+
+                    <!-- STATUS -->
+                    <div class="bloco-filtro">
+                        <div class="bloco-titulo">📊 STATUS</div>
+                        <div class="filtros-status-linha">
+                            <button
+                                type="button"
+                                data-filtro-status
+                                hx-post="{{ url_for('links.ini_links') }}"
+                                hx-vals='{"mostrar_inativas": "0"}'
+                                hx-include="#form-filtros"
+                                hx-target="#tabela-container"
+                                hx-swap="outerHTML"
+                                hx-sync="this:replace"
+                                class="btn-filter {% if mostrar_inativas == '0' %}btn-active-toggle{% endif %}">
+                                Ativos
+                            </button>
+                            <button
+                                type="button"
+                                data-filtro-status
+                                hx-post="{{ url_for('links.ini_links') }}"
+                                hx-vals='{"mostrar_inativas": "1"}'
+                                hx-include="#form-filtros"
+                                hx-target="#tabela-container"
+                                hx-swap="outerHTML"
+                                hx-sync="this:replace"
+                                class="btn-filter {% if mostrar_inativas == '1' %}btn-active-toggle{% endif %}">
+                                Inativos
+                            </button>
+                            <button
+                                type="button"
+                                data-filtro-status
+                                hx-post="{{ url_for('links.ini_links') }}"
+                                hx-vals='{"mostrar_inativas": "2"}'
+                                hx-include="#form-filtros"
+                                hx-target="#tabela-container"
+                                hx-swap="outerHTML"
+                                hx-sync="this:replace"
+                                class="btn-filter {% if mostrar_inativas == '2' %}btn-active-toggle{% endif %}">
+                                Todos
+                            </button>
+                        </div>
+                        <input type="hidden" name="mostrar_inativas" id="mostrar_inativas_input" value="{{ mostrar_inativas }}">
+                    </div>
+
+                    <!-- LIMPAR -->
+                    <div class="bloco-filtro">
+                        <div class="bloco-titulo">🧹 AÇÕES</div>
+                        <a href="{{ url_for('links.limpar_filtros') }}"
+                           class="btn-filter"
+                           style="text-align: center;">
+                            Limpar filtros
+                        </a>
+                    </div>
+                </div>
+
+                <!-- SPINNER -->
+                <div id="links-loading" class="htmx-indicator">
+                    <div class="spinner-mini"></div>
+                </div>
+            </form>
+        </div>
+
+        <!-- TABELA -->
+        <div class="tela-bloco links-tabela-bloco">
+            <div class="tela-bloco-titulo">
+                <i class="fas fa-list"></i>
+                <span>Seus links</span>
+            </div>
+
+            {% include 'pasta_links/_tabela_links.html.jinja' %}
+        </div>
+    </div>
+
+    <!-- Coluna vazia (padrão) -->
+    <div class="tela-preview-col"></div>
+
+</section>
+
+<!-- CONTAINERS DE MODAIS -->
+<div id="modal-novo-container"></div>
+<div id="modal-editar-container"></div>
+<div id="modal-excluir-container"></div>
+<div id="modal-reativar-container"></div>
+
+{% endblock %}
+
+{% block js_extra %}
+<script src="{{ static_v('js/modules/pasta_links/links.min.js') }}"></script>
+{% endblock %}

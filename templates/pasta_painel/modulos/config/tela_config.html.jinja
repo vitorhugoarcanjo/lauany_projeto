@@ -1,0 +1,118 @@
+{# templates/pasta_painel/modulos/config/tela_config.html.jinja #}
+{% extends 'tela_base_pos_login/base.html.jinja' %}
+
+{% block titulo %}Configurações | MeuLinks{% endblock %}
+
+{% block tela_header %}
+<h1 class="tela-header-titulo">
+    <i class="fas fa-cog"></i> Configurações
+    <span class="tela-header-tag">Conta</span>
+</h1>
+{% endblock %}
+
+{% block footer_titulo %}CONFIG{% endblock %}
+
+{% block footer_direita %}
+<div class="total-item-footer">
+    <label>👤</label>
+    <span>{{ usuario.nome.split(' ')[0] }}</span>
+</div>
+{% endblock %}
+
+{% block conteudo %}
+
+<section class="tela-grid">
+
+    <div>
+        <!-- DADOS -->
+        <div class="tela-bloco">
+            <div class="tela-bloco-titulo">
+                <i class="fas fa-user-circle"></i>
+                <span>Dados da conta</span>
+            </div>
+            <div class="config-info-grid">
+                <div class="config-info-item">
+                    <label>Nome completo</label>
+                    <span>{{ usuario.nome }}</span>
+                </div>
+                <div class="config-info-item">
+                    <label>E-mail</label>
+                    <span>{{ usuario.email }}</span>
+                </div>
+                <div class="config-info-item">
+                    <label>Telefone</label>
+                    <span>{{ usuario.telefone or 'Não informado' }}</span>
+                </div>
+                <div class="config-info-item">
+                    <label>Conta criada em</label>
+                    <span>{{ usuario.data_criacao.strftime('%d/%m/%Y') if usuario.data_criacao else '—' }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- SENHA -->
+        <div class="tela-bloco">
+            <div class="tela-bloco-titulo">
+                <i class="fas fa-lock"></i>
+                <span>Alterar senha</span>
+            </div>
+
+            <form id="formAlterarSenha" class="config-form">
+                <div class="form-grupo">
+                    <label for="senha_atual">Senha atual</label>
+                    <input type="password" id="senha_atual" name="senha_atual"
+                           class="form-input" placeholder="••••••••"
+                           autocomplete="current-password">
+                </div>
+
+                <div class="form-linha-2">
+                    <div class="form-grupo">
+                        <label for="senha_nova">Nova senha</label>
+                        <input type="password" id="senha_nova" name="senha_nova"
+                               class="form-input" placeholder="Mínimo 6 caracteres"
+                               autocomplete="new-password">
+                    </div>
+                    <div class="form-grupo">
+                        <label for="confirmar_senha">Confirmar nova senha</label>
+                        <input type="password" id="confirmar_senha" name="confirmar_senha"
+                               class="form-input" placeholder="Repita a senha"
+                               autocomplete="new-password">
+                    </div>
+                </div>
+
+                <div class="form-acoes">
+                    <button type="submit" class="tela-acao-salvar" id="btnAlterarSenha">
+                        <span class="btn-texto">Alterar senha</span>
+                        <span class="btn-loading" hidden>
+                            <i class="fas fa-spinner fa-spin"></i> Alterando...
+                        </span>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- ZONA DE PERIGO -->
+        <div class="tela-bloco config-bloco-perigo">
+            <div class="tela-bloco-titulo">
+                <i class="fas fa-triangle-exclamation"></i>
+                <span>Zona de perigo</span>
+            </div>
+            <p class="config-perigo-texto">
+                Ações irreversíveis. Tenha cuidado.
+            </p>
+            <button type="button" class="btn btn-perigo" id="btnDeletarConta">
+                <i class="fas fa-trash"></i> Deletar minha conta
+            </button>
+            <small class="form-hint">
+                Isso vai apagar permanentemente todos os seus dados, links e perfil.
+            </small>
+        </div>
+    </div>
+
+    <div class="tela-preview-col"></div>
+
+</section>
+
+{% endblock %}
+
+{% block js_extra %}{% endblock %}

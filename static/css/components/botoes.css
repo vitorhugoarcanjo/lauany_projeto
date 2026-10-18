@@ -1,0 +1,170 @@
+/* static/css/components/botoes.css
+============================================
+BOTÕES + TAGS — Global
+============================================ */
+
+/* ==================== BASE ==================== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: var(--raio-md);
+    font-size: var(--fs-small);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transicao);
+    border: 1px solid transparent;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.btn:disabled,
+.btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ==================== VARIAÇÕES ==================== */
+.btn-primary {
+    background-color: var(--cor-marca);
+    color: #ffffff;
+}
+.btn-primary:hover:not(:disabled) {
+    background-color: var(--cor-marca-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--sombra-md);
+}
+
+.btn-secondary {
+    background-color: var(--cor-card);
+    color: var(--cor-texto);
+    border-color: var(--cor-borda);
+}
+.btn-secondary:hover:not(:disabled) {
+    border-color: var(--cor-marca);
+    color: var(--cor-marca);
+}
+
+.btn-ghost {
+    background-color: transparent;
+    color: var(--cor-texto-mutado);
+}
+.btn-ghost:hover:not(:disabled) {
+    color: var(--cor-texto);
+    background-color: var(--cor-fundo);
+}
+
+.btn-perigo {
+    background-color: var(--cor-perigo);
+    color: #ffffff;
+}
+.btn-perigo:hover:not(:disabled) {
+    background-color: #c82333;
+    transform: translateY(-2px);
+}
+
+.btn-block { width: 100%; }
+
+/* ==================== TAMANHOS ==================== */
+.btn-sm {
+    padding: 6px 12px;
+    font-size: var(--fs-micro);
+    border-radius: var(--raio-sm);
+}
+
+.btn-lg {
+    padding: 14px 28px;
+    font-size: var(--fs-base);
+}
+
+/* ==================== BOTÃO ÍCONE ==================== */
+.btn-acao {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: var(--raio-sm);
+    background-color: transparent;
+    color: var(--cor-texto-mutado);
+    cursor: pointer;
+    transition: all var(--transicao);
+    border: 1px solid transparent;
+}
+.btn-acao:hover {
+    background-color: var(--cor-fundo);
+    color: var(--cor-marca);
+    border-color: var(--cor-borda);
+}
+.btn-acao.delete:hover { color: var(--cor-perigo); }
+.btn-acao.reativar:hover { color: var(--cor-sucesso); }
+
+/* ==================== BOTÃO FILTRO ==================== */
+.btn-filter {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: var(--raio-sm);
+    border: 1px solid var(--cor-borda);
+    background-color: var(--cor-fundo-sec);
+    color: var(--cor-texto);
+    font-size: var(--fs-small);
+    font-weight: 500;
+    transition: all var(--transicao);
+    cursor: pointer;
+}
+.btn-filter:hover {
+    border-color: var(--cor-marca);
+    color: var(--cor-marca);
+}
+.btn-filter.btn-active-toggle {
+    background-color: var(--cor-marca);
+    color: #ffffff;
+    border-color: var(--cor-marca);
+}
+
+.btn-primary-pure {
+    background-color: var(--cor-marca);
+    color: #ffffff;
+    border-color: var(--cor-marca);
+}
+.btn-primary-pure:hover {
+    background-color: var(--cor-marca-hover);
+    color: #ffffff;
+}
+
+/* ==================== LOADING ==================== */
+.btn .btn-loading {
+    display: none;
+    align-items: center;
+    gap: 6px;
+}
+.btn .btn-texto {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+.btn.loading .btn-texto { display: none; }
+.btn.loading .btn-loading { display: inline-flex; }
+
+/* ==================== TAGS ==================== */
+.tag-padrao,
+.painel-tag,
+.perfil-tag,
+.aparencia-tag,
+.config-tag {
+    display: inline-block;
+    background-color: rgba(59, 130, 246, 0.1);
+    color: var(--cor-marca);
+    padding: 4px 12px;
+    border-radius: var(--raio-full);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}

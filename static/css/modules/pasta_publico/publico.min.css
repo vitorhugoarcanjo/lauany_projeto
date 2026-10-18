@@ -1,0 +1,327 @@
+/* PÚBLICO — 18/10/2026 12:45 */
+
+/* ===== publico.css ===== */
+/* static/css/modules/pasta_publico/publico.css
+============================================
+PÁGINA PÚBLICA — Base
+============================================ */
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 16px; -webkit-text-size-adjust: 100%; }
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; background: none; border: none; color: inherit; }
+ul, ol { list-style: none; }
+
+/* BODY */
+.publico-body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+    background-color: var(--perfil-cor-fundo, #f5f7fa);
+    color: var(--perfil-cor-texto, #1a1a1a);
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+    transition: background 0.4s ease, color 0.4s ease;
+}
+
+.publico-body.fonte-serif { font-family: Georgia, 'Times New Roman', serif; }
+.publico-body.fonte-mono { font-family: 'Courier New', Consolas, monospace; }
+.publico-body.fonte-handwritten { font-family: 'Comic Sans MS', 'Caveat', cursive; }
+
+/* MAIN */
+.publico-main {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 2.5rem 1rem calc(28px + 2rem);
+}
+
+/* CONTAINER */
+.perfil-container {
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* HEADER */
+.perfil-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.perfil-foto {
+    width: var(--perfil-foto-tamanho, 128px);
+    height: var(--perfil-foto-tamanho, 128px);
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg,
+        var(--perfil-cor-primaria, #3b82f6),
+        var(--perfil-cor-secundaria, #06b6d4));
+    flex-shrink: 0;
+    margin-bottom: 0.75rem;
+    transition: all 0.3s ease;
+}
+
+.perfil-foto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center var(--perfil-foto-posicao, top);  /* ← posição do form */
+    display: block;
+}
+
+.perfil-foto-placeholder { font-size: calc(var(--perfil-foto-tamanho, 128px) * 0.25); color: rgba(255, 255, 255, 0.85); }
+
+.perfil-nome {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--perfil-cor-texto, #1a1a1a);
+    line-height: 1.2;
+    word-break: break-word;
+}
+
+.perfil-bio {
+    font-size: 0.9rem;
+    color: var(--perfil-cor-texto, #1a1a1a);
+    opacity: 0.7;
+    line-height: 1.5;
+    word-break: break-word;
+    max-width: 100%;
+}
+
+/* LINKS */
+.perfil-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--perfil-gap, 10px);
+    width: 100%;
+}
+
+.perfil-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0 1rem;
+    height: var(--perfil-link-tamanho, 44px);
+    background: var(--perfil-cor-primaria, #3b82f6);
+    color: #ffffff;
+    border-radius: var(--perfil-raio-link, 12px);
+    font-size: 0.95rem;
+    font-weight: 600;
+    border: var(--perfil-borda-tamanho, 2px) solid var(--perfil-cor-primaria, #3b82f6);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.perfil-link.destaque {
+    background: linear-gradient(135deg,
+        var(--perfil-cor-primaria, #3b82f6),
+        var(--perfil-cor-secundaria, #06b6d4));
+}
+
+.perfil-link:hover {
+    transform: var(--perfil-hover-transform, translateY(-4px));
+    filter: var(--perfil-hover-brilho, none);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.perfil-link-icone {
+    display: flex; align-items: center; justify-content: center;
+    width: 32px; height: 32px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    font-size: 0.9rem; flex-shrink: 0;
+}
+
+.perfil-link-texto { flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.perfil-link-texto strong { font-size: 0.95rem; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.perfil-link-texto small { font-size: 0.75rem; opacity: 0.85; font-weight: 400; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.perfil-link-seta {
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; opacity: 0.7; flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+
+.perfil-link:hover .perfil-link-seta { transform: translateX(3px); opacity: 1; }
+
+/* VAZIO */
+.perfil-vazio {
+    text-align: center; padding: 2rem 1rem;
+    color: var(--perfil-cor-texto, #1a1a1a); opacity: 0.5;
+}
+.perfil-vazio i { font-size: 2rem; margin-bottom: 0.5rem; display: block; }
+.perfil-vazio p { font-size: 0.9rem; }
+
+/* RODAPÉ FIXO */
+.pub-rodape-fixo {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    height: 28px; z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(10, 10, 15, 0.55);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    font-size: 11px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    letter-spacing: 0.02em;
+}
+
+.pub-rodape-fixo a {
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    color: rgba(255, 255, 255, 0.75); text-decoration: none;
+    padding: 0 0.75rem; height: 100%;
+    transition: color 0.2s ease; line-height: 1;
+}
+.pub-rodape-fixo a:hover { color: #fff; }
+.pub-rodape-fixo a i {
+    color: var(--perfil-cor-primaria, #3b82f6);
+    font-size: 10px; filter: drop-shadow(0 0 4px var(--perfil-cor-primaria, #3b82f6));
+    transition: filter 0.2s ease;
+}
+.pub-rodape-fixo a:hover i { filter: drop-shadow(0 0 8px var(--perfil-cor-primaria, #3b82f6)); }
+.pub-rodape-fixo a strong {
+    color: #fff; font-weight: 700;
+    background: linear-gradient(135deg,
+        var(--perfil-cor-primaria, #3b82f6),
+        var(--perfil-cor-secundaria, #06b6d4));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* RESPONSIVO */
+@media (max-width: 480px) {
+    .publico-main { padding: 1.5rem 0.75rem calc(26px + 1.5rem); }
+    .perfil-nome { font-size: 1.25rem; }
+    .perfil-link { font-size: 0.88rem; }
+    .pub-rodape-fixo { font-size: 10px; height: 26px; }
+}
+
+/* ===== templates.css ===== */
+/* static/css/components/templates.css
+============================================
+TEMPLATES — Apenas fundo do body e borda da foto.
+TUDO MAIS (cor, borda, raio, tamanho, hover) vem do FORM.
+============================================ */
+
+/* ==================== 1. WELLNESS ==================== */
+.template-wellness.publico-body {
+    background: linear-gradient(135deg, #fdf2f8 0%, #f8fafc 50%, #ecfdf5 100%);
+}
+
+.template-wellness .perfil-foto {
+    border: 4px solid var(--perfil-cor-primaria, #ec4899);
+    box-shadow: 0 0 30px rgba(236, 72, 153, 0.25);
+}
+
+.template-wellness .perfil-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s;
+    pointer-events: none;
+}
+.template-wellness .perfil-link:hover::before {
+    left: 100%;
+}
+
+/* ==================== 2. COSMIC ==================== */
+.template-cosmic.publico-body {
+    background: linear-gradient(135deg, #0a0f1e 0%, #121a2e 50%, #1a1b41 100%);
+}
+
+.template-cosmic .perfil-foto {
+    border: 3px solid var(--perfil-cor-primaria, #3b82f6);
+    box-shadow: 0 0 40px rgba(59, 130, 246, 0.3);
+}
+
+.template-cosmic .perfil-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+    transition: left 0.6s;
+    pointer-events: none;
+}
+.template-cosmic .perfil-link:hover::before {
+    left: 100%;
+}
+
+/* ==================== 3. FRESH ==================== */
+.template-fresh.publico-body {
+    background: linear-gradient(135deg, #f0fdf4 0%, #ecfeff 100%);
+}
+
+.template-fresh .perfil-foto {
+    border: 3px solid var(--perfil-cor-primaria, #10b981);
+    box-shadow: 0 0 30px rgba(16, 185, 129, 0.2);
+}
+
+.template-fresh .perfil-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s;
+    pointer-events: none;
+}
+.template-fresh .perfil-link:hover::before {
+    left: 100%;
+}
+
+/* ==================== 4. CLASSIC ==================== */
+.template-classic.publico-body {
+    background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
+}
+
+.template-classic .perfil-foto {
+    border: 3px solid var(--perfil-cor-primaria, #1e40af);
+    box-shadow: 0 0 20px rgba(30, 64, 175, 0.2);
+}
+
+/* ==================== 5. SUNSET ==================== */
+.template-sunset.publico-body {
+    background: linear-gradient(135deg, #fff7ed 0%, #fef3c7 50%, #fce7f3 100%);
+}
+
+.template-sunset .perfil-foto {
+    border: 4px solid var(--perfil-cor-primaria, #f97316);
+    box-shadow: 0 0 30px rgba(249, 115, 22, 0.2);
+}
+
+.template-sunset .perfil-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s;
+    pointer-events: none;
+}
+.template-sunset .perfil-link:hover::before {
+    left: 100%;
+}
+

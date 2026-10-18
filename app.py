@@ -1,21 +1,79 @@
+# app.py
+"""ARQUIVO PRINCIPAL — MeuLinks"""
+
 import os
+import hashlib
+from datetime import timedelta
 from flask import Flask, redirect, url_for
 from dotenv import load_dotenv
-from config.imports_blueprints import import_blueprints
+from werkzeug.middleware.proxy_fix import ProxyFix
 
-if os.path.exists('.env'):
-    load_dotenv()
+import logging
+logging.basicConfig(
+    level=logging.DEBUG if os.getenv('FLASK_ENV') == 'development' else logging.INFO
+)
+
+from config.database import criar_todas_tabelas
+from config.imports_rotas import logica_imports
+from utils.database.conexao_global import init_conexao
+
+
+load_dotenv()
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
-ENV = os.environ.get('FLASK_ENV', 'production')
-app.config['DEBUG'] = ENV == 'development'
 
-import_blueprints(app)
+# BANCO DE DADOS
+init_conexao(app)
+
+# PROXY (Nginx)
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
+
+# ROTAS
+logica_imports(app)
+
+# SECRET
+app.secret_key = os.getenv('SECRET_KEY')
+
+# SESSÃO
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=240)
+
+
+# CACHE DE ESTÁTICOS
+STATIC_VERSION_CACHE = {}
+VERSAO_EXTRA = "1"
+
+@app.context_processor
+def inject_global_contexts():
+    def static_v(filename):
+        if filename in STATIC_VERSION_CACHE:
+            return url_for('static', filename=filename, v=STATIC_VERSION_CACHE[filename] + VERSAO_EXTRA)
+
+        file_path = os.path.join(app.static_folder, filename)
+        try:
+            with open(file_path, 'rb') as f:
+                file_hash = hashlib.md5(f.read()).hexdigest()[:10]
+                version = file_hash
+        except (OSError, IOError):
+            version = str(int(os.path.getmtime(file_path))) if os.path.exists(file_path) else '1'
+
+        STATIC_VERSION_CACHE[filename] = version
+        return url_for('static', filename=filename, v=version + VERSAO_EXTRA)
+
+    return {
+        'static_v': static_v,
+        'versao_sistema': '1.0.1',
+    }
+
 
 @app.route('/')
 def ini_app():
-    return redirect(url_for('inicio.ini_tela_principal'))
+    """Redireciona pra login (por enquanto)."""
+    return redirect(url_for('login.validar_login'))
+
+
+with app.app_context():
+    criar_todas_tabelas()
+
 
 if __name__ == '__main__':
-    app.run(debug=app.config['DEBUG'])
+    app.run()

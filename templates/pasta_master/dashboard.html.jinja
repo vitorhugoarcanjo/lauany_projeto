@@ -1,0 +1,106 @@
+{# templates/pasta_master/dashboard.html.jinja #}
+{% extends 'tela_base_pos_login/base.html.jinja' %}
+
+{% block titulo %}Master | MeuLinks{% endblock %}
+
+{% block css_extra %}
+<link rel="stylesheet" href="{{ static_v('css/modules/pasta_links/links.min.css') }}">
+{% endblock %}
+
+{% block tela_header %}
+<h1 class="tela-header-titulo">
+    <i class="fas fa-crown"></i> Painel Master
+    <span class="tela-header-tag">Admin</span>
+</h1>
+{% endblock %}
+
+{% block footer_titulo %}MASTER{% endblock %}
+
+{% block conteudo %}
+
+<section class="tela-grid-1col">
+
+    <!-- Stats -->
+    <div class="tela-bloco">
+        <div class="tela-bloco-titulo">
+            <i class="fas fa-chart-simple"></i>
+            <span>Visão Geral</span>
+        </div>
+
+        <div class="painel-stats">
+            <div class="stat-card">
+                <div class="stat-icon stat-icon-total"><i class="fas fa-users"></i></div>
+                <div class="stat-info">
+                    <span class="stat-valor">{{ stats.total_usuarios }}</span>
+                    <span class="stat-label">Usuários ativos</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon stat-icon-ativo"><i class="fas fa-link"></i></div>
+                <div class="stat-info">
+                    <span class="stat-valor">{{ stats.total_links }}</span>
+                    <span class="stat-label">Links ativos</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon stat-icon-total"><i class="fas fa-user-circle"></i></div>
+                <div class="stat-info">
+                    <span class="stat-valor">{{ stats.total_perfis }}</span>
+                    <span class="stat-label">Perfis criados</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Usuários -->
+    <div class="tela-bloco">
+        <div class="tela-bloco-titulo">
+            <i class="fas fa-list"></i>
+            <span>Usuários cadastrados ({{ usuarios|length }})</span>
+        </div>
+
+        <div class="table-responsive">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>E-mail</th>
+                        <th>Username</th>
+                        <th>Links</th>
+                        <th>Cadastro</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for u in usuarios %}
+                    <tr>
+                        <td class="td-id">{{ u.id }}</td>
+                        <td>{{ u.nome }}</td>
+                        <td>{{ u.email }}</td>
+                        <td>
+                            {% if u.username %}
+                            <a href="{{ url_for('publico.pagina_publica', username=u.username) }}"
+                               target="_blank" class="perfil-link">
+                                meulinks.com.br/{{ u.username }}
+                            </a>
+                            {% else %}—{% endif %}
+                        </td>
+                        <td>
+                            <span class="badge-pure bg-success">{{ u.links_ativos }} ativos</span>
+                            <span class="badge-pure bg-secondary">{{ u.links_inativos }} inativos</span>
+                        </td>
+                        <td>{{ u.data_criacao.strftime('%d/%m/%Y') if u.data_criacao else '—' }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>
+
+{% endblock %}
+
+{% block js_extra %}{% endblock %}

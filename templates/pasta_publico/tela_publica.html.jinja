@@ -1,0 +1,62 @@
+{# templates/pasta_publico/tela_publica.html.jinja #}
+{% extends 'tela_base_publico/base.html.jinja' %}
+
+{% block titulo %}{{ perfil.titulo_pagina or perfil.nome_display }}{% endblock %}
+{% block descricao %}{{ perfil.meta_descricao or perfil.bio or 'Meus links' }}{% endblock %}
+
+{% block conteudo %}
+
+<div class="perfil-container">
+
+    <header class="perfil-header">
+        {% if perfil.foto %}
+        <div class="perfil-foto">
+            <img src="{{ static_v(perfil.foto) }}" alt="{{ perfil.nome_display }}">
+        </div>
+        {% else %}
+        <div class="perfil-foto perfil-foto-placeholder">
+            <i class="fas fa-user"></i>
+        </div>
+        {% endif %}
+
+        <h1 class="perfil-nome">{{ perfil.nome_display }}</h1>
+
+        {% if perfil.bio %}
+        <p class="perfil-bio">{{ perfil.bio }}</p>
+        {% endif %}
+    </header>
+
+    <nav class="perfil-links">
+        {% if perfil.links_preview and perfil.links_preview|length > 0 %}
+            {% for link in perfil.links_preview %}
+            <a
+                href="{{ link.url }}"
+                class="perfil-link {% if link.destaque %}destaque{% endif %}"
+                {% if link.abrir_nova_aba %}target="_blank" rel="noopener noreferrer"{% endif %}
+                title="{{ link.descricao or link.titulo }}"
+            >
+                <span class="perfil-link-icone">
+                    <i class="fas {{ link.icone or 'fa-link' }}"></i>
+                </span>
+                <span class="perfil-link-texto">
+                    <strong>{{ link.titulo }}</strong>
+                    {% if link.descricao %}
+                    <small>{{ link.descricao }}</small>
+                    {% endif %}
+                </span>
+                <span class="perfil-link-seta">
+                    <i class="fas fa-arrow-right"></i>
+                </span>
+            </a>
+            {% endfor %}
+        {% else %}
+        <div class="perfil-vazio">
+            <i class="fas fa-link"></i>
+            <p>Nenhum link cadastrado ainda.</p>
+        </div>
+        {% endif %}
+    </nav>
+
+</div>
+
+{% endblock %}

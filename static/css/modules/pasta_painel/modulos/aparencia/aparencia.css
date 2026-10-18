@@ -1,0 +1,287 @@
+/* static/css/modules/pasta_painel/modulos/aparencia/aparencia.css
+============================================
+MÓDULO APARÊNCIA — Cosmic compacto
+============================================ */
+
+/* ==================== TEMAS ==================== */
+.temas-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tema-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 6px;
+    width: 76px;
+    border: 2px solid var(--vidro-borda);
+    border-radius: 10px;
+    background: var(--vidro-bg-sec);
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: var(--cor-texto);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.tema-card:hover {
+    border-color: var(--vidro-borda-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.25);
+}
+
+.tema-card.active {
+    border-color: var(--cor-marca);
+    box-shadow:
+        0 0 0 2px rgba(59, 130, 246, 0.2),
+        0 4px 16px rgba(59, 130, 246, 0.3);
+}
+
+.tema-preview {
+    width: 60px;
+    height: 60px;
+    border-radius: 6px;
+    border: 1px solid var(--vidro-borda);
+}
+
+.tema-preview-claro   { background: linear-gradient(135deg, #ffffff, #f0f0f0); }
+.tema-preview-escuro  { background: linear-gradient(135deg, #121212, #2a2a3d); }
+.tema-preview-cosmic  { background: linear-gradient(135deg, #050810, #1e1e4d); }
+
+/* ==================== CORES ==================== */
+.cores-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.cor-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.cor-item label {
+    font-size: 0.62rem;
+    font-weight: 600;
+    color: var(--cor-texto-mutado);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.cor-input {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 6px;
+    border: 1px solid var(--input-borda);
+    border-radius: 6px;
+    background: var(--input-bg);
+    transition: border-color var(--transicao), box-shadow var(--transicao);
+}
+
+.cor-input:hover {
+    border-color: var(--vidro-borda-hover);
+    box-shadow: 0 0 12px rgba(59, 130, 246, 0.1);
+}
+
+.cor-input input[type="color"] {
+    width: 28px;
+    height: 26px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background: transparent;
+    padding: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    flex-shrink: 0;
+}
+
+.cor-input input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+.cor-input input[type="color"]::-webkit-color-swatch {
+    border: 1px solid var(--vidro-borda);
+    border-radius: 4px;
+}
+
+.cor-input input[type="color"]::-moz-color-swatch {
+    border: 1px solid var(--vidro-borda);
+    border-radius: 4px;
+}
+
+.cor-hex {
+    font-size: 0.62rem;
+    font-family: var(--fonte-mono);
+    color: var(--cor-texto);
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+}
+
+/* ==================== PALETAS ==================== */
+.paletas-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.paleta-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 6px;
+    width: 76px;
+    border: 2px solid var(--vidro-borda);
+    border-radius: 10px;
+    background: var(--vidro-bg-sec);
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: var(--cor-texto);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.paleta-card:hover {
+    border-color: var(--vidro-borda-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.25);
+}
+
+.paleta-preview {
+    width: 60px;
+    height: 60px;
+    border-radius: 6px;
+}
+
+/* ==================== ESTILO ==================== */
+.estilo-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.estilo-grid-2 .form-grupo {
+    margin-bottom: 0;
+}
+
+.estilo-grid-2 .form-grupo label {
+    font-size: 0.62rem;
+    margin-bottom: 2px;
+    color: var(--cor-texto-mutado);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.estilo-grid-2 .form-select {
+    padding: 6px 10px;
+    font-size: 0.78rem;
+}
+
+/* ==================== TEMPLATES PRONTOS ==================== */
+.templates-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.template-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 6px;
+    width: 72px;
+    border: 2px solid var(--vidro-borda);
+    border-radius: 8px;
+    background: var(--vidro-bg-sec);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: var(--cor-texto);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.template-card:hover {
+    border-color: var(--vidro-borda-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+.template-card.active {
+    border-color: var(--cor-marca);
+    box-shadow:
+        0 0 0 2px rgba(59, 130, 246, 0.2),
+        0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.template-preview {
+    width: 56px;
+    height: 56px;
+    border-radius: 6px;
+    border: 1px solid var(--vidro-borda);
+}
+
+.template-preview-wellness {
+    background: linear-gradient(135deg, #fdf2f8 0%, #ec4899 100%);
+}
+.template-preview-cosmic {
+    background: linear-gradient(135deg, #0a0f1e 0%, #3b82f6 100%);
+}
+.template-preview-fresh {
+    background: linear-gradient(135deg, #f0fdf4 0%, #10b981 100%);
+}
+.template-preview-classic {
+    background: linear-gradient(135deg, #f8fafc 0%, #1e40af 100%);
+}
+.template-preview-sunset {
+    background: linear-gradient(135deg, #fff7ed 0%, #f97316 100%);
+}
+
+/* ==================== GRID DE 2 COLUNAS (Cores, Tipografia) ==================== */
+.config-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+/* ==================== GRID DE 3 COLUNAS (Tamanhos e efeitos) ==================== */
+.config-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+@media (max-width: 992px) {
+    .config-grid-3 {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .config-grid-2,
+    .config-grid-3 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==================== RESPONSIVO ==================== */
+@media (max-width: 576px) {
+    .cores-grid-2,
+    .estilo-grid-2 {
+        grid-template-columns: 1fr;
+    }
+}

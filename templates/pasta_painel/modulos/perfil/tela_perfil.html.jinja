@@ -1,0 +1,191 @@
+{# templates/pasta_painel/modulos/perfil/tela_perfil.html.jinja #}
+{% extends 'tela_base_pos_login/base.html.jinja' %}
+
+{% block titulo %}Meu perfil | MeuLinks{% endblock %}
+
+{% block tela_header %}
+<h1 class="tela-header-titulo">
+    <i class="fas fa-user"></i> Meu perfil
+    <span class="tela-header-tag">Perfil</span>
+</h1>
+{% endblock %}
+
+{% block footer_titulo %}PERFIL{% endblock %}
+
+{% block conteudo %}
+
+<section class="tela-grid">
+
+    <!-- COLUNA ESQUERDA: FORM -->
+    <div>
+        <form id="formPerfil" class="pp-form" enctype="multipart/form-data">
+
+            <!-- FOTO -->
+            <div class="tela-bloco">
+                <div class="tela-bloco-titulo">
+                    <i class="fas fa-camera"></i>
+                    <span>Foto de perfil</span>
+                </div>
+
+                <div class="pp-foto-area">
+                    <div class="pp-foto-preview" id="fotoPreview">
+                        {% if perfil and perfil.foto %}
+                            <img src="{{ url_for('static', filename=perfil.foto) }}" alt="Foto"
+                                style="object-position: center {{ perfil.foto_posicao or 'top' }};">
+                        {% else %}
+                            <div class="pp-foto-placeholder"><i class="fas fa-user"></i></div>
+                        {% endif %}
+                    </div>
+
+                    <div class="pp-foto-controles">
+                        <label for="foto" class="pp-btn pp-btn-secondary">
+                            <i class="fas fa-camera"></i> Trocar foto
+                        </label>
+                        <input type="file" id="foto" name="foto"
+                            accept="image/jpeg,image/png,image/webp"
+                            style="display:none;">
+
+                        <button type="button" class="pp-btn pp-btn-danger" id="btnRemoverFoto"
+                                {% if not (perfil and perfil.foto) %}disabled{% endif %}>
+                            <i class="fas fa-trash"></i> Remover
+                        </button>
+
+                        <input type="hidden" name="remover_foto" id="remover_foto" value="0">
+                        <small class="form-hint">JPG, PNG ou WEBP. Máx 2MB.</small>
+                    </div>
+                </div>
+
+                <!-- Posição do corte -->
+                <div class="form-grupo" style="margin-top: 1rem;">
+                    <label for="foto_posicao">Posição do corte</label>
+                    <select id="foto_posicao" name="foto_posicao" class="form-select">
+                        <option value="top" {% if (perfil.foto_posicao or 'top') == 'top' %}selected{% endif %}>
+                            Topo (retrato — rosto)
+                        </option>
+                        <option value="center" {% if perfil.foto_posicao == 'center' %}selected{% endif %}>
+                            Centro (padrão)
+                        </option>
+                        <option value="bottom" {% if perfil.foto_posicao == 'bottom' %}selected{% endif %}>
+                            Base (paisagem — corpo)
+                        </option>
+                    </select>
+                    <small class="form-hint">Escolha qual parte da foto aparece no círculo.</small>
+                </div>
+            </div>
+
+            <!-- NOME + USERNAME -->
+            <div class="tela-bloco">
+                <div class="tela-bloco-titulo">
+                    <i class="fas fa-id-card"></i>
+                    <span>Identidade</span>
+                </div>
+
+                <div class="form-linha-2">
+                    <div class="form-grupo">
+                        <label for="nome_exibicao">
+                            Nome de exibição
+                            <small class="form-label-hint">(como aparece)</small>
+                        </label>
+                        <input type="text" id="nome_exibicao" name="nome_exibicao"
+                               class="form-input"
+                               placeholder="Ex: Vitor Hugo"
+                               maxlength="60"
+                               value="{{ perfil.nome_exibicao if perfil and perfil.nome_exibicao else usuario.nome }}">
+                    </div>
+
+                    <div class="form-grupo">
+                        <label for="username">
+                            Username <span class="obrigatorio">*</span>
+                        </label>
+                        <div class="input-com-prefixo">
+                            <span class="prefixo-texto">meulinks.com.br/</span>
+                            <input type="text" id="username" name="username"
+                                   placeholder="seunome"
+                                   maxlength="30"
+                                   value="{{ perfil.username if perfil else '' }}"
+                                   autocomplete="off"
+                                   spellcheck="false">
+                        </div>
+                        <small class="form-hint" id="usernameFeedback">
+                            Letras minúsculas, números e _.
+                        </small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BIO -->
+            <div class="tela-bloco">
+                <div class="tela-bloco-titulo">
+                    <i class="fas fa-quote-left"></i>
+                    <span>Bio</span>
+                </div>
+
+                <div class="form-grupo">
+                    <textarea id="bio" name="bio" class="form-input form-textarea"
+                              placeholder="Ex: Nutricionista | Personal Trainer"
+                              maxlength="160"
+                              rows="2">{{ perfil.bio if perfil else '' }}</textarea>
+                    <small class="form-hint">
+                        <span id="bioContador">0</span>/160 caracteres
+                    </small>
+                </div>
+            </div>
+
+            <!-- SEO -->
+            <div class="tela-bloco">
+                <details class="pp-seo">
+                    <summary>
+                        <i class="fas fa-chevron-right"></i>
+                        <span>Configurações avançadas (SEO)</span>
+                    </summary>
+
+                    <div class="form-grupo">
+                        <label for="titulo_pagina">
+                            Título da página <span class="opcional">(opcional)</span>
+                        </label>
+                        <input type="text" id="titulo_pagina" name="titulo_pagina"
+                               class="form-input"
+                               placeholder="Ex: Vitor Hugo — Desenvolvedor"
+                               maxlength="100"
+                               value="{{ perfil.titulo_pagina if perfil and perfil.titulo_pagina else '' }}">
+                    </div>
+
+                    <div class="form-grupo">
+                        <label for="meta_descricao">
+                            Meta descrição <span class="opcional">(opcional)</span>
+                        </label>
+                        <textarea id="meta_descricao" name="meta_descricao"
+                                  class="form-input form-textarea"
+                                  placeholder="Todos os meus links em um só lugar"
+                                  maxlength="255"
+                                  rows="2">{{ perfil.meta_descricao if perfil and perfil.meta_descricao else '' }}</textarea>
+                    </div>
+                </details>
+            </div>
+
+            <!-- AÇÕES -->
+            <div class="tela-bloco">
+                <button type="submit" class="tela-acao-salvar" id="btnSalvarPerfil">
+                    <span class="btn-texto">
+                        <i class="fas fa-save"></i> Salvar alterações
+                    </span>
+                    <span class="btn-loading" hidden>
+                        <i class="fas fa-spinner fa-spin"></i> Salvando...
+                    </span>
+                </button>
+            </div>
+
+        </form>
+    </div>
+
+    <!-- MOCKUP -->
+    <div class="tela-preview-col">
+        {% set url_publica = url_for('publico.pagina_publica', username=perfil.username) if perfil and perfil.username else None %}
+        {% include 'components/mockup_preview.html.jinja' %}
+    </div>
+
+</section>
+
+{% endblock %}
+
+{% block js_extra %}{% endblock %}

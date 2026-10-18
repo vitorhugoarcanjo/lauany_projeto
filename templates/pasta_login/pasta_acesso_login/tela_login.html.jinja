@@ -1,0 +1,81 @@
+{# templates/pasta_login/pasta_acesso_login/tela_login.html.jinja #}
+{% extends 'tela_base_pre_login/base.html.jinja' %}
+
+{% block titulo %}Entrar | MeuLinks{% endblock %}
+{% block descricao %}Acesse sua conta MeuLinks.{% endblock %}
+
+{% block conteudo %}
+<div class="auth-container">
+
+    <div class="auth-card">
+
+        <div class="auth-card-header">
+            <h1 class="auth-titulo">
+                <i class="fas fa-link"></i>
+                Meu<span class="text-accent">Links</span>
+            </h1>
+            <p class="auth-subtitulo">Acesse seu painel e gerencie seus links</p>
+        </div>
+
+        <form id="formLogin" class="auth-form" autocomplete="on">
+
+            <div class="form-grupo">
+                <label for="nome_ou_email">Nome ou e-mail</label>
+                <input
+                    type="text"
+                    id="nome_ou_email"
+                    name="nome_ou_email"
+                    placeholder="seu@email.com"
+                    autocomplete="username"
+                >
+            </div>
+
+            <div class="form-grupo">
+                <label for="senha">Senha</label>
+                <input
+                    type="password"
+                    id="senha"
+                    name="senha"
+                    placeholder="••••••••"
+                    autocomplete="current-password"
+                >
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block" id="btnEntrar">
+                <span class="btn-texto">Entrar</span>
+                <span class="btn-loading">
+                    <i class="fas fa-spinner fa-spin"></i> Entrando...
+                </span>
+            </button>
+
+        </form>
+
+        <div class="auth-actions">
+            <a href="{{ url_for('recuperar.solicitar_recuperacao') }}" class="auth-link">
+                Esqueci minha senha
+            </a>
+        </div>
+
+        <div class="auth-divider">
+            <span>ou</span>
+        </div>
+
+        <div class="auth-footer-botoes">
+            <a href="{{ url_for('cadastre_se.tela_cadastre_se') }}" class="btn btn-secondary btn-block">
+                Criar conta
+            </a>
+        </div>
+
+        <div class="auth-status-bar">
+            <span class="auth-status-dot">sistema_online</span>
+            <span>v{{ versao_sistema }}</span>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
+
+{% block js_extra %}
+<script src="{{ static_v('js/modules/pasta_auth/auth.min.js') }}" defer></script>
+{% endblock %}

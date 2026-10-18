@@ -1,0 +1,126 @@
+{# templates/pasta_painel/tela_painel.html.jinja #}
+{% extends 'tela_base_pos_login/base.html.jinja' %}
+
+{% block titulo %}Painel | MeuLinks{% endblock %}
+
+{% block tela_header %}
+<h1 class="tela-header-titulo">
+    <i class="fas fa-home"></i> Painel
+    <span class="tela-header-tag">Início</span>
+</h1>
+{% endblock %}
+
+{% block footer_titulo %}PAINEL{% endblock %}
+
+{% block conteudo %}
+
+<!-- HERO DA HOME -->
+<section class="painel-hero">
+    <div class="painel-hero-texto">
+        <h1>Olá, {{ usuario.nome.split(' ')[0] }} <i class="fas fa-hand-sparkles" style="color: var(--cor-marca);"></i></h1>
+        <p>Bem-vindo ao seu painel. Aqui você gerencia seus links e sua página pública.</p>
+    </div>
+    <div class="painel-hero-acoes">
+        <a href="{{ url_for('links.ini_links') }}" class="btn btn-primary">
+            <i class="fas fa-link"></i> Gerenciar links
+        </a>
+    </div>
+</section>
+
+<!-- GRID PADRONIZADO -->
+<section class="tela-grid">
+
+    <div>
+        <!-- STATS -->
+        <div class="tela-bloco">
+            <div class="tela-bloco-titulo">
+                <i class="fas fa-chart-simple"></i>
+                <span>Estatísticas</span>
+            </div>
+            <div class="painel-stats">
+                <div class="stat-card">
+                    <div class="stat-icon stat-icon-ativo"><i class="fas fa-link"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-valor">{{ stats.ativos }}</span>
+                        <span class="stat-label">Ativos</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon stat-icon-inativo"><i class="fas fa-eye-slash"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-valor">{{ stats.inativos }}</span>
+                        <span class="stat-label">Inativos</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon stat-icon-total"><i class="fas fa-layer-group"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-valor">{{ stats.total }}</span>
+                        <span class="stat-label">Total</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PERFIL -->
+        {% if perfil %}
+        <div class="tela-bloco">
+            <div class="tela-bloco-titulo">
+                <i class="fas fa-user-circle"></i>
+                <span>Sua página pública</span>
+            </div>
+            <p class="perfil-card-conteudo">
+                Sua página está em:<br>
+                <a href="{{ url_for('publico.pagina_publica', username=perfil.username) }}"
+                   target="_blank" rel="noopener noreferrer" class="perfil-link">
+                    meulinks.com.br/<strong>{{ perfil.username }}</strong>
+                    <i class="fas fa-external-link-alt"></i>
+                </a>
+            </p>
+        </div>
+        {% endif %}
+
+        <!-- ÚLTIMOS LINKS -->
+        <div class="tela-bloco">
+            <div class="tela-bloco-titulo">
+                <i class="fas fa-clock"></i>
+                <span>Últimos links</span>
+            </div>
+
+            {% if ultimos_links %}
+            <ul class="painel-links-lista">
+                {% for link in ultimos_links %}
+                <li class="painel-link-item">
+                    <div class="painel-link-info">
+                        <i class="fas {{ link.icone or 'fa-link' }}"></i>
+                        <div>
+                            <strong>{{ link.titulo }}</strong>
+                            <span class="painel-link-url">{{ link.url }}</span>
+                        </div>
+                    </div>
+                    <span class="painel-link-status {% if link.ativo %}ativo{% else %}inativo{% endif %}">
+                        {% if link.ativo %}Ativo{% else %}Inativo{% endif %}
+                    </span>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <div class="painel-vazio">
+                <i class="fas fa-link"></i>
+                <p>Você ainda não cadastrou nenhum link.</p>
+                <a href="{{ url_for('links.ini_links') }}" class="btn btn-primary">
+                    Criar meu primeiro link
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- COLUNA DIREITA VAZIA (mockup pode ir aqui no futuro) -->
+    <div class="tela-preview-col"></div>
+
+</section>
+
+{% endblock %}
+
+{% block js_extra %}{% endblock %}

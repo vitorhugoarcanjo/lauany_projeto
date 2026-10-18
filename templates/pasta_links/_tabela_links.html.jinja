@@ -1,0 +1,20 @@
+{# templates/pasta_links/_tabela_links.html.jinja #}
+<div id="tabela-container" data-url-refresh="{{ url_for('links.ini_links') }}">
+    <div class="painel-tabela-conteudo scroll-fino">
+        <div class="table-responsive">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th style="width: 55px;">ORDEM</th>
+                        <th style="width: 55px;">ÍCONE</th>
+                        <th>TÍTULO</th>
+                        <th style="width: 220px;">URL</th>
+                        <th style="width: 90px;">STATUS</th>
+                        <th style="width: 145px; text-align: center;">AÇÕES</th>
+                    </tr>
+                </thead>
+                {% include 'pasta_links/partials/_tbody_links.html.jinja' %}
+            </table>
+        </div>
+    </div>
+</div>

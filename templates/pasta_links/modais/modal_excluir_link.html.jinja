@@ -1,0 +1,42 @@
+{# templates/pasta_links/modais/modal_excluir_link.html.jinja #}
+<div class="modal-overlay" data-modal>
+    <div class="modal-box modal-box-sm">
+
+        <header class="modal-header">
+            <h2><i class="fas fa-triangle-exclamation"></i> Excluir link</h2>
+            <button type="button" class="modal-close" data-modal-fechar aria-label="Fechar">
+                <i class="fas fa-times"></i>
+            </button>
+        </header>
+
+        <div class="modal-body">
+            <p>
+                Tem certeza que quer inativar o link
+                <strong>{{ link.titulo }}</strong>?
+            </p>
+            <p class="texto-muted">
+                Ele sai da sua página pública, mas pode ser reativado depois.
+            </p>
+        </div>
+
+        <footer class="modal-footer">
+            <button type="button" class="btn btn-ghost" data-modal-fechar>
+                Cancelar
+            </button>
+            <button
+                type="button"
+                class="btn btn-perigo"
+                id="btnConfirmarExclusao"
+                hx-post="{{ url_for('links.delete_links.inativar_link_view', link_id=link.id) }}"
+                hx-target="#tabela-container"
+                hx-swap="outerHTML"
+                hx-trigger="click">
+                <span class="btn-texto">Sim, inativar</span>
+                <span class="btn-loading" hidden>
+                    <i class="fas fa-spinner fa-spin"></i> Inativando...
+                </span>
+            </button>
+        </footer>
+
+    </div>
+</div>

@@ -1,0 +1,127 @@
+{# templates/pasta_links/partials/form_link.html.jinja #}
+{# ==========================================================
+   PARTIAL: Campos do formulário de link (novo + editar)
+   Aceita `link` (dict) — se vier, preenche os campos.
+   Sem IDs globais. Tudo via .js-* para o JS achar.
+   ========================================================== #}
+
+{% set l = link or {} %}
+
+<div class="form-body">
+
+    <!-- TÍTULO -->
+    <div class="form-grupo">
+        <label for="titulo">Título <span class="obrigatorio">*</span></label>
+        <input
+            type="text"
+            id="titulo"
+            name="titulo"
+            class="form-input js-titulo"
+            placeholder="Ex: Meu site"
+            maxlength="100"
+            autocomplete="off"
+            value="{{ l.titulo or '' }}"
+            required
+        >
+    </div>
+
+    <!-- URL -->
+    <div class="form-grupo">
+        <label for="url">URL <span class="obrigatorio">*</span></label>
+        <input
+            type="url"
+            id="url"
+            name="url"
+            class="form-input js-url"
+            placeholder="https://..."
+            maxlength="500"
+            autocomplete="off"
+            value="{{ l.url or '' }}"
+            required
+        >
+    </div>
+
+    <!-- DESCRIÇÃO -->
+    <div class="form-grupo">
+        <label for="descricao">Descrição <span class="opcional">(opcional)</span></label>
+        <input
+            type="text"
+            id="descricao"
+            name="descricao"
+            class="form-input js-descricao"
+            placeholder="Uma linha rápida sobre o link"
+            maxlength="255"
+            autocomplete="off"
+            value="{{ l.descricao or '' }}"
+        >
+    </div>
+
+    <!-- ÍCONE + ORDEM -->
+    <div class="form-linha">
+
+        <div class="form-grupo">
+            <label for="icone">Ícone</label>
+            <div class="input-com-preview">
+                <span class="icone-preview">
+                    <i class="fas {{ l.icone or 'fa-link' }} js-icone-preview"></i>
+                </span>
+                <input
+                    type="text"
+                    id="icone"
+                    name="icone"
+                    class="form-input js-icone"
+                    placeholder="fa-link"
+                    maxlength="50"
+                    autocomplete="off"
+                    value="{{ l.icone or 'fa-link' }}"
+                >
+            </div>
+            <small class="form-hint">
+                Classe do Font Awesome (sem o <code>fas</code>).
+                Ex: <code>fa-link</code>, <code>fa-globe</code>, <code>fa-whatsapp</code>.
+            </small>
+        </div>
+
+        <div class="form-grupo">
+            <label for="ordem">Ordem</label>
+            <input
+                type="number"
+                id="ordem"
+                name="ordem"
+                class="form-input js-ordem"
+                value="{{ l.ordem or 0 }}"
+                min="0"
+                max="9999"
+                inputmode="numeric"
+            >
+            <small class="form-hint">Menor número aparece primeiro.</small>
+        </div>
+
+    </div>
+
+    <!-- CHECKBOXES -->
+    <div class="form-checkboxes">
+
+        <label class="checkbox-linha">
+            <input
+                type="checkbox"
+                name="abrir_nova_aba"
+                class="js-nova-aba"
+                {% if l.abrir_nova_aba is not defined or l.abrir_nova_aba %}checked{% endif %}
+            >
+            <span>Abrir em nova aba</span>
+        </label>
+
+        <label class="checkbox-linha">
+            <input
+                type="checkbox"
+                name="destaque"
+                class="js-destaque"
+                {% if l.destaque %}checked{% endif %}
+            >
+            <span>Destacar na página</span>
+        </label>
+
+    </div>
+
+</div>

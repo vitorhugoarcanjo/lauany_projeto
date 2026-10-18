@@ -1,0 +1,81 @@
+{# templates/pasta_links/partials/_linha_link.html.jinja #}
+{# Partial: 1 linha da tabela de links #}
+<tr class="{% if link.ativo == 0 %}transacao-inativa opacity-50{% endif %}"
+    id="linha-link-{{ link.id }}">
+
+    <!-- ORDEM -->
+    <td class="td-id">{{ link.ordem or 0 }}</td>
+
+    <!-- ÍCONE -->
+    <td class="text-center">
+        <span class="link-icone-preview">
+            <i class="fas {{ link.icone or 'fa-link' }}"></i>
+        </span>
+    </td>
+
+    <!-- TÍTULO -->
+    <td class="td-titulo" title="{{ link.titulo }}">{{ link.titulo }}</td>
+
+    <!-- URL -->
+    <td class="td-url" title="{{ link.url }}">
+        <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" class="link-url">
+            {{ link.url|truncate(40, True) }}
+        </a>
+    </td>
+
+    <!-- STATUS -->
+    <td>
+        {% if link.ativo == 1 %}
+            <span class="badge-pure bg-success">✅ Ativo</span>
+        {% else %}
+            <span class="badge-pure bg-secondary">🚫 Inativo</span>
+        {% endif %}
+
+        {% if link.destaque %}
+            <span class="badge-pure bg-warning text-dark" title="Destacado">
+                <i class="fas fa-star"></i>
+            </span>
+        {% endif %}
+    </td>
+
+    <!-- AÇÕES -->
+    <td class="td-acoes text-center">
+
+        {% if link.ativo == 1 %}
+
+            <!-- EDITAR -->
+            <button type="button"
+                    class="btn-acao edit"
+                    hx-get="{{ url_for('links.edit_links.editar_link_modal', link_id=link.id) }}"
+                    hx-target="#modal-editar-container"
+                    hx-swap="innerHTML"
+                    title="Editar">
+                <i class="fas fa-pen"></i>
+            </button>
+
+            <!-- EXCLUIR -->
+            <button type="button"
+                    class="btn-acao delete btn-excluir"
+                    hx-get="{{ url_for('links.delete_links.inativar_link_modal', link_id=link.id) }}"
+                    hx-target="#modal-excluir-container"
+                    hx-swap="innerHTML"
+                    title="Inativar">
+                <i class="fas fa-trash"></i>
+            </button>
+
+        {% else %}
+
+            <!-- REATIVAR -->
+            <button type="button"
+                    class="btn-acao reativar"
+                    hx-get="{{ url_for('links.reativar_links.reativar_link_modal', link_id=link.id) }}"
+                    hx-target="#modal-reativar-container"
+                    hx-swap="innerHTML"
+                    title="Reativar">
+                <i class="fas fa-arrow-rotate-left"></i>
+            </button>
+
+        {% endif %}
+
+    </td>
+</tr>

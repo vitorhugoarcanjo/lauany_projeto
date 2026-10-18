@@ -1,0 +1,100 @@
+/* static/css/core/reset.css
+============================================
+RESET + BASE
+============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+    overflow-y: scroll;              /* ← NOVO: força scrollbar sempre visível */
+    scrollbar-width: thin;           /* ← NOVO: Firefox */
+    scrollbar-color: var(--cor-borda) transparent;  /* ← NOVO: Firefox */
+}
+
+/* ← NOVO: scrollbar fina (Chrome/Safari/Edge) */
+html::-webkit-scrollbar {
+    width: 6px;
+}
+
+html::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+html::-webkit-scrollbar-thumb {
+    background: var(--cor-borda);
+    border-radius: 3px;
+}
+
+html::-webkit-scrollbar-thumb:hover {
+    background: var(--cor-texto-mutado);
+}
+
+body {
+    font-family: var(--fonte-principal);
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+    transition: background-color var(--transicao), color var(--transicao);
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: inherit;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+h1, h2, h3, h4 {
+    line-height: 1.3;
+    color: var(--cor-texto);
+    font-weight: 600;
+}
+
+p {
+    color: var(--cor-texto);
+}
+
+input, textarea, select {
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+}
+
+/* Utilitários */
+.text-accent { color: var(--cor-marca); }
+.text-muted { color: var(--cor-texto-mutado); }
+.text-center { text-align: center; }
+.d-none { display: none !important; }
+
+/* Scroll fino */
+.scroll-fino::-webkit-scrollbar { width: 6px; height: 6px; }
+.scroll-fino::-webkit-scrollbar-track { background: transparent; }
+.scroll-fino::-webkit-scrollbar-thumb {
+    background: var(--cor-borda);
+    border-radius: var(--raio-full);
+}
+.scroll-fino::-webkit-scrollbar-thumb:hover { background: var(--cor-texto-mutado); }

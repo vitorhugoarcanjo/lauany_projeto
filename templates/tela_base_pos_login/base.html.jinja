@@ -1,0 +1,115 @@
+{# templates/tela_base_pos_login/base.html.jinja #}
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %}Painel | MeuLinks{% endblock %}</title>
+    <meta name="description" content="{% block descricao %}Painel MeuLinks.{% endblock %}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link rel="stylesheet" href="{{ static_v('css/global.min.css') }}">
+    <link rel="stylesheet" href="{{ static_v('css/modules/pasta_painel/painel.min.css') }}">
+
+    {% block css_extra %}{% endblock %}
+
+    {# Aplica o tema o mais cedo possível (evita flash) #}
+    <script>
+        (function() {
+            try {
+                var tema = localStorage.getItem('meulinks-tema');
+                if (!tema) {
+                    tema = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                }
+                document.documentElement.setAttribute('data-theme', tema);
+            } catch (e) {}
+        })();
+    </script>
+</head>
+<body class="painel-body">
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- FUNDO CÓSMICO -->
+    <div class="tela-cosmos-bg"></div>
+
+    <div class="layout">
+        {% include 'components/sidebar_painel.html.jinja' %}
+
+        <main class="content">
+
+            <!-- HEADER FIXO -->
+            <header class="tela-header">
+                {% block tela_header %}
+                <h1 class="tela-header-titulo">
+                    <i class="fas fa-home"></i> Painel
+                </h1>
+                {% endblock %}
+
+                <!-- AÇÕES DO HEADER -->
+                <div class="tela-header-acoes">
+                    <!-- Botão de tema -->
+                    <button type="button"
+                            class="tela-header-btn"
+                            data-toggle-tema
+                            aria-label="Alternar tema"
+                            title="Alternar tema">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- CONTEÚDO -->
+            <div class="tela-conteudo">
+                {% block conteudo %}{% endblock %}
+            </div>
+
+        </main>
+    </div>
+
+    <!-- ==================== FOOTER FIXO ==================== -->
+    <footer class="footer-fixo-padrao">
+
+        <div class="footer-esquerda">
+            {% block footer_esquerda %}{% endblock %}
+        </div>
+
+        <div class="footer-centro">
+            <h2 class="footer-titulo">{% block footer_titulo %}PAINEL{% endblock %}</h2>
+            <div class="footer-meta">
+                <span class="footer-versao">v{{ versao_sistema }}</span>
+                <span class="footer-sep">·</span>
+                <span class="footer-status">online</span>
+            </div>
+        </div>
+
+        <div class="footer-direita">
+            {% block footer_direita %}
+            {% if perfil and perfil.username %}
+            <a href="{{ url_for('publico.pagina_publica', username=perfil.username) }}"
+               target="_blank" rel="noopener noreferrer" class="btn-footer btn-footer-primary">
+                <i class="fas fa-external-link-alt"></i>
+                <span>VER PÁGINA</span>
+            </a>
+            {% endif %}
+            {% endblock %}
+        </div>
+    </footer>
+
+    <!-- JS Global (inclui tema.js) -->
+    <script src="{{ static_v('js/global.min.js') }}"></script>
+
+    <!-- HTMX -->
+    <script src="https://unpkg.com/htmx.org@2.0.0"></script>
+
+    <!-- JS do painel -->
+    <script src="{{ static_v('js/modules/pasta_painel/painel.min.js') }}"></script>
+
+    {% block js_extra %}{% endblock %}
+</body>
+</html>

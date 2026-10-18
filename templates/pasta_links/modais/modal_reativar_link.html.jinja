@@ -1,0 +1,42 @@
+{# templates/pasta_links/modais/modal_reativar_link.html.jinja #}
+<div class="modal-overlay" data-modal>
+    <div class="modal-box modal-box-sm">
+
+        <header class="modal-header">
+            <h2><i class="fas fa-arrow-rotate-left"></i> Reativar link</h2>
+            <button type="button" class="modal-close" data-modal-fechar aria-label="Fechar">
+                <i class="fas fa-times"></i>
+            </button>
+        </header>
+
+        <div class="modal-body">
+            <p>
+                Tem certeza que quer reativar o link
+                <strong>{{ link.titulo }}</strong>?
+            </p>
+            <p class="texto-muted">
+                Ele volta a aparecer na sua página pública.
+            </p>
+        </div>
+
+        <footer class="modal-footer">
+            <button type="button" class="btn btn-ghost" data-modal-fechar>
+                Cancelar
+            </button>
+            <button
+                type="button"
+                class="btn btn-primary"
+                id="btnConfirmarReativacao"
+                hx-post="{{ url_for('links.reativar_links.reativar_link_view', link_id=link.id) }}"
+                hx-target="#tabela-container"
+                hx-swap="outerHTML"
+                hx-trigger="click">
+                <span class="btn-texto">Sim, reativar</span>
+                <span class="btn-loading" hidden>
+                    <i class="fas fa-spinner fa-spin"></i> Reativando...
+                </span>
+            </button>
+        </footer>
+
+    </div>
+</div>

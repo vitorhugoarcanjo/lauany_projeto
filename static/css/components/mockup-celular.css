@@ -1,0 +1,332 @@
+/* static/css/components/mockup-celular.css
+============================================
+MOCKUP DE CELULAR — Compartilhado
+============================================ */
+
+/* ==================== CONTAINER ==================== */
+.mockup-preview {
+    position: sticky;
+    top: 1rem;
+    align-self: start;
+    min-width: 0;
+    width: 100%;
+    max-width: 340px;
+}
+
+/* ==================== HEADER ==================== */
+.mockup-preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    gap: 0.5rem;
+}
+
+.mockup-preview-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--cor-texto-mutado);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.mockup-preview-acoes {
+    display: flex;
+    gap: 4px;
+}
+
+.mockup-acao {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    padding: 0.45rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: var(--raio-sm);
+    background: var(--cor-fundo-sec);
+    border: 1px solid var(--cor-borda);
+    color: var(--cor-texto-mutado);
+    text-decoration: none;
+    transition: all var(--transicao);
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.mockup-acao:hover {
+    border-color: var(--cor-marca);
+    color: var(--cor-marca);
+}
+
+.mockup-acao-primaria {
+    background: var(--cor-marca);
+    border-color: var(--cor-marca);
+    color: #ffffff;
+}
+
+.mockup-acao-primaria:hover {
+    background: var(--cor-marca-hover);
+    border-color: var(--cor-marca-hover);
+    color: #ffffff;
+}
+
+/* ==================== CELULAR ==================== */
+.mockup-celular {
+    position: relative;
+    background: linear-gradient(145deg, #1f2937, #111827);
+    border-radius: var(--mockup-raio-celular, 32px);
+    padding: 12px;
+    box-shadow:
+        0 25px 60px -12px rgba(0,0,0,0.35),
+        0 0 0 1px rgba(255,255,255,0.05),
+        inset 0 1px 0 rgba(255,255,255,0.08);
+    transform: perspective(1200px) rotateY(-3deg);
+    transition: transform 0.4s ease;
+}
+
+.mockup-celular:hover {
+    transform: perspective(1200px) rotateY(0deg);
+}
+
+.mockup-celular-notch {
+    width: 90px;
+    height: 18px;
+    background: #0a0a0a;
+    border-radius: 0 0 14px 14px;
+    margin: 0 auto 8px;
+    position: relative;
+    z-index: 2;
+}
+
+/* ==================== TELA ==================== */
+.mockup-celular-tela {
+    background: var(--perfil-cor-fundo, linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%));
+    color: var(--perfil-cor-texto, #0f172a);
+    border-radius: 24px;
+    padding: 1.5rem 1rem 1rem;
+    height: var(--mockup-altura, 480px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* ==================== FOTO ==================== */
+.mockup-celular-foto {
+    width: var(--mockup-foto-tamanho, 72px);
+    height: var(--mockup-foto-tamanho, 72px);
+    border-radius: 50%;
+    overflow: hidden;
+    background: linear-gradient(135deg,
+        var(--perfil-cor-primaria, #3b82f6),
+        var(--perfil-cor-secundaria, #06b6d4));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: calc(var(--mockup-foto-tamanho, 72px) * 0.3);
+    margin-bottom: 0.75rem;
+    box-shadow: 0 4px 14px rgba(59,130,246,0.3);
+    flex-shrink: 0;
+    border: 3px solid var(--perfil-cor-primaria, #3b82f6);
+    transition: all 0.3s ease;
+}
+
+.mockup-celular-foto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* ==================== NOME + BIO ==================== */
+.mockup-celular-nome {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--perfil-cor-texto, #0f172a);
+    margin: 0 0 0.5rem;
+    text-align: center;
+    word-break: break-word;
+    line-height: 1.2;
+}
+
+.mockup-celular-bio {
+    font-size: 0.72rem;
+    color: var(--perfil-cor-texto, #64748b);
+    opacity: 0.7;
+    text-align: center;
+    margin: 0 0 1rem;
+    line-height: 1.4;
+    word-break: break-word;
+    max-width: 100%;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ==================== LINKS ==================== */
+.mockup-celular-links {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--mockup-gap, 8px);
+    margin-bottom: auto;
+    overflow: hidden;
+}
+
+.mockup-celular-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0 0.75rem;
+    min-height: var(--mockup-link-tamanho, 34px);
+    background: var(--perfil-cor-primaria, #3b82f6);
+    color: #ffffff;
+    border-radius: var(--perfil-raio-link, 10px);
+    font-size: 0.72rem;
+    font-weight: 600;
+    border: var(--mockup-borda-tamanho, 2px) solid var(--perfil-cor-primaria, #3b82f6);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+}
+
+.mockup-celular-link:hover {
+    transform: var(--mockup-hover-transform, none);
+    filter: var(--mockup-hover-brilho, none);
+}
+
+.mockup-celular-link i:first-child {
+    font-size: 0.7rem;
+    width: 14px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.mockup-celular-link span {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.mockup-celular-link i:last-child {
+    font-size: 0.65rem;
+    opacity: 0.7;
+    flex-shrink: 0;
+}
+
+.mockup-celular-link-vazio {
+    background: rgba(0,0,0,0.06);
+    color: var(--perfil-cor-texto, #94a3b8);
+    opacity: 0.5;
+    font-style: italic;
+}
+
+/* ==================== RODAPÉ ==================== */
+.mockup-celular-rodape {
+    margin-top: 1rem;
+    font-size: 0.6rem;
+    color: var(--perfil-cor-texto, #94a3b8);
+    opacity: 0.6;
+    text-align: center;
+    padding: 0.4rem;
+    background: rgba(0,0,0,0.04);
+    border-radius: 999px;
+    width: 100%;
+    flex-shrink: 0;
+}
+
+.mockup-celular-rodape i {
+    color: var(--perfil-cor-primaria, #3b82f6);
+    margin-right: 0.2rem;
+}
+
+/* ==================== AVISO ==================== */
+.mockup-preview-aviso {
+    margin-top: 0.75rem;
+    font-size: 0.72rem;
+    color: var(--cor-texto-mutado);
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+    padding: 0.6rem 0.8rem;
+    background: rgba(59,130,246,0.06);
+    border-left: 3px solid var(--cor-marca);
+    border-radius: 6px;
+    line-height: 1.4;
+}
+
+.mockup-preview-aviso i {
+    color: var(--cor-marca);
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+/* ==================== ANIMAÇÕES ==================== */
+.mockup-celular-tela.anim-fade .mockup-celular-link {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: mockupFadeIn 0.6s forwards;
+}
+.mockup-celular-tela.anim-fade .mockup-celular-link:nth-child(1) { animation-delay: 0.1s; }
+.mockup-celular-tela.anim-fade .mockup-celular-link:nth-child(2) { animation-delay: 0.2s; }
+.mockup-celular-tela.anim-fade .mockup-celular-link:nth-child(3) { animation-delay: 0.3s; }
+.mockup-celular-tela.anim-fade .mockup-celular-link:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes mockupFadeIn {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.mockup-celular-tela.anim-slide .mockup-celular-link {
+    opacity: 0;
+    transform: translateX(-30px);
+    animation: mockupSlideIn 0.5s forwards;
+}
+.mockup-celular-tela.anim-slide .mockup-celular-link:nth-child(1) { animation-delay: 0.1s; }
+.mockup-celular-tela.anim-slide .mockup-celular-link:nth-child(2) { animation-delay: 0.2s; }
+.mockup-celular-tela.anim-slide .mockup-celular-link:nth-child(3) { animation-delay: 0.3s; }
+.mockup-celular-tela.anim-slide .mockup-celular-link:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes mockupSlideIn {
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.mockup-celular-tela.anim-scale .mockup-celular-link {
+    opacity: 0;
+    transform: scale(0.85);
+    animation: mockupScaleIn 0.5s forwards;
+}
+.mockup-celular-tela.anim-scale .mockup-celular-link:nth-child(1) { animation-delay: 0.1s; }
+.mockup-celular-tela.anim-scale .mockup-celular-link:nth-child(2) { animation-delay: 0.2s; }
+.mockup-celular-tela.anim-scale .mockup-celular-link:nth-child(3) { animation-delay: 0.3s; }
+.mockup-celular-tela.anim-scale .mockup-celular-link:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes mockupScaleIn {
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* ==================== RESPONSIVO ==================== */
+@media (max-width: 992px) {
+    .mockup-preview {
+        position: static;
+        order: -1;
+        margin-bottom: 1rem;
+        max-width: 100%;
+    }
+    :root { --mockup-altura: 420px; }
+}
+
+@media (max-width: 480px) {
+    :root { --mockup-altura: 400px; }
+    .mockup-acao span { display: none; }
+    .mockup-acao {
+        width: 32px;
+        height: 32px;
+        padding: 0;
+    }
+}

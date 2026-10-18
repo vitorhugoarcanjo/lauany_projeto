@@ -1,4 +1,26 @@
-__pycache__/
-*.pyc
+# ==================== AMBIENTE ====================
 .env
 venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# ==================== BANCO LOCAL ====================
+instance/
+*.db
+*.sqlite3
+
+# ==================== DOCUMENTAÇÃO INTERNA ====================
+docs/privado/
+
+# ==================== IDE ====================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ==================== OS ====================
+.DS_Store
+Thumbs.db

@@ -1,0 +1,30 @@
+{# templates/tela_base_pre_login/base.html.jinja #}
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %}MeuLinks{% endblock %}</title>
+    <meta name="description" content="{% block descricao %}MeuLinks — Todos os seus links em uma única página.{% endblock %}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="{{ static_v('css/global.min.css') }}">
+    <link rel="stylesheet" href="{{ static_v('css/modules/pasta_auth/auth.min.css') }}">
+
+    {% block css_extra %}{% endblock %}
+</head>
+<body class="auth-body">
+
+    <main class="auth-main">
+        {% block conteudo %}{% endblock %}
+    </main>
+
+    <footer class="auth-footer">
+        <p>&copy; 2026 <strong>MeuLinks</strong> · Todos os seus links em uma página</p>
+    </footer>
+
+    <script src="{{ static_v('js/global.min.js') }}" defer></script>
+
+    {% block js_extra %}{% endblock %}
+</body>
+</html>

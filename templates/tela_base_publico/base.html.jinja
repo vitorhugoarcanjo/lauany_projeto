@@ -1,0 +1,85 @@
+{# templates/tela_base_publico/base.html.jinja #}
+<!DOCTYPE html>
+<html lang="pt-BR" data-tema="{{ perfil.tema or 'claro' }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %}{{ perfil.titulo_pagina or perfil.nome_display }}{% endblock %}</title>
+    <meta name="description" content="{% block descricao %}{{ perfil.meta_descricao or perfil.bio or 'Meus links' }}{% endblock %}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="{{ static_v('css/modules/pasta_publico/publico.min.css') }}">
+
+    {% block css_extra %}{% endblock %}
+
+    <style>
+        :root {
+            --perfil-cor-primaria: {{ perfil.cor_primaria or '#3b82f6' }};
+            --perfil-cor-secundaria: {{ perfil.cor_secundaria or '#06b6d4' }};
+            --perfil-cor-fundo: {{ perfil.cor_fundo or '#f5f7fa' }};
+            --perfil-cor-texto: {{ perfil.cor_texto or '#1a1a1a' }};
+            --perfil-foto-posicao: {{ perfil.foto_posicao or 'top' }};
+
+            {% set raios = {'arredondado': '12px', 'quadrado': '4px', 'pilula': '999px'} %}
+            --perfil-raio-link: {{ raios.get(perfil.estilo_botao or 'arredondado', '12px') }};
+
+            {% set fotos = {'pequena': '112px', 'medio': '144px', 'grande': '176px'} %}
+            --perfil-foto-tamanho: {{ fotos.get(perfil.tamanho_foto or 'medio', '144px') }};
+
+            {% set links = {'pequeno': '48px', 'medio': '56px', 'grande': '64px'} %}
+            --perfil-link-tamanho: {{ links.get(perfil.tamanho_link or 'medio', '56px') }};
+
+            {% set gaps = {'compacto': '8px', 'medio': '14px', 'espacoso': '20px'} %}
+            --perfil-gap: {{ gaps.get(perfil.espacamento_links or 'medio', '14px') }};
+
+            {% set bordas = {'sem': '0px', 'fina': '2px', 'media': '3px', 'grossa': '4px'} %}
+            --perfil-borda-tamanho: {{ bordas.get(perfil.borda_link or 'media', '3px') }};
+
+            --perfil-hover-transform: {% if perfil.hover_efeito == 'subir' %}translateY(-4px){% elif perfil.hover_efeito == 'escalar' %}scale(1.03){% elif perfil.hover_efeito == 'brilho' %}none{% else %}none{% endif %};
+            --perfil-hover-brilho: {% if perfil.hover_efeito == 'brilho' %}brightness(1.15){% else %}none{% endif %};
+        }
+
+        {% if perfil.animacao_entrada == 'fade' %}
+        .perfil-link { opacity: 0; transform: translateY(20px); animation: fadeInUp 0.6s forwards; }
+        .perfil-link:nth-child(1) { animation-delay: 0.1s; }
+        .perfil-link:nth-child(2) { animation-delay: 0.2s; }
+        .perfil-link:nth-child(3) { animation-delay: 0.3s; }
+        .perfil-link:nth-child(4) { animation-delay: 0.4s; }
+        .perfil-link:nth-child(5) { animation-delay: 0.5s; }
+        .perfil-link:nth-child(6) { animation-delay: 0.6s; }
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+        {% elif perfil.animacao_entrada == 'slide' %}
+        .perfil-link { opacity: 0; transform: translateX(-30px); animation: slideIn 0.5s forwards; }
+        .perfil-link:nth-child(1) { animation-delay: 0.1s; }
+        .perfil-link:nth-child(2) { animation-delay: 0.2s; }
+        .perfil-link:nth-child(3) { animation-delay: 0.3s; }
+        .perfil-link:nth-child(4) { animation-delay: 0.4s; }
+        .perfil-link:nth-child(5) { animation-delay: 0.5s; }
+        @keyframes slideIn { to { opacity: 1; transform: translateX(0); } }
+        {% elif perfil.animacao_entrada == 'scale' %}
+        .perfil-link { opacity: 0; transform: scale(0.85); animation: scaleIn 0.5s forwards; }
+        .perfil-link:nth-child(1) { animation-delay: 0.1s; }
+        .perfil-link:nth-child(2) { animation-delay: 0.2s; }
+        .perfil-link:nth-child(3) { animation-delay: 0.3s; }
+        .perfil-link:nth-child(4) { animation-delay: 0.4s; }
+        .perfil-link:nth-child(5) { animation-delay: 0.5s; }
+        @keyframes scaleIn { to { opacity: 1; transform: scale(1); } }
+        {% endif %}
+    </style>
+</head>
+<body class="publico-body template-{{ perfil.template or 'cosmic' }} estilo-botao-{{ perfil.estilo_botao or 'arredondado' }} fonte-{{ perfil.fonte or 'padrao' }} hover-{{ perfil.hover_efeito or 'subir' }}">
+
+    <main class="publico-main">
+        {% block conteudo %}{% endblock %}
+    </main>
+
+    <footer class="pub-rodape-fixo">
+        <a href="https://meulinks.com.br" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-bolt"></i>
+            <span>Feito pelo <strong>MeuLinks</strong></span>
+        </a>
+    </footer>
+
+    {% block js_extra %}{% endblock %}
+</body>
+</html>

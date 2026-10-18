@@ -1,0 +1,166 @@
+/* static/css/components/modais.css
+============================================
+MODAIS — Global (claro + escuro)
+============================================ */
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    animation: modalFadeIn 0.2s ease;
+}
+
+@keyframes modalFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-box {
+    position: relative;
+    background: var(--vidro-bg);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid var(--vidro-borda);
+    border-radius: var(--raio-lg);
+    width: 100%;
+    max-width: 520px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        0 0 80px rgba(59, 130, 246, 0.1);
+    animation: modalSlideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg,
+        transparent,
+        rgba(59, 130, 246, 0.6),
+        rgba(6, 182, 212, 0.6),
+        transparent);
+    opacity: 0.7;
+    animation: modalShine 5s ease-in-out infinite;
+    border-radius: var(--raio-lg) var(--raio-lg) 0 0;
+}
+
+@keyframes modalShine {
+    0%, 100% { opacity: 0.3; }
+    50%      { opacity: 1; }
+}
+
+.modal-box-sm {
+    max-width: 400px;
+}
+
+@keyframes modalSlideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* ==================== HEADER ==================== */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--vidro-borda);
+}
+
+.modal-header h2 {
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--cor-texto);
+}
+
+.modal-header h2 i {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.25), rgba(6, 182, 212, 0.25));
+    color: var(--cor-marca);
+    font-size: 0.85rem;
+}
+
+.modal-close {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    color: var(--cor-texto-mutado);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transicao);
+}
+
+.modal-close:hover {
+    background-color: var(--cor-fundo);
+    color: var(--cor-perigo);
+    transform: rotate(90deg);
+}
+
+/* ==================== BODY ==================== */
+.modal-body {
+    padding: 24px;
+    flex: 1;
+}
+
+.modal-body p {
+    margin-bottom: 12px;
+    color: var(--cor-texto);
+}
+
+.modal-body .texto-muted {
+    color: var(--cor-texto-mutado);
+    font-size: var(--fs-small);
+}
+
+/* ==================== FOOTER ==================== */
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 16px 24px;
+    border-top: 1px solid var(--vidro-borda);
+    background-color: var(--vidro-bg-sec);
+    border-bottom-left-radius: var(--raio-lg);
+    border-bottom-right-radius: var(--raio-lg);
+}
+
+/* ==================== RESPONSIVO ==================== */
+@media (max-width: 576px) {
+    .modal-box {
+        max-height: 95vh;
+    }
+    .modal-footer {
+        flex-direction: column-reverse;
+    }
+    .modal-footer .btn {
+        width: 100%;
+    }
+}

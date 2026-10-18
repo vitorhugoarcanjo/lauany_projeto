@@ -1,0 +1,261 @@
+/* static/css/modules/pasta_painel/painel.css
+============================================
+PAINEL — Blue Cosmic (só painel raiz)
+============================================ */
+
+/* ==================== LAYOUT ==================== */
+.painel-body {
+    background-color: var(--cor-fundo);
+    min-height: 100vh;
+}
+
+/* ==================== HERO (welcome) ==================== */
+.painel-hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--esp-4);
+    flex-wrap: wrap;
+    margin-bottom: var(--esp-5);
+}
+
+.painel-hero-texto h1 {
+    font-size: 1.75rem;
+    margin-bottom: 6px;
+    color: var(--cor-texto);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.painel-hero-texto p {
+    color: var(--cor-texto-mutado);
+    font-size: 0.9rem;
+    max-width: 600px;
+    line-height: 1.5;
+}
+
+.painel-hero-acoes {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* ==================== STATS ==================== */
+.painel-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--esp-3);
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(59, 130, 246, 0.15);
+    border-radius: var(--raio-md);
+    padding: var(--esp-3);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: transform var(--transicao), box-shadow var(--transicao);
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.15);
+    border-color: rgba(59, 130, 246, 0.3);
+}
+
+.stat-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--raio-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.stat-icon-ativo { background-color: rgba(34, 197, 94, 0.15); color: #22c55e; }
+.stat-icon-inativo { background-color: rgba(107, 114, 128, 0.15); color: #9ca3af; }
+.stat-icon-total { background-color: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+
+.stat-info { display: flex; flex-direction: column; }
+
+.stat-valor {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--cor-texto);
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 0.65rem;
+    color: var(--cor-texto-mutado);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+}
+
+/* ==================== CONTEÚDO DENTRO DOS BLOCOS ==================== */
+.perfil-card-conteudo {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+}
+
+.perfil-card-conteudo p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.perfil-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #60a5fa;
+    font-weight: 600;
+    margin-top: 4px;
+    transition: gap var(--transicao), color var(--transicao);
+}
+
+.perfil-link:hover {
+    gap: 10px;
+    text-decoration: underline;
+    color: #06b6d4;
+}
+
+.perfil-link strong {
+    color: #60a5fa;
+    font-family: var(--fonte-mono);
+    font-weight: 700;
+}
+
+.perfil-link i {
+    font-size: 0.75rem;
+}
+
+/* ==================== LISTA DE LINKS ==================== */
+.painel-links-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.painel-link-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: var(--raio-sm);
+    border: 1px solid rgba(59, 130, 246, 0.15);
+    background: rgba(255, 255, 255, 0.02);
+    transition: border-color var(--transicao), transform var(--transicao);
+}
+
+.painel-link-item:hover {
+    border-color: rgba(59, 130, 246, 0.4);
+    transform: translateX(4px);
+}
+
+.painel-link-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    flex: 1;
+}
+
+.painel-link-info > i {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--raio-sm);
+    background-color: rgba(59, 130, 246, 0.15);
+    color: #60a5fa;
+    flex-shrink: 0;
+    font-size: 0.9rem;
+}
+
+.painel-link-info > div {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.painel-link-info strong {
+    color: var(--cor-texto);
+    font-size: 0.85rem;
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.painel-link-url {
+    font-size: 0.72rem;
+    color: var(--cor-texto-mutado);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: var(--fonte-mono);
+}
+
+.painel-link-status {
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: var(--raio-full);
+    flex-shrink: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.painel-link-status.ativo {
+    background-color: rgba(34, 197, 94, 0.15);
+    color: #22c55e;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.painel-link-status.inativo {
+    background-color: rgba(107, 114, 128, 0.15);
+    color: #9ca3af;
+    border: 1px solid rgba(107, 114, 128, 0.3);
+}
+
+/* ==================== VAZIO ==================== */
+.painel-vazio {
+    text-align: center;
+    padding: 24px 16px;
+    color: var(--cor-texto-mutado);
+}
+
+.painel-vazio i {
+    font-size: 2.2rem;
+    color: var(--cor-marca);
+    opacity: 0.4;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.painel-vazio p {
+    margin-bottom: 12px;
+    font-size: 0.85rem;
+    color: var(--cor-texto-mutado);
+}
+
+/* ==================== RESPONSIVO ==================== */
+@media (max-width: 576px) {
+    .painel-hero-texto h1 {
+        font-size: 1.35rem;
+    }
+    .painel-link-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

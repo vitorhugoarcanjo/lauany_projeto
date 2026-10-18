@@ -1,0 +1,68 @@
+/* static/css/modules/pasta_painel/modulos/config/config.css
+============================================
+MÓDULO CONFIGURAÇÕES — compacto
+============================================ */
+
+/* ==================== GRID (usa tela-grid por padrão) ==================== */
+.config-grid-1col {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--esp-4);
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+/* ==================== INFO GRID ==================== */
+.config-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.config-info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.config-info-item label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--cor-texto-mutado);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.config-info-item span {
+    font-size: 0.875rem;
+    color: var(--cor-texto);
+    font-weight: 500;
+}
+
+/* ==================== ZONA DE PERIGO ==================== */
+.config-bloco-perigo {
+    border-color: rgba(220, 53, 69, 0.3) !important;
+    background: rgba(220, 53, 69, 0.03) !important;
+}
+
+.config-bloco-perigo .tela-bloco-titulo {
+    color: var(--cor-perigo);
+}
+
+.config-bloco-perigo .tela-bloco-titulo i {
+    background: rgba(220, 53, 69, 0.15);
+    color: var(--cor-perigo);
+}
+
+.config-perigo-texto {
+    color: var(--cor-texto-mutado);
+    font-size: 0.85rem;
+    margin-bottom: 12px;
+}
+
+/* ==================== RESPONSIVO ==================== */
+@media (max-width: 576px) {
+    .config-info-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,126 @@
+/* static/css/core/variaveis.css
+============================================
+DESIGN TOKENS — MeuLinks (claro + escuro + vidro)
+============================================ */
+
+:root {
+    /* ==================== MODO CLARO (default) ==================== */
+    --cor-fundo: #f5f7fa;
+    --cor-fundo-sec: #ffffff;
+    --cor-texto: #1a1a1a;
+    --cor-texto-mutado: #6b7280;
+    --cor-marca: #007bff;
+    --cor-marca-hover: #0066d6;
+    --cor-borda: #e5e7eb;
+
+    /* Estados */
+    --cor-sucesso: #28a745;
+    --cor-perigo: #dc3545;
+    --cor-aviso: #ffc107;
+    --cor-info: #17a2b8;
+
+    /* Card / superfícies */
+    --cor-card: #ffffff;
+    --cor-card-hover: #fafbfc;
+
+    /* Sombras */
+    --sombra-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+    --sombra-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --sombra-lg: 0 12px 32px rgba(0, 0, 0, 0.12);
+
+    /* Sidebar */
+    --sidebar-bg: #1e1e2d;
+    --sidebar-texto: #cbd5e1;
+    --sidebar-texto-ativo: #ffffff;
+    --sidebar-hover: #2a2a3d;
+
+    /* Layout desktop */
+    --sidebar-largura: 240px;
+    --navbar-altura: 64px;
+    --footer-altura: 72px;
+
+    /* input */
+    --input-borda: rgba(59, 130, 246, 0.25);
+
+    /* Layout mobile */
+    --footer-altura-mobile: 60px;
+
+    /* Mockup */
+    --mockup-altura: 480px;
+    --mockup-raio-celular: 32px;
+
+    /* Tipografia */
+    --fonte-principal: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+    --fonte-mono: 'Courier New', Consolas, monospace;
+    --fs-micro: 0.75rem;
+    --fs-small: 0.875rem;
+    --fs-base: 1rem;
+    --fs-lg: 1.125rem;
+    --fs-titulo: 1.5rem;
+
+    /* Espaçamento */
+    --esp-1: 4px;
+    --esp-2: 8px;
+    --esp-3: 12px;
+    --esp-4: 16px;
+    --esp-5: 24px;
+    --esp-6: 32px;
+    --esp-7: 48px;
+
+    /* Bordas */
+    --raio-sm: 6px;
+    --raio-md: 10px;
+    --raio-lg: 16px;
+    --raio-full: 999px;
+
+    /* Transições */
+    --transicao: 0.2s ease;
+    --transicao-lenta: 0.3s ease;
+
+    /* ==================== VIDRO (claro) ==================== */
+    --vidro-bg: rgba(255, 255, 255, 0.85);
+    --vidro-bg-sec: rgba(255, 255, 255, 0.6);
+    --vidro-borda: rgba(59, 130, 246, 0.15);
+    --vidro-borda-hover: rgba(59, 130, 246, 0.3);
+    --vidro-brilho: rgba(59, 130, 246, 0.4);
+    --vidro-sombra: rgba(0, 0, 0, 0.08);
+    --vidro-texto-suave: rgba(0, 0, 0, 0.55);
+
+    /* Cosmos (fundo) */
+    --cosmos-grid: rgba(59, 130, 246, 0.06);
+    --cosmos-aurora-1: rgba(59, 130, 246, 0.08);
+    --cosmos-aurora-2: rgba(6, 182, 212, 0.06);
+    --cosmos-aurora-3: rgba(96, 165, 250, 0.05);
+}
+
+/* ==================== MODO ESCURO ==================== */
+[data-theme="dark"],
+body.modo-escuro {
+    --cor-fundo: #0a0f1e;
+    --cor-fundo-sec: #121a2e;
+    --cor-texto: #f0f0f0;
+    --cor-texto-mutado: #a0a0a0;
+    --cor-borda: rgba(59, 130, 246, 0.15);
+    --cor-card: #121a2e;
+    --cor-card-hover: #1a2440;
+    --sombra-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+    --sombra-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+    --sombra-lg: 0 12px 32px rgba(0, 0, 0, 0.6);
+    --sidebar-bg: #0f0f1a;
+    --sidebar-hover: #1e1e2d;
+
+    /* ==================== VIDRO (escuro) ==================== */
+    --vidro-bg: rgba(10, 15, 30, 0.55);
+    --vidro-bg-sec: rgba(10, 15, 30, 0.4);
+    --vidro-borda: rgba(59, 130, 246, 0.2);
+    --vidro-borda-hover: rgba(59, 130, 246, 0.4);
+    --vidro-brilho: rgba(59, 130, 246, 0.6);
+    --vidro-sombra: rgba(0, 0, 0, 0.4);
+    --vidro-texto-suave: rgba(255, 255, 255, 0.55);
+
+    /* Cosmos (fundo escuro) */
+    --cosmos-grid: rgba(59, 130, 246, 0.04);
+    --cosmos-aurora-1: rgba(59, 130, 246, 0.12);
+    --cosmos-aurora-2: rgba(6, 182, 212, 0.08);
+    --cosmos-aurora-3: rgba(96, 165, 250, 0.06);
+}

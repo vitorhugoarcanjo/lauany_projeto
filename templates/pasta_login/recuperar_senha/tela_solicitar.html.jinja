@@ -1,0 +1,51 @@
+{# templates/pasta_login/recuperar_senha/tela_solicitar.html.jinja #}
+{% extends 'tela_base_pre_login/base.html.jinja' %}
+
+{% block titulo %}Recuperar senha | MeuLinks{% endblock %}
+
+{% block conteudo %}
+<div class="auth-container">
+
+    <div class="auth-card">
+
+        <div class="auth-card-header">
+            <h1 class="auth-titulo">
+                <i class="fas fa-key"></i>
+                Recuperar senha
+            </h1>
+            <p class="auth-subtitulo">
+                Digite seu e-mail pra receber um código de recuperação.
+            </p>
+        </div>
+
+        <form method="POST" class="auth-form">
+
+            <div class="form-grupo">
+                <label for="email">E-mail cadastrado</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="seu@email.com"
+                    autocomplete="email"
+                    autofocus
+                    required
+                >
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">
+                Enviar código
+            </button>
+
+        </form>
+
+        <div class="auth-actions">
+            <a href="{{ url_for('login.validar_login') }}" class="auth-link">
+                Voltar ao login
+            </a>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{# templates/pasta_links/modais/modal_editar_link.html.jinja #}
+<div class="modal-overlay" data-modal>
+    <div class="modal-box">
+
+        <header class="modal-header">
+            <h2><i class="fas fa-pen"></i> Editar link</h2>
+            <button type="button" class="modal-close" data-modal-fechar aria-label="Fechar">
+                <i class="fas fa-times"></i>
+            </button>
+        </header>
+
+        <form class="modal-form" id="formEditarLink" data-modo="editar" data-link-id="{{ link.id }}">
+
+            <div class="modal-body">
+                {% include 'pasta_links/partials/form_link.html.jinja' %}
+            </div>
+
+            <footer class="modal-footer">
+                <button type="button" class="btn btn-ghost" data-modal-fechar>
+                    Cancelar
+                </button>
+                <button type="submit" class="btn btn-primary" id="btnSalvarEdicao">
+                    <span class="btn-texto">Salvar alterações</span>
+                    <span class="btn-loading" hidden>
+                        <i class="fas fa-spinner fa-spin"></i> Salvando...
+                    </span>
+                </button>
+            </footer>
+
+        </form>
+
+    </div>
+</div>

@@ -1,0 +1,23 @@
+/* static/css/core/responsive.css
+============================================
+RESPONSIVIDADE GLOBAL
+============================================ */
+
+@media (max-width: 992px) {
+    :root {
+        --sidebar-largura: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    html {
+        font-size: 15px;
+    }
+
+    :root {
+        --fs-titulo: 1.25rem;
+        --esp-5: 16px;
+        --esp-6: 24px;
+        --footer-altura: var(--footer-altura-mobile);
+    }
+}

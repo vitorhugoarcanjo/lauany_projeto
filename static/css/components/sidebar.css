@@ -1,0 +1,281 @@
+/* static/css/components/sidebar.css
+============================================
+SIDEBAR — Cosmic (claro + escuro)
+============================================ */
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--sidebar-largura);
+    height: 100vh;
+    background: var(--vidro-bg);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    transition: transform var(--transicao-lenta);
+    border-right: 1px solid var(--vidro-borda);
+    box-shadow: 4px 0 40px var(--vidro-sombra);
+}
+
+/* ==================== LOGO ==================== */
+.sidebar-logo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    border-bottom: 1px solid var(--vidro-borda);
+}
+
+.sidebar-logo a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--cor-texto);
+}
+
+.sidebar-logo i {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+    color: #ffffff;
+    font-size: 0.9rem;
+    box-shadow:
+        0 0 16px rgba(59, 130, 246, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.sidebar-logo span span {
+    background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 50%, #60a5fa 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 200% 200%;
+    animation: sidebarGradientText 4s ease infinite;
+}
+
+@keyframes sidebarGradientText {
+    0%, 100% { background-position: 0% 50%; }
+    50%      { background-position: 100% 50%; }
+}
+
+.sidebar-close {
+    display: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    color: var(--cor-texto-mutado);
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar-close:hover {
+    background-color: rgba(59, 130, 246, 0.15);
+    color: var(--cor-texto);
+}
+
+/* ==================== NAV ==================== */
+.sidebar-nav {
+    flex: 1;
+    padding: 16px 12px;
+    overflow-y: auto;
+}
+
+.sidebar-nav ul {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sidebar-nav a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 14px;
+    border-radius: 10px;
+    color: var(--cor-texto-mutado);
+    font-size: var(--fs-small);
+    font-weight: 500;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    border: 1px solid transparent;
+}
+
+.sidebar-nav a i {
+    width: 20px;
+    text-align: center;
+    font-size: 1rem;
+    transition: all 0.25s;
+}
+
+.sidebar-nav a:hover {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: var(--cor-texto);
+    border-color: var(--vidro-borda);
+}
+
+.sidebar-nav a.active {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(6, 182, 212, 0.15));
+    color: var(--cor-texto);
+    border-color: var(--vidro-borda-hover);
+    box-shadow:
+        0 0 20px rgba(59, 130, 246, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-nav a.active i {
+    color: var(--cor-marca);
+    filter: drop-shadow(0 0 6px rgba(96, 165, 250, 0.6));
+}
+
+.sidebar-nav a.active::before {
+    content: '';
+    position: absolute;
+    left: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 60%;
+    background: linear-gradient(180deg, #3b82f6, #06b6d4);
+    border-radius: 3px;
+    box-shadow: 0 0 12px rgba(59, 130, 246, 0.8);
+}
+
+.sidebar-nav a.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.sidebar-nav .badge-dev {
+    margin-left: auto;
+    font-size: 0.7rem;
+    background-color: rgba(59, 130, 246, 0.15);
+    color: var(--cor-marca);
+    padding: 2px 8px;
+    border-radius: var(--raio-full);
+    font-weight: 500;
+}
+
+/* ==================== FOOTER ==================== */
+.sidebar-footer {
+    padding: 16px;
+    border-top: 1px solid var(--vidro-borda);
+}
+
+.sidebar-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    color: var(--cor-texto);
+    font-size: var(--fs-small);
+    border-radius: 10px;
+    margin-bottom: 8px;
+    background-color: rgba(59, 130, 246, 0.05);
+}
+
+.sidebar-user i {
+    font-size: 1.4rem;
+    color: var(--cor-marca);
+    filter: drop-shadow(0 0 6px rgba(96, 165, 250, 0.4));
+}
+
+.sidebar-logout {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    color: var(--cor-texto-mutado);
+    font-size: var(--fs-small);
+    transition: all 0.25s;
+    border: 1px solid transparent;
+}
+
+.sidebar-logout:hover {
+    background-color: rgba(220, 53, 69, 0.15);
+    color: #ff6b7a;
+    border-color: rgba(220, 53, 69, 0.3);
+}
+
+/* ==================== LAYOUT ==================== */
+.layout {
+    display: flex;
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+}
+
+.content {
+    margin-left: var(--sidebar-largura);
+    flex: 1;
+    min-width: 0;
+    position: relative;
+    padding: 0;
+}
+
+/* ==================== OVERLAY MOBILE ==================== */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 99;
+    opacity: 0;
+    transition: opacity var(--transicao);
+}
+
+.sidebar-overlay.active {
+    display: block;
+    opacity: 1;
+}
+
+/* ==================== MENU HAMBURGUER ==================== */
+.menu-toggle {
+    display: none;
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 98;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: var(--vidro-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    color: var(--cor-texto);
+    box-shadow: 0 4px 20px var(--vidro-sombra);
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    border: 1px solid var(--vidro-borda);
+}
+
+/* ==================== MOBILE ==================== */
+@media (max-width: 992px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+    .sidebar.active {
+        transform: translateX(0);
+    }
+    .sidebar-close {
+        display: flex;
+    }
+    .menu-toggle {
+        display: flex;
+    }
+    .content {
+        margin-left: 0;
+    }
+}

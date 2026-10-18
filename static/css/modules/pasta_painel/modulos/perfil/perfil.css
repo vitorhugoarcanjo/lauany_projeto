@@ -1,0 +1,126 @@
+/* static/css/modules/pasta_painel/modulos/perfil/perfil.css
+============================================
+MÓDULO PERFIL — Cosmic compacto
+============================================ */
+
+/* ==================== FOTO ==================== */
+.pp-foto-area {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.pp-foto-preview {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 2px solid transparent;
+    background:
+        linear-gradient(var(--vidro-bg), var(--vidro-bg)) padding-box,
+        linear-gradient(135deg, #3b82f6, #06b6d4) border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+        0 4px 16px rgba(59, 130, 246, 0.25),
+        0 0 20px rgba(59, 130, 246, 0.15);
+}
+
+.pp-foto-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.pp-foto-placeholder {
+    font-size: 2rem;
+    color: var(--cor-texto-mutado);
+    opacity: 0.5;
+}
+
+.pp-foto-controles {
+    display: flex;
+    flex-direction: row;
+    gap: 0.4rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* ==================== BOTÕES ==================== */
+.pp-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.45rem 0.8rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    white-space: nowrap;
+    line-height: 1;
+}
+
+.pp-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.pp-btn-secondary {
+    background: rgba(59, 130, 246, 0.08);
+    color: var(--cor-texto);
+    border: 1px solid var(--vidro-borda);
+}
+
+.pp-btn-secondary:hover:not(:disabled) {
+    border-color: var(--vidro-borda-hover);
+    color: var(--cor-marca);
+    background: rgba(59, 130, 246, 0.12);
+}
+
+.pp-btn-danger {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.pp-btn-danger:hover:not(:disabled) {
+    background: rgba(239, 68, 68, 0.18);
+    color: #ff6b7a;
+}
+
+/* ==================== SEO ==================== */
+.pp-seo {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+}
+
+.pp-seo summary {
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.75rem;
+    color: var(--cor-marca);
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.pp-seo summary::-webkit-details-marker { display: none; }
+
+.pp-seo summary i {
+    font-size: 0.65rem;
+    transition: transform 0.2s;
+}
+
+.pp-seo[open] summary i {
+    transform: rotate(90deg);
+}
+
+.pp-seo[open] summary {
+    margin-bottom: 0.75rem;
+}

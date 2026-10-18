@@ -1,0 +1,752 @@
+/* PAINEL — 18/10/2026 12:45 */
+
+/* ===== painel.css ===== */
+/* static/css/modules/pasta_painel/painel.css
+============================================
+PAINEL — Blue Cosmic (só painel raiz)
+============================================ */
+
+/* ==================== LAYOUT ==================== */
+.painel-body {
+    background-color: var(--cor-fundo);
+    min-height: 100vh;
+}
+
+/* ==================== HERO (welcome) ==================== */
+.painel-hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--esp-4);
+    flex-wrap: wrap;
+    margin-bottom: var(--esp-5);
+}
+
+.painel-hero-texto h1 {
+    font-size: 1.75rem;
+    margin-bottom: 6px;
+    color: var(--cor-texto);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.painel-hero-texto p {
+    color: var(--cor-texto-mutado);
+    font-size: 0.9rem;
+    max-width: 600px;
+    line-height: 1.5;
+}
+
+.painel-hero-acoes {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* ==================== STATS ==================== */
+.painel-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--esp-3);
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(59, 130, 246, 0.15);
+    border-radius: var(--raio-md);
+    padding: var(--esp-3);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: transform var(--transicao), box-shadow var(--transicao);
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.15);
+    border-color: rgba(59, 130, 246, 0.3);
+}
+
+.stat-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--raio-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.stat-icon-ativo { background-color: rgba(34, 197, 94, 0.15); color: #22c55e; }
+.stat-icon-inativo { background-color: rgba(107, 114, 128, 0.15); color: #9ca3af; }
+.stat-icon-total { background-color: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+
+.stat-info { display: flex; flex-direction: column; }
+
+.stat-valor {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--cor-texto);
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 0.65rem;
+    color: var(--cor-texto-mutado);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+}
+
+/* ==================== CONTEÚDO DENTRO DOS BLOCOS ==================== */
+.perfil-card-conteudo {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+}
+
+.perfil-card-conteudo p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.perfil-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #60a5fa;
+    font-weight: 600;
+    margin-top: 4px;
+    transition: gap var(--transicao), color var(--transicao);
+}
+
+.perfil-link:hover {
+    gap: 10px;
+    text-decoration: underline;
+    color: #06b6d4;
+}
+
+.perfil-link strong {
+    color: #60a5fa;
+    font-family: var(--fonte-mono);
+    font-weight: 700;
+}
+
+.perfil-link i {
+    font-size: 0.75rem;
+}
+
+/* ==================== LISTA DE LINKS ==================== */
+.painel-links-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.painel-link-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: var(--raio-sm);
+    border: 1px solid rgba(59, 130, 246, 0.15);
+    background: rgba(255, 255, 255, 0.02);
+    transition: border-color var(--transicao), transform var(--transicao);
+}
+
+.painel-link-item:hover {
+    border-color: rgba(59, 130, 246, 0.4);
+    transform: translateX(4px);
+}
+
+.painel-link-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    flex: 1;
+}
+
+.painel-link-info > i {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--raio-sm);
+    background-color: rgba(59, 130, 246, 0.15);
+    color: #60a5fa;
+    flex-shrink: 0;
+    font-size: 0.9rem;
+}
+
+.painel-link-info > div {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.painel-link-info strong {
+    color: var(--cor-texto);
+    font-size: 0.85rem;
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.painel-link-url {
+    font-size: 0.72rem;
+    color: var(--cor-texto-mutado);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: var(--fonte-mono);
+}
+
+.painel-link-status {
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: var(--raio-full);
+    flex-shrink: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.painel-link-status.ativo {
+    background-color: rgba(34, 197, 94, 0.15);
+    color: #22c55e;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.painel-link-status.inativo {
+    background-color: rgba(107, 114, 128, 0.15);
+    color: #9ca3af;
+    border: 1px solid rgba(107, 114, 128, 0.3);
+}
+
+/* ==================== VAZIO ==================== */
+.painel-vazio {
+    text-align: center;
+    padding: 24px 16px;
+    color: var(--cor-texto-mutado);
+}
+
+.painel-vazio i {
+    font-size: 2.2rem;
+    color: var(--cor-marca);
+    opacity: 0.4;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.painel-vazio p {
+    margin-bottom: 12px;
+    font-size: 0.85rem;
+    color: var(--cor-texto-mutado);
+}
+
+/* ==================== RESPONSIVO ==================== */
+@media (max-width: 576px) {
+    .painel-hero-texto h1 {
+        font-size: 1.35rem;
+    }
+    .painel-link-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* ===== perfil.css ===== */
+/* static/css/modules/pasta_painel/modulos/perfil/perfil.css
+============================================
+MÓDULO PERFIL — Cosmic compacto
+============================================ */
+
+/* ==================== FOTO ==================== */
+.pp-foto-area {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.pp-foto-preview {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 2px solid transparent;
+    background:
+        linear-gradient(var(--vidro-bg), var(--vidro-bg)) padding-box,
+        linear-gradient(135deg, #3b82f6, #06b6d4) border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+        0 4px 16px rgba(59, 130, 246, 0.25),
+        0 0 20px rgba(59, 130, 246, 0.15);
+}
+
+.pp-foto-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.pp-foto-placeholder {
+    font-size: 2rem;
+    color: var(--cor-texto-mutado);
+    opacity: 0.5;
+}
+
+.pp-foto-controles {
+    display: flex;
+    flex-direction: row;
+    gap: 0.4rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* ==================== BOTÕES ==================== */
+.pp-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.45rem 0.8rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    white-space: nowrap;
+    line-height: 1;
+}
+
+.pp-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.pp-btn-secondary {
+    background: rgba(59, 130, 246, 0.08);
+    color: var(--cor-texto);
+    border: 1px solid var(--vidro-borda);
+}
+
+.pp-btn-secondary:hover:not(:disabled) {
+    border-color: var(--vidro-borda-hover);
+    color: var(--cor-marca);
+    background: rgba(59, 130, 246, 0.12);
+}
+
+.pp-btn-danger {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.pp-btn-danger:hover:not(:disabled) {
+    background: rgba(239, 68, 68, 0.18);
+    color: #ff6b7a;
+}
+
+/* ==================== SEO ==================== */
+.pp-seo {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+}
+
+.pp-seo summary {
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.75rem;
+    color: var(--cor-marca);
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.pp-seo summary::-webkit-details-marker { display: none; }
+
+.pp-seo summary i {
+    font-size: 0.65rem;
+    transition: transform 0.2s;
+}
+
+.pp-seo[open] summary i {
+    transform: rotate(90deg);
+}
+
+.pp-seo[open] summary {
+    margin-bottom: 0.75rem;
+}
+
+/* ===== aparencia.css ===== */
+/* static/css/modules/pasta_painel/modulos/aparencia/aparencia.css
+============================================
+MÓDULO APARÊNCIA — Cosmic compacto
+============================================ */
+
+/* ==================== TEMAS ==================== */
+.temas-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tema-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 6px;
+    width: 76px;
+    border: 2px solid var(--vidro-borda);
+    border-radius: 10px;
+    background: var(--vidro-bg-sec);
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: var(--cor-texto);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.tema-card:hover {
+    border-color: var(--vidro-borda-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.25);
+}
+
+.tema-card.active {
+    border-color: var(--cor-marca);
+    box-shadow:
+        0 0 0 2px rgba(59, 130, 246, 0.2),
+        0 4px 16px rgba(59, 130, 246, 0.3);
+}
+
+.tema-preview {
+    width: 60px;
+    height: 60px;
+    border-radius: 6px;
+    border: 1px solid var(--vidro-borda);
+}
+
+.tema-preview-claro   { background: linear-gradient(135deg, #ffffff, #f0f0f0); }
+.tema-preview-escuro  { background: linear-gradient(135deg, #121212, #2a2a3d); }
+.tema-preview-cosmic  { background: linear-gradient(135deg, #050810, #1e1e4d); }
+
+/* ==================== CORES ==================== */
+.cores-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.cor-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.cor-item label {
+    font-size: 0.62rem;
+    font-weight: 600;
+    color: var(--cor-texto-mutado);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.cor-input {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 6px;
+    border: 1px solid var(--input-borda);
+    border-radius: 6px;
+    background: var(--input-bg);
+    transition: border-color var(--transicao), box-shadow var(--transicao);
+}
+
+.cor-input:hover {
+    border-color: var(--vidro-borda-hover);
+    box-shadow: 0 0 12px rgba(59, 130, 246, 0.1);
+}
+
+.cor-input input[type="color"] {
+    width: 28px;
+    height: 26px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background: transparent;
+    padding: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    flex-shrink: 0;
+}
+
+.cor-input input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+.cor-input input[type="color"]::-webkit-color-swatch {
+    border: 1px solid var(--vidro-borda);
+    border-radius: 4px;
+}
+
+.cor-input input[type="color"]::-moz-color-swatch {
+    border: 1px solid var(--vidro-borda);
+    border-radius: 4px;
+}
+
+.cor-hex {
+    font-size: 0.62rem;
+    font-family: var(--fonte-mono);
+    color: var(--cor-texto);
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+}
+
+/* ==================== PALETAS ==================== */
+.paletas-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.paleta-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 6px;
+    width: 76px;
+    border: 2px solid var(--vidro-borda);
+    border-radius: 10px;
+    background: var(--vidro-bg-sec);
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: var(--cor-texto);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.paleta-card:hover {
+    border-color: var(--vidro-borda-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.25);
+}
+
+.paleta-preview {
+    width: 60px;
+    height: 60px;
+    border-radius: 6px;
+}
+
+/* ==================== ESTILO ==================== */
+.estilo-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.estilo-grid-2 .form-grupo {
+    margin-bottom: 0;
+}
+
+.estilo-grid-2 .form-grupo label {
+    font-size: 0.62rem;
+    margin-bottom: 2px;
+    color: var(--cor-texto-mutado);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.estilo-grid-2 .form-select {
+    padding: 6px 10px;
+    font-size: 0.78rem;
+}
+
+/* ==================== TEMPLATES PRONTOS ==================== */
+.templates-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.template-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 6px;
+    width: 72px;
+    border: 2px solid var(--vidro-borda);
+    border-radius: 8px;
+    background: var(--vidro-bg-sec);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: var(--cor-texto);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.template-card:hover {
+    border-color: var(--vidro-borda-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+.template-card.active {
+    border-color: var(--cor-marca);
+    box-shadow:
+        0 0 0 2px rgba(59, 130, 246, 0.2),
+        0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.template-preview {
+    width: 56px;
+    height: 56px;
+    border-radius: 6px;
+    border: 1px solid var(--vidro-borda);
+}
+
+.template-preview-wellness {
+    background: linear-gradient(135deg, #fdf2f8 0%, #ec4899 100%);
+}
+.template-preview-cosmic {
+    background: linear-gradient(135deg, #0a0f1e 0%, #3b82f6 100%);
+}
+.template-preview-fresh {
+    background: linear-gradient(135deg, #f0fdf4 0%, #10b981 100%);
+}
+.template-preview-classic {
+    background: linear-gradient(135deg, #f8fafc 0%, #1e40af 100%);
+}
+.template-preview-sunset {
+    background: linear-gradient(135deg, #fff7ed 0%, #f97316 100%);
+}
+
+/* ==================== GRID DE 2 COLUNAS (Cores, Tipografia) ==================== */
+.config-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+/* ==================== GRID DE 3 COLUNAS (Tamanhos e efeitos) ==================== */
+.config-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+@media (max-width: 992px) {
+    .config-grid-3 {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .config-grid-2,
+    .config-grid-3 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==================== RESPONSIVO ==================== */
+@media (max-width: 576px) {
+    .cores-grid-2,
+    .estilo-grid-2 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===== config.css ===== */
+/* static/css/modules/pasta_painel/modulos/config/config.css
+============================================
+MÓDULO CONFIGURAÇÕES — compacto
+============================================ */
+
+/* ==================== GRID (usa tela-grid por padrão) ==================== */
+.config-grid-1col {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--esp-4);
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+/* ==================== INFO GRID ==================== */
+.config-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.config-info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.config-info-item label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--cor-texto-mutado);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.config-info-item span {
+    font-size: 0.875rem;
+    color: var(--cor-texto);
+    font-weight: 500;
+}
+
+/* ==================== ZONA DE PERIGO ==================== */
+.config-bloco-perigo {
+    border-color: rgba(220, 53, 69, 0.3) !important;
+    background: rgba(220, 53, 69, 0.03) !important;
+}
+
+.config-bloco-perigo .tela-bloco-titulo {
+    color: var(--cor-perigo);
+}
+
+.config-bloco-perigo .tela-bloco-titulo i {
+    background: rgba(220, 53, 69, 0.15);
+    color: var(--cor-perigo);
+}
+
+.config-perigo-texto {
+    color: var(--cor-texto-mutado);
+    font-size: 0.85rem;
+    margin-bottom: 12px;
+}
+
+/* ==================== RESPONSIVO ==================== */
+@media (max-width: 576px) {
+    .config-info-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
