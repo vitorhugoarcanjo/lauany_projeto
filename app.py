@@ -64,16 +64,12 @@ def inject_global_contexts():
         'versao_sistema': '1.0.1',
     }
 
-
 @app.route('/')
 def ini_app():
     """Redireciona pra login (por enquanto)."""
     return redirect(url_for('login.validar_login'))
 
-
-with app.app_context():
-    criar_todas_tabelas()
-
-
 if __name__ == '__main__':
+    with app.app_context():
+        criar_todas_tabelas()
     app.run()
