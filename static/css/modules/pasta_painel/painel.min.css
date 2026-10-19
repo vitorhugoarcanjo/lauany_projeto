@@ -1,4 +1,4 @@
-/* PAINEL — 19/10/2026 09:59 */
+/* PAINEL — 19/10/2026 10:26 */
 
 /* ===== painel.css ===== */
 /* static/css/modules/pasta_painel/painel.css
@@ -685,23 +685,17 @@ MÓDULO APARÊNCIA — Cosmic compacto
         0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
+/* Preview do card — SEM background fixo (o inline pinta; a classe é redundância) */
 .template-preview {
     width: 56px;
     height: 56px;
-    min-height: 56px;            /* ⬅️ GARANTE altura mesmo se bg falhar */
+    min-height: 56px;
     border-radius: 6px;
     border: 1px solid var(--vidro-borda);
-    background: #f5f7fa;          /* ⬅️ fallback visível (cinza claro) */
     background-size: cover;
     background-position: center;
+    /* ⚠️ NÃO colocar `background` aqui — o inline + classes abaixo cuidam */
 }
-
-/* Presets de classe (fallback se o inline falhar) */
-.template-preview-wellness { background: linear-gradient(135deg, #fdf2f8 0%, #ec4899 100%); }
-.template-preview-cosmic   { background: linear-gradient(135deg, #0a0f1e 0%, #3b82f6 100%); }
-.template-preview-fresh    { background: linear-gradient(135deg, #f0fdf4 0%, #10b981 100%); }
-.template-preview-classic  { background: linear-gradient(135deg, #f8fafc 0%, #1e40af 100%); }
-.template-preview-sunset   { background: linear-gradient(135deg, #fff7ed 0%, #f97316 100%); }
 
 /* ==================== GRID ==================== */
 .config-grid-2 {

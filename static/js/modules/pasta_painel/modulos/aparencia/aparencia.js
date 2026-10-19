@@ -1,6 +1,10 @@
 /* static/js/modules/pasta_painel/modulos/aparencia/aparencia.js
    Rascunho ao vivo preservado. SEM merge no cliente — o que tá no input É o config.
    O template só PRE-POPULA. O merge real acontece no backend (AparenciaFinalService).
+
+   Os config_default dos templates vêm de window.__TEMPLATES_CONFIG__
+   (injetado pelo Jinja num <script>) — NÃO de data-config (que vem
+   escapado com &quot; e quebra o JSON.parse).
 */
 (function () {
     'use strict';
@@ -89,7 +93,7 @@
             if (el) el.addEventListener('change', atualizarMockup);
         });
 
-        // ===== TEMPLATES — pré-popula os inputs =====
+        // ===== TEMPLATES — pré-popula os inputs (usa window.__TEMPLATES_CONFIG__) =====
         document.querySelectorAll('.template-card').forEach(function (card) {
             card.addEventListener('click', function () {
                 document.querySelectorAll('.template-card').forEach(c => c.classList.remove('active'));
@@ -98,8 +102,9 @@
                 const slug = this.dataset.template;
                 if (inputTemplateSlug) inputTemplateSlug.value = slug;
 
-                let configDefault = {};
-                try { configDefault = JSON.parse(this.dataset.config || '{}'); } catch (e) {}
+                // ⬇️ Pega do mapa global (JSON limpo, injetado pelo Jinja)
+                const mapa = window.__TEMPLATES_CONFIG__ || {};
+                const configDefault = mapa[slug] || {};
 
                 const cores = configDefault.cores || {};
                 if (inputCorPrimaria   && cores.primaria)   { inputCorPrimaria.value   = cores.primaria;   if (hexPrimaria)   hexPrimaria.textContent   = cores.primaria; }

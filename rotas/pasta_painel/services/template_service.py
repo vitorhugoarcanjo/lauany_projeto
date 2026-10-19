@@ -1,5 +1,6 @@
 """TEMPLATE — Service (catálogo de templates)"""
 
+import json
 import logging
 from rotas.pasta_painel.queries import PainelQueries
 
@@ -12,6 +13,25 @@ class TemplateService:
         self.conexao = conexao
         self.cursor = cursor
 
+    # ==================== HELPER ====================
+    @staticmethod
+    def _parse_jsonb(val):
+        """
+        Garante que JSONB venha como dict (não string).
+        psycopg2 normalmente já retorna dict pra JSONB.
+        Isso é blindagem pra outros drivers/ambientes.
+        """
+        if isinstance(val, dict):
+            return val
+        if isinstance(val, str):
+            try:
+                return json.loads(val)
+            except Exception as e:
+                logger.warning(f"Falha ao parsear config_default: {e}")
+                return {}
+        return {}
+
+    # ==================== PÚBLICOS ====================
     def listar(self, apenas_ativos=True):
         """Retorna todos os templates (opcionalmente só ativos)."""
         self.cursor.execute(PainelQueries.listar_templates(apenas_ativos))
@@ -23,7 +43,7 @@ class TemplateService:
                 'nome': r[2],
                 'descricao': r[3],
                 'categoria': r[4],
-                'config_default': r[5] or {},
+                'config_default': self._parse_jsonb(r[5]),
                 'preview_url': r[6],
             }
             for r in rows
@@ -41,6 +61,6 @@ class TemplateService:
             'nome': row[2],
             'descricao': row[3],
             'categoria': row[4],
-            'config_default': row[5] or {},
+            'config_default': self._parse_jsonb(row[5]),
             'preview_url': row[6],
         }
