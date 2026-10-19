@@ -12,7 +12,6 @@ from datetime import datetime
 
 CSS_FILES = [
     'static/css/modules/pasta_publico/publico.css',
-    'static/css/components/templates.css',
 ]
 
 JS_FILES = [

@@ -29,14 +29,14 @@
 </head>
 <body class="painel-body">
 
+    <!-- FUNDO CÓSMICO (primeiro no DOM = atrás de TUDO) -->
+    <div class="tela-cosmos-bg"></div>
+
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
     <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
         <i class="fas fa-bars"></i>
     </button>
-
-    <!-- FUNDO CÓSMICO -->
-    <div class="tela-cosmos-bg"></div>
 
     <div class="layout">
         {% include 'components/sidebar_painel.html.jinja' %}

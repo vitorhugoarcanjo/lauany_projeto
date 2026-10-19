@@ -104,15 +104,11 @@ MÓDULO APARÊNCIA — Cosmic compacto
     flex-shrink: 0;
 }
 
-.cor-input input[type="color"]::-webkit-color-swatch-wrapper {
-    padding: 0;
-}
-
+.cor-input input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
 .cor-input input[type="color"]::-webkit-color-swatch {
     border: 1px solid var(--vidro-borda);
     border-radius: 4px;
 }
-
 .cor-input input[type="color"]::-moz-color-swatch {
     border: 1px solid var(--vidro-borda);
     border-radius: 4px;
@@ -171,11 +167,7 @@ MÓDULO APARÊNCIA — Cosmic compacto
     grid-template-columns: 1fr 1fr;
     gap: 8px;
 }
-
-.estilo-grid-2 .form-grupo {
-    margin-bottom: 0;
-}
-
+.estilo-grid-2 .form-grupo { margin-bottom: 0; }
 .estilo-grid-2 .form-grupo label {
     font-size: 0.62rem;
     margin-bottom: 2px;
@@ -183,7 +175,6 @@ MÓDULO APARÊNCIA — Cosmic compacto
     text-transform: uppercase;
     letter-spacing: 0.3px;
 }
-
 .estilo-grid-2 .form-select {
     padding: 6px 10px;
     font-size: 0.78rem;
@@ -231,34 +222,27 @@ MÓDULO APARÊNCIA — Cosmic compacto
 .template-preview {
     width: 56px;
     height: 56px;
+    min-height: 56px;            /* ⬅️ GARANTE altura mesmo se bg falhar */
     border-radius: 6px;
     border: 1px solid var(--vidro-borda);
+    background: #f5f7fa;          /* ⬅️ fallback visível (cinza claro) */
+    background-size: cover;
+    background-position: center;
 }
 
-.template-preview-wellness {
-    background: linear-gradient(135deg, #fdf2f8 0%, #ec4899 100%);
-}
-.template-preview-cosmic {
-    background: linear-gradient(135deg, #0a0f1e 0%, #3b82f6 100%);
-}
-.template-preview-fresh {
-    background: linear-gradient(135deg, #f0fdf4 0%, #10b981 100%);
-}
-.template-preview-classic {
-    background: linear-gradient(135deg, #f8fafc 0%, #1e40af 100%);
-}
-.template-preview-sunset {
-    background: linear-gradient(135deg, #fff7ed 0%, #f97316 100%);
-}
+/* Presets de classe (fallback se o inline falhar) */
+.template-preview-wellness { background: linear-gradient(135deg, #fdf2f8 0%, #ec4899 100%); }
+.template-preview-cosmic   { background: linear-gradient(135deg, #0a0f1e 0%, #3b82f6 100%); }
+.template-preview-fresh    { background: linear-gradient(135deg, #f0fdf4 0%, #10b981 100%); }
+.template-preview-classic  { background: linear-gradient(135deg, #f8fafc 0%, #1e40af 100%); }
+.template-preview-sunset   { background: linear-gradient(135deg, #fff7ed 0%, #f97316 100%); }
 
-/* ==================== GRID DE 2 COLUNAS (Cores, Tipografia) ==================== */
+/* ==================== GRID ==================== */
 .config-grid-2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 12px;
 }
-
-/* ==================== GRID DE 3 COLUNAS (Tamanhos e efeitos) ==================== */
 .config-grid-3 {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -266,22 +250,11 @@ MÓDULO APARÊNCIA — Cosmic compacto
 }
 
 @media (max-width: 992px) {
-    .config-grid-3 {
-        grid-template-columns: 1fr 1fr;
-    }
+    .config-grid-3 { grid-template-columns: 1fr 1fr; }
 }
-
 @media (max-width: 768px) {
-    .config-grid-2,
-    .config-grid-3 {
-        grid-template-columns: 1fr;
-    }
+    .config-grid-2, .config-grid-3 { grid-template-columns: 1fr; }
 }
-
-/* ==================== RESPONSIVO ==================== */
 @media (max-width: 576px) {
-    .cores-grid-2,
-    .estilo-grid-2 {
-        grid-template-columns: 1fr;
-    }
+    .cores-grid-2, .estilo-grid-2 { grid-template-columns: 1fr; }
 }

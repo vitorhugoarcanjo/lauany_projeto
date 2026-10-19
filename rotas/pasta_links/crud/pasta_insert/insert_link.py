@@ -9,7 +9,7 @@ from rotas.middleware.autenticacao import login_required
 from rotas.auditoria_geral.pasta_links.services_auditoria import AuditoriaService
 from utils.database.conexao_global import ini_conexao
 
-from .services import InserirLinkService
+from .services import InserirLinkService, montar_url
 from .validacoes import validar_dados_insercao
 
 logger = logging.getLogger(__name__)
@@ -30,16 +30,34 @@ def salvar_novo_link():
     try:
         payload = request.json or {}
 
+        tipo = (payload.get('tipo') or 'link').strip().lower()
+
         dados = {
+            'tipo': tipo,
             'titulo': (payload.get('titulo') or '').strip(),
-            'url': (payload.get('url') or '').strip(),
             'icone': (payload.get('icone') or 'fa-link').strip(),
             'descricao': (payload.get('descricao') or '').strip(),
             'ordem': int(payload.get('ordem') or 0),
             'abrir_nova_aba': 1 if payload.get('abrir_nova_aba', True) else 0,
             'destaque': 1 if payload.get('destaque', False) else 0,
             'cor_especial': (payload.get('cor_especial') or '').strip() or None,
+            # campos por tipo
+            'url': (payload.get('url') or '').strip(),
+            'telefone': (payload.get('telefone') or '').strip(),
+            'mensagem': (payload.get('mensagem') or '').strip(),
+            'email_destino': (payload.get('email_destino') or '').strip(),
+            'assunto': (payload.get('assunto') or '').strip(),
         }
+
+        # ⚠️ MONTA A URL BASEADO NO TIPO
+        url_final = montar_url(tipo, dados)
+        if not url_final:
+            return jsonify({
+                'success': False,
+                'error': f'Dados incompletos para o tipo "{tipo}".'
+            }), 400
+
+        dados['url'] = url_final
 
         # Valida
         erros = validar_dados_insercao(dados)
@@ -56,6 +74,7 @@ def salvar_novo_link():
 
         # Auditoria — captura todos os campos
         alteracoes = [
+            {'campo': 'Tipo', 'depois': dados['tipo']},
             {'campo': 'Título', 'depois': dados['titulo']},
             {'campo': 'URL', 'depois': dados['url']},
             {'campo': 'Ícone', 'depois': dados['icone']},
@@ -64,6 +83,12 @@ def salvar_novo_link():
             {'campo': 'Nova aba', 'depois': 'Sim' if dados['abrir_nova_aba'] else 'Não'},
             {'campo': 'Destaque', 'depois': 'Sim' if dados['destaque'] else 'Não'},
         ]
+        if dados['tipo'] == 'whatsapp':
+            alteracoes.append({'campo': 'Telefone', 'depois': dados['telefone']})
+            alteracoes.append({'campo': 'Mensagem', 'depois': dados['mensagem'] or '(vazio)'})
+        elif dados['tipo'] == 'email':
+            alteracoes.append({'campo': 'E-mail', 'depois': dados['email_destino']})
+            alteracoes.append({'campo': 'Assunto', 'depois': dados['assunto'] or '(vazio)'})
 
         AuditoriaService.registrar(
             link_id=link_id,

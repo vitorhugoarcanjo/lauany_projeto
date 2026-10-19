@@ -1,6 +1,6 @@
 /* static/css/components/tabela-painel.css
 ============================================
-TABELA — Genérica
+TABELA — Genérica (claro + escuro + mobile)
 ============================================ */
 
 /* ==================== TOPO FIXO — FILTROS ==================== */
@@ -182,7 +182,7 @@ TABELA — Genérica
 
 .badge-pure.bg-warning.text-dark { color: #8a6300; }
 
-/* Ícone do link na tabela */
+/* ==================== ÍCONE DO LINK ==================== */
 .link-icone-preview {
     display: inline-flex;
     align-items: center;
@@ -247,4 +247,146 @@ TABELA — Genérica
 
 @keyframes girar {
     to { transform: rotate(360deg); }
+}
+
+/* ============================================
+   MOBILE — TABELA VIRA LISTA COMPACTA
+   ============================================ */
+/* ============================================
+   MOBILE — TABELA VIRA LISTA COMPACTA
+   ============================================ */
+@media (max-width: 768px) {
+    /* Esconde o cabeçalho (não faz sentido no mobile) */
+    .custom-table thead {
+        display: none;
+    }
+
+    /* A tabela vira um "container" */
+    .custom-table,
+    .custom-table tbody {
+        display: block;
+        width: 100%;
+    }
+
+    /* Cada linha vira um card */
+    .custom-table tbody tr {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        background: var(--cor-card);
+        border-bottom: 1px solid var(--cor-borda);
+        padding: 10px 12px;
+        margin: 0;
+        position: relative;
+        gap: 0;
+    }
+
+    .custom-table tbody tr:first-child {
+        border-radius: var(--raio-md) var(--raio-md) 0 0;
+    }
+
+    .custom-table tbody tr:last-child {
+        border-radius: 0 0 var(--raio-md) var(--raio-md);
+        border-bottom: none;
+    }
+
+    .custom-table tbody tr.transacao-inativa {
+        opacity: 0.5;
+    }
+
+    /* Todas as células: sem largura fixa, sem padding */
+    .custom-table td {
+        padding: 0;
+        border: none;
+        font-size: 0.78rem;
+        line-height: 1.4;
+        vertical-align: middle;
+    }
+
+    /* Coluna 1: Ordem (#1) */
+    .custom-table td:nth-child(1) {
+        order: 1;
+        flex: 0 0 auto;
+        font-family: var(--fonte-mono);
+        font-size: 0.62rem;
+        font-weight: 700;
+        color: var(--cor-texto-mutado);
+        margin-right: 6px;
+    }
+    .custom-table td:nth-child(1)::before {
+        content: "#";
+    }
+
+    /* Coluna 2: Ícone (do lado do título) */
+    .custom-table td:nth-child(2) {
+        order: 2;
+        flex: 0 0 auto;
+        margin-right: 4px;
+    }
+    .custom-table .link-icone-preview {
+        width: 22px;
+        height: 22px;
+        font-size: 0.7rem;
+    }
+
+    /* Coluna 3: Título */
+    .custom-table td:nth-child(3) {
+        order: 3;
+        flex: 1 1 auto;
+        min-width: 0;
+        font-weight: 600;
+        font-size: 0.85rem;
+        color: var(--cor-texto);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-right: 4px;
+    }
+
+    /* Coluna 5: Status (badges) — ANTES da URL */
+    .custom-table td:nth-child(5) {
+        order: 4;
+        flex: 0 0 auto;
+        margin-right: 4px;
+    }
+    .custom-table td:nth-child(5) .badge-pure {
+        display: inline-flex;
+        vertical-align: middle;
+        font-size: 0.55rem;
+        padding: 2px 5px;
+        margin-right: 2px;
+        white-space: nowrap;
+    }
+
+    /* Coluna 6: Ações (canto direito) */
+    .custom-table td:nth-child(6) {
+        order: 5;
+        flex: 0 0 auto;
+        margin-left: auto;
+        display: flex;
+        gap: 3px;
+    }
+    .custom-table td:nth-child(6) .btn-acao {
+        width: 28px;
+        height: 28px;
+        font-size: 0.7rem;
+    }
+
+    /* Coluna 4: URL — QUEBRA PRA SEGUNDA LINHA */
+    .custom-table td:nth-child(4) {
+        order: 6;
+        flex: 0 0 100%;
+        width: 100%;
+        margin-top: 4px;
+        padding-left: 20px;
+        font-size: 0.7rem;
+        color: var(--cor-marca);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .custom-table td:nth-child(4) a {
+        color: var(--cor-marca);
+        font-size: 0.7rem;
+    }
 }

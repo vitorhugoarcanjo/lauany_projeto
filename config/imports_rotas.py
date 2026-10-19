@@ -21,6 +21,9 @@ from rotas.pasta_publico import bp_publico
 # MASTER
 from rotas.pasta_master import bp_master
 
+# ===== JINJA GLOBALS (escala visual) =====
+from utils.config import escala
+
 def logica_imports(app):
     app.register_blueprint(bp_login, url_prefix="/login")
     app.register_blueprint(bp_recuperar, url_prefix="/recuperar")
@@ -40,4 +43,7 @@ def logica_imports(app):
 
     # MASTER
     app.register_blueprint(bp_master, url_prefix="/master")
+
+    # ===== JINJA GLOBALS (registro único, mesmo lugar) =====
+    escala.registrar(app)
 

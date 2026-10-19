@@ -1,4 +1,4 @@
-/* GLOBAL — 18/10/2026 13:32 */
+/* GLOBAL — 19/10/2026 09:59 */
 
 /* ===== variaveis.css ===== */
 /* static/css/core/variaveis.css
@@ -144,12 +144,12 @@ html {
     scroll-behavior: smooth;
     font-size: 16px;
     -webkit-text-size-adjust: 100%;
-    overflow-y: scroll;              /* ← NOVO: força scrollbar sempre visível */
-    scrollbar-width: thin;           /* ← NOVO: Firefox */
-    scrollbar-color: var(--cor-borda) transparent;  /* ← NOVO: Firefox */
+    overflow-y: scroll;
+    overflow-x: hidden;              /* ⚠️ FIX: evita scroll horizontal */
+    scrollbar-width: thin;
+    scrollbar-color: var(--cor-borda) transparent;
 }
 
-/* ← NOVO: scrollbar fina (Chrome/Safari/Edge) */
 html::-webkit-scrollbar {
     width: 6px;
 }
@@ -680,16 +680,78 @@ FORMULÁRIOS — Global (claro + escuro)
     color: #f0f0f0;
 }
 
+/* ==================== SELETOR DE TIPO DE LINK ==================== */
+.tipo-selector {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.tipo-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 12px 8px;
+    border-radius: var(--raio-md);
+    border: 2px solid var(--cor-borda);
+    background: var(--cor-card);
+    color: var(--cor-texto-mutado);
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-height: 64px;
+    font-family: inherit;
+}
+
+.tipo-btn i {
+    font-size: 1.2rem;
+}
+
+.tipo-btn:hover {
+    border-color: var(--cor-marca);
+    color: var(--cor-marca);
+    transform: translateY(-1px);
+}
+
+.tipo-btn.active {
+    border-color: var(--cor-marca);
+    background: rgba(59, 130, 246, 0.1);
+    color: var(--cor-marca);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.tipo-btn.active i {
+    color: var(--cor-marca);
+}
+
 /* ==================== RESPONSIVO ==================== */
 @media (max-width: 576px) {
     .form-linha-2 { grid-template-columns: 1fr; }
+
+    .tipo-selector {
+        gap: 6px;
+    }
+
+    .tipo-btn {
+        padding: 10px 4px;
+        font-size: 0.7rem;
+        min-height: 60px;
+    }
+
+    .tipo-btn i {
+        font-size: 1.1rem;
+    }
 }
 
 /* ===== mockup-celular.css ===== */
 /* static/css/components/mockup-celular.css
-============================================
-MOCKUP DE CELULAR — Compartilhado
-============================================ */
+   Mockup do celular — 100% var(--perfil-*).
+   Mesmas variáveis de perfil-publico.css → impossível divergir.
+============================================================ */
 
 /* ==================== CONTAINER ==================== */
 .mockup-preview {
@@ -721,10 +783,7 @@ MOCKUP DE CELULAR — Compartilhado
     letter-spacing: 0.05em;
 }
 
-.mockup-preview-acoes {
-    display: flex;
-    gap: 4px;
-}
+.mockup-preview-acoes { display: flex; gap: 4px; }
 
 .mockup-acao {
     display: inline-flex;
@@ -743,22 +802,19 @@ MOCKUP DE CELULAR — Compartilhado
     cursor: pointer;
     white-space: nowrap;
 }
-
 .mockup-acao:hover {
     border-color: var(--cor-marca);
     color: var(--cor-marca);
 }
-
 .mockup-acao-primaria {
     background: var(--cor-marca);
     border-color: var(--cor-marca);
-    color: #ffffff;
+    color: #fff;
 }
-
 .mockup-acao-primaria:hover {
     background: var(--cor-marca-hover);
     border-color: var(--cor-marca-hover);
-    color: #ffffff;
+    color: #fff;
 }
 
 /* ==================== CELULAR ==================== */
@@ -774,10 +830,7 @@ MOCKUP DE CELULAR — Compartilhado
     transform: perspective(1200px) rotateY(-3deg);
     transition: transform 0.4s ease;
 }
-
-.mockup-celular:hover {
-    transform: perspective(1200px) rotateY(0deg);
-}
+.mockup-celular:hover { transform: perspective(1200px) rotateY(0deg); }
 
 .mockup-celular-notch {
     width: 90px;
@@ -791,8 +844,10 @@ MOCKUP DE CELULAR — Compartilhado
 
 /* ==================== TELA ==================== */
 .mockup-celular-tela {
-    background: var(--perfil-cor-fundo, linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%));
+    background: var(--perfil-background-efetivo, #f5f7fa);
     color: var(--perfil-cor-texto, #0f172a);
+    font-family: var(--perfil-fonte, -apple-system, BlinkMacSystemFont,
+                 'Segoe UI', Roboto, Arial, sans-serif);
     border-radius: 24px;
     padding: 1.5rem 1rem 1rem;
     height: var(--mockup-altura, 480px);
@@ -805,8 +860,8 @@ MOCKUP DE CELULAR — Compartilhado
 
 /* ==================== FOTO ==================== */
 .mockup-celular-foto {
-    width: var(--mockup-foto-tamanho, 72px);
-    height: var(--mockup-foto-tamanho, 72px);
+    width: var(--perfil-foto-tamanho, 80px);
+    height: var(--perfil-foto-tamanho, 80px);
     border-radius: 50%;
     overflow: hidden;
     background: linear-gradient(135deg,
@@ -816,14 +871,13 @@ MOCKUP DE CELULAR — Compartilhado
     align-items: center;
     justify-content: center;
     color: #fff;
-    font-size: calc(var(--mockup-foto-tamanho, 72px) * 0.3);
+    font-size: calc(var(--perfil-foto-tamanho, 80px) * 0.3);
     margin-bottom: 0.75rem;
     box-shadow: 0 4px 14px rgba(59,130,246,0.3);
     flex-shrink: 0;
     border: 3px solid var(--perfil-cor-primaria, #3b82f6);
     transition: all 0.3s ease;
 }
-
 .mockup-celular-foto img {
     width: 100%;
     height: 100%;
@@ -841,7 +895,6 @@ MOCKUP DE CELULAR — Compartilhado
     word-break: break-word;
     line-height: 1.2;
 }
-
 .mockup-celular-bio {
     font-size: 0.72rem;
     color: var(--perfil-cor-texto, #64748b);
@@ -862,52 +915,46 @@ MOCKUP DE CELULAR — Compartilhado
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: var(--mockup-gap, 8px);
+    gap: var(--perfil-gap, 8px);
     margin-bottom: auto;
     overflow: hidden;
 }
-
 .mockup-celular-link {
     display: flex;
     align-items: center;
     gap: 0.5rem;
     padding: 0 0.75rem;
-    min-height: var(--mockup-link-tamanho, 34px);
+    min-height: var(--perfil-link-tamanho, 42px);
     background: var(--perfil-cor-primaria, #3b82f6);
-    color: #ffffff;
-    border-radius: var(--perfil-raio-link, 10px);
+    color: #fff;
+    border-radius: var(--perfil-raio-link, 12px);
     font-size: 0.72rem;
     font-weight: 600;
-    border: var(--mockup-borda-tamanho, 2px) solid var(--perfil-cor-primaria, #3b82f6);
+    border: var(--perfil-borda-tamanho, 2px) solid var(--perfil-cor-primaria, #3b82f6);
     box-shadow: 0 1px 3px rgba(0,0,0,0.15);
     transition: all 0.3s ease;
 }
-
 .mockup-celular-link:hover {
-    transform: var(--mockup-hover-transform, none);
-    filter: var(--mockup-hover-brilho, none);
+    transform: var(--perfil-hover-transform, none);
+    filter: var(--perfil-hover-brilho, none);
 }
-
 .mockup-celular-link i:first-child {
     font-size: 0.7rem;
     width: 14px;
     text-align: center;
     flex-shrink: 0;
 }
-
 .mockup-celular-link span {
     flex: 1;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-
 .mockup-celular-link i:last-child {
     font-size: 0.65rem;
     opacity: 0.7;
     flex-shrink: 0;
 }
-
 .mockup-celular-link-vazio {
     background: rgba(0,0,0,0.06);
     color: var(--perfil-cor-texto, #94a3b8);
@@ -915,23 +962,31 @@ MOCKUP DE CELULAR — Compartilhado
     font-style: italic;
 }
 
-/* ==================== RODAPÉ ==================== */
+/* ==================== RODAPÉ (pílula compacta, igual à pública) ==================== */
+/* Branding do MeuLinks — pílula neutra, não ocupa a largura toda.               */
 .mockup-celular-rodape {
-    margin-top: 1rem;
-    font-size: 0.6rem;
-    color: var(--perfil-cor-texto, #94a3b8);
-    opacity: 0.6;
-    text-align: center;
-    padding: 0.4rem;
-    background: rgba(0,0,0,0.04);
+    margin-top: auto;              /* empurra pra baixo, dentro da tela */
+    margin-bottom: 8px;
+    align-self: center;            /* centraliza horizontalmente */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
     border-radius: 999px;
-    width: 100%;
+    padding: 4px 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+
+    font-size: 0.6rem;
+    color: #64748b;
+    white-space: nowrap;
     flex-shrink: 0;
 }
-
 .mockup-celular-rodape i {
-    color: var(--perfil-cor-primaria, #3b82f6);
+    color: #94a3b8;
     margin-right: 0.2rem;
+    font-size: 0.55rem;
 }
 
 /* ==================== AVISO ==================== */
@@ -948,55 +1003,34 @@ MOCKUP DE CELULAR — Compartilhado
     border-radius: 6px;
     line-height: 1.4;
 }
-
 .mockup-preview-aviso i {
     color: var(--cor-marca);
     margin-top: 2px;
     flex-shrink: 0;
 }
 
-/* ==================== ANIMAÇÕES ==================== */
+/* ==================== ANIMAÇÕES (dinâmicas por --i) ==================== */
 .mockup-celular-tela.anim-fade .mockup-celular-link {
     opacity: 0;
     transform: translateY(20px);
     animation: mockupFadeIn 0.6s forwards;
+    animation-delay: calc(var(--i, 0) * 0.1s);
 }
-.mockup-celular-tela.anim-fade .mockup-celular-link:nth-child(1) { animation-delay: 0.1s; }
-.mockup-celular-tela.anim-fade .mockup-celular-link:nth-child(2) { animation-delay: 0.2s; }
-.mockup-celular-tela.anim-fade .mockup-celular-link:nth-child(3) { animation-delay: 0.3s; }
-.mockup-celular-tela.anim-fade .mockup-celular-link:nth-child(4) { animation-delay: 0.4s; }
-
-@keyframes mockupFadeIn {
-    to { opacity: 1; transform: translateY(0); }
-}
-
 .mockup-celular-tela.anim-slide .mockup-celular-link {
     opacity: 0;
     transform: translateX(-30px);
     animation: mockupSlideIn 0.5s forwards;
+    animation-delay: calc(var(--i, 0) * 0.1s);
 }
-.mockup-celular-tela.anim-slide .mockup-celular-link:nth-child(1) { animation-delay: 0.1s; }
-.mockup-celular-tela.anim-slide .mockup-celular-link:nth-child(2) { animation-delay: 0.2s; }
-.mockup-celular-tela.anim-slide .mockup-celular-link:nth-child(3) { animation-delay: 0.3s; }
-.mockup-celular-tela.anim-slide .mockup-celular-link:nth-child(4) { animation-delay: 0.4s; }
-
-@keyframes mockupSlideIn {
-    to { opacity: 1; transform: translateX(0); }
-}
-
 .mockup-celular-tela.anim-scale .mockup-celular-link {
     opacity: 0;
     transform: scale(0.85);
     animation: mockupScaleIn 0.5s forwards;
+    animation-delay: calc(var(--i, 0) * 0.1s);
 }
-.mockup-celular-tela.anim-scale .mockup-celular-link:nth-child(1) { animation-delay: 0.1s; }
-.mockup-celular-tela.anim-scale .mockup-celular-link:nth-child(2) { animation-delay: 0.2s; }
-.mockup-celular-tela.anim-scale .mockup-celular-link:nth-child(3) { animation-delay: 0.3s; }
-.mockup-celular-tela.anim-scale .mockup-celular-link:nth-child(4) { animation-delay: 0.4s; }
-
-@keyframes mockupScaleIn {
-    to { opacity: 1; transform: scale(1); }
-}
+@keyframes mockupFadeIn  { to { opacity: 1; transform: translateY(0); } }
+@keyframes mockupSlideIn { to { opacity: 1; transform: translateX(0); } }
+@keyframes mockupScaleIn { to { opacity: 1; transform: scale(1); } }
 
 /* ==================== RESPONSIVO ==================== */
 @media (max-width: 992px) {
@@ -1008,21 +1042,16 @@ MOCKUP DE CELULAR — Compartilhado
     }
     :root { --mockup-altura: 420px; }
 }
-
 @media (max-width: 480px) {
     :root { --mockup-altura: 400px; }
     .mockup-acao span { display: none; }
-    .mockup-acao {
-        width: 32px;
-        height: 32px;
-        padding: 0;
-    }
+    .mockup-acao { width: 32px; height: 32px; padding: 0; }
 }
 
 /* ===== tela-padrao.css ===== */
 /* static/css/components/tela-padrao.css
 ============================================
-TELA PADRÃO — Cosmic Dashboard (claro + escuro)
+TELA PADRÃO — Cosmic Dashboard (claro + escuro + mobile)
 ============================================ */
 
 /* ==================== FUNDO CÓSMICO ==================== */
@@ -1136,7 +1165,6 @@ TELA PADRÃO — Cosmic Dashboard (claro + escuro)
     flex-shrink: 0;
 }
 
-/* ==================== AÇÕES DO HEADER ==================== */
 .tela-header-acoes {
     display: flex;
     align-items: center;
@@ -1184,7 +1212,6 @@ TELA PADRÃO — Cosmic Dashboard (claro + escuro)
     align-items: start;
 }
 
-/* Variante: 1 coluna (telas sem preview) */
 .tela-grid-1col {
     display: grid;
     grid-template-columns: 1fr;
@@ -1192,7 +1219,7 @@ TELA PADRÃO — Cosmic Dashboard (claro + escuro)
     align-items: start;
 }
 
-/* ==================== BLOCO (GLASSMORPHISM) ==================== */
+/* ==================== BLOCO ==================== */
 .tela-bloco {
     position: relative;
     background: var(--vidro-bg);
@@ -1202,29 +1229,8 @@ TELA PADRÃO — Cosmic Dashboard (claro + escuro)
     border-radius: 14px;
     padding: 0.85rem 1rem;
     margin-bottom: 0.75rem;
-    overflow: hidden;
+    overflow: visible;   /* ⚠️ FIX: NÃO corta conteúdo */
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.tela-bloco::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg,
-        transparent,
-        rgba(59, 130, 246, 0.6),
-        rgba(6, 182, 212, 0.6),
-        transparent);
-    opacity: 0.7;
-    animation: blocoShine 5s ease-in-out infinite;
-}
-
-@keyframes blocoShine {
-    0%, 100% { opacity: 0.3; }
-    50%      { opacity: 1; }
 }
 
 .tela-bloco:hover {
@@ -1272,34 +1278,13 @@ TELA PADRÃO — Cosmic Dashboard (claro + escuro)
     font-weight: 700;
     color: #ffffff;
     background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
-    background-size: 200% 200%;
     border: none;
     cursor: pointer;
-    overflow: hidden;
-    animation: salvarGradient 5s ease infinite;
+    width: 100%;
     box-shadow:
         0 4px 20px rgba(59, 130, 246, 0.4),
         inset 0 1px 0 rgba(255, 255, 255, 0.15);
     transition: transform 0.2s ease, box-shadow 0.3s ease;
-    width: 100%;
-}
-
-@keyframes salvarGradient {
-    0%, 100% { background-position: 0% 50%; }
-    50%      { background-position: 100% 50%; }
-}
-
-.tela-acao-salvar::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.15), transparent);
-    transform: translateX(-100%);
-    transition: transform 0.6s;
-}
-
-.tela-acao-salvar:hover::before {
-    transform: translateX(100%);
 }
 
 .tela-acao-salvar:hover {
@@ -1323,52 +1308,69 @@ TELA PADRÃO — Cosmic Dashboard (claro + escuro)
     top: 76px;
 }
 
-/* ==================== RESPONSIVO ==================== */
 @media (max-width: 992px) {
+    .tela-cosmos-bg {
+        display: none;
+    }
+
     .tela-header {
         left: 0;
         padding: 0 var(--esp-4);
+        padding-left: 76px;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background: var(--cor-fundo);
     }
+
     .tela-conteudo {
         padding-left: var(--esp-4);
         padding-right: var(--esp-4);
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
     }
+
+    /* ⚠️ FIX: minmax(0, 1fr) em vez de 1fr */
     .tela-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);   /* ← ESSENCIAL */
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
     }
+
     .tela-preview-col {
         position: static;
         order: -1;
         margin-bottom: 1rem;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
     }
-}
 
-@media (max-width: 576px) {
-    .tela-header {
-        height: 56px;
+    .tela-bloco {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background: var(--cor-card);
+        padding: 0.75rem 0.85rem;
+        margin-bottom: 0.6rem;
+        border-radius: 12px;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+        overflow: visible;
     }
-    .tela-header-titulo {
-        font-size: 0.85rem;
-    }
-    .tela-header-titulo i {
-        width: 24px;
-        height: 24px;
-        font-size: 0.7rem;
-    }
-    .tela-conteudo {
-        padding-top: 70px;
-    }
-    .tela-preview-col {
-        top: auto;
-    }
-}
 
-@media (prefers-reduced-motion: reduce) {
-    .tela-cosmos-bg::before,
-    .tela-cosmos-bg::after,
-    .tela-bloco::before,
-    .tela-acao-salvar {
-        animation: none !important;
+    .tela-bloco-titulo {
+        margin-bottom: 0.5rem;
+        font-size: 0.65rem;
+    }
+
+    .tela-bloco-titulo i {
+        width: 22px;
+        height: 22px;
+        font-size: 0.65rem;
     }
 }
 
@@ -1381,15 +1383,16 @@ MODAIS — Global (claro + escuro)
 .modal-overlay {
     position: fixed;
     inset: 0;
-    z-index: 9999;
-    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 99999;              /* ← MAIOR que footer/header/sidebar */
+    background-color: rgba(0, 0, 0, 0.7);
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    padding: 24px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     animation: modalFadeIn 0.2s ease;
+    overflow-y: auto;            /* ← permite scroll se o modal for grande */
 }
 
 @keyframes modalFadeIn {
@@ -1405,7 +1408,7 @@ MODAIS — Global (claro + escuro)
     border: 1px solid var(--vidro-borda);
     border-radius: var(--raio-lg);
     width: 100%;
-    max-width: 520px;
+    max-width: 680px;            /* ← mais largo (era 520px) */
     max-height: 90vh;
     overflow-y: auto;
     box-shadow:
@@ -1414,6 +1417,7 @@ MODAIS — Global (claro + escuro)
     animation: modalSlideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     flex-direction: column;
+    margin: auto;                /* ← centraliza quando tem scroll */
 }
 
 .modal-box::before {
@@ -1439,7 +1443,7 @@ MODAIS — Global (claro + escuro)
 }
 
 .modal-box-sm {
-    max-width: 400px;
+    max-width: 420px;
 }
 
 @keyframes modalSlideUp {
@@ -1460,6 +1464,7 @@ MODAIS — Global (claro + escuro)
     align-items: center;
     padding: 20px 24px;
     border-bottom: 1px solid var(--vidro-borda);
+    flex-shrink: 0;
 }
 
 .modal-header h2 {
@@ -1503,6 +1508,7 @@ MODAIS — Global (claro + escuro)
 .modal-body {
     padding: 24px;
     flex: 1;
+    overflow-y: auto;            /* ← rola se o conteúdo for grande */
 }
 
 .modal-body p {
@@ -1525,18 +1531,59 @@ MODAIS — Global (claro + escuro)
     background-color: var(--vidro-bg-sec);
     border-bottom-left-radius: var(--raio-lg);
     border-bottom-right-radius: var(--raio-lg);
+    flex-shrink: 0;
+}
+
+/* Botão cancelar (ao lado do salvar) */
+.modal-footer .btn-ghost {
+    background: transparent;
+    border: 1px solid var(--cor-borda);
+    color: var(--cor-texto-mutado);
+}
+
+.modal-footer .btn-ghost:hover {
+    background: var(--cor-fundo);
+    color: var(--cor-texto);
 }
 
 /* ==================== RESPONSIVO ==================== */
+@media (max-width: 768px) {
+    .modal-overlay {
+        padding: 12px;
+        align-items: flex-end;    /* ← mobile: modal "sobe" do fundo */
+    }
+
+    .modal-box {
+        max-width: 100%;
+        max-height: 92vh;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+}
+
 @media (max-width: 576px) {
     .modal-box {
         max-height: 95vh;
     }
-    .modal-footer {
-        flex-direction: column-reverse;
+
+    .modal-header {
+        padding: 16px 20px;
     }
+
+    .modal-body {
+        padding: 20px;
+    }
+
+    .modal-footer {
+        flex-direction: row-reverse;   /* botão principal à direita */
+        gap: 6px;
+        padding: 14px 20px;
+    }
+
     .modal-footer .btn {
-        width: 100%;
+        flex: 1;
+        font-size: 0.8rem;
+        padding: 10px 12px;
     }
 }
 
@@ -1859,6 +1906,7 @@ SIDEBAR — Cosmic (claro + escuro)
     min-height: 100vh;
     position: relative;
     z-index: 1;
+    width: 100%;   /* ← garante 100% da largura */
 }
 
 .content {
@@ -1875,7 +1923,6 @@ SIDEBAR — Cosmic (claro + escuro)
     position: fixed;
     inset: 0;
     background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(4px);
     z-index: 99;
     opacity: 0;
     transition: opacity var(--transicao);
@@ -1897,8 +1944,6 @@ SIDEBAR — Cosmic (claro + escuro)
     height: 44px;
     border-radius: 10px;
     background: var(--vidro-bg);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
     color: var(--cor-texto);
     box-shadow: 0 4px 20px var(--vidro-sombra);
     align-items: center;
@@ -1911,18 +1956,49 @@ SIDEBAR — Cosmic (claro + escuro)
 @media (max-width: 992px) {
     .sidebar {
         transform: translateX(-100%);
+        background: var(--cor-fundo);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        z-index: 9999;
+        box-shadow: 4px 0 40px rgba(0, 0, 0, 0.4);
+        visibility: hidden;
+        transition: transform var(--transicao-lenta), visibility 0s 0.3s;
     }
+
     .sidebar.active {
         transform: translateX(0);
+        visibility: visible;
+        transition: transform var(--transicao-lenta), visibility 0s 0s;
     }
+
     .sidebar-close {
         display: flex;
     }
+
     .menu-toggle {
         display: flex;
+        background: var(--cor-fundo);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
     }
+
+    /* ⚠️ FIX: content ocupa 100% (sem margin-left, sem estouro) */
+    .layout {
+        display: block;
+        width: 100%;
+    }
+
     .content {
         margin-left: 0;
+        width: 100%;
+        flex: none;
+    }
+
+    .sidebar-overlay {
+        background-color: rgba(0, 0, 0, 0.75);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        z-index: 1;
     }
 }
 
@@ -2122,32 +2198,92 @@ FOOTER GLOBAL — Cosmic (claro + escuro)
     color: var(--cor-texto);
 }
 
+/* ============================================
+   MOBILE — FOOTER OTIMIZADO
+   ============================================ */
 @media (max-width: 992px) {
     .footer-fixo-padrao {
         left: 0;
         padding: 0 var(--esp-4);
-    }
-    .footer-centro {
-        display: none;
+        /* safe area pra iPhone (notch) */
+        padding-bottom: env(safe-area-inset-bottom, 0);
+        height: calc(var(--footer-altura) + env(safe-area-inset-bottom, 0));
     }
 }
 
 @media (max-width: 576px) {
     .footer-fixo-padrao {
-        gap: var(--esp-2);
+        gap: 8px;
+        padding: 0 12px;
+        padding-bottom: env(safe-area-inset-bottom, 0);
+        height: calc(60px + env(safe-area-inset-bottom, 0));
+        /* sem blur no mobile (causa bug de camada GPU) */
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background: var(--cor-fundo);
     }
-    .btn-footer {
-        padding: 8px 12px;
-        font-size: var(--fs-micro);
+
+    .footer-fixo-padrao::before {
+        display: none;   /* remove a linha animada no mobile (economiza GPU) */
     }
-    .btn-footer span {
-        display: none;
+
+    /* ============ ESQUERDA: botão de ação ============ */
+    .footer-esquerda {
+        flex-shrink: 0;
     }
-    .btn-footer i {
-        margin: 0;
+
+    .footer-esquerda .btn-footer {
+        padding: 10px 14px;
+        font-size: 0.8rem;
+        min-height: 44px;
+        min-width: 44px;
     }
+
+    .footer-esquerda .btn-footer span {
+        display: inline;   /* MANTÉM o texto no mobile */
+        font-size: 0.75rem;
+    }
+
+    .footer-esquerda .btn-footer i {
+        font-size: 0.9rem;
+    }
+
+    /* ============ CENTRO: versão + status (compacto) ============ */
+    .footer-centro {
+        display: flex;   /* MANTÉM visível no mobile */
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        flex: 1;
+        min-width: 0;
+    }
+
+    .footer-titulo {
+        display: none;   /* esconde o título (economiza espaço) */
+    }
+
+    .footer-meta {
+        font-size: 0.68rem;
+        gap: 4px;
+        justify-content: center;
+    }
+
+    /* ============ DIREITA: totalizador (compacto) ============ */
+    .footer-direita {
+        flex-shrink: 0;
+    }
+
+    .totalizador-footer-padrao {
+        gap: 8px;
+    }
+
+    .total-item-footer label {
+        font-size: 0.6rem;
+    }
+
     .total-item-footer span {
-        font-size: var(--fs-small);
+        font-size: 0.8rem;
     }
 }
 

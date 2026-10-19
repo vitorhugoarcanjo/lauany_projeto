@@ -1,9 +1,9 @@
-/* PAINEL — 18/10/2026 13:32 */
+/* PAINEL — 19/10/2026 09:59 */
 
 /* ===== painel.css ===== */
 /* static/css/modules/pasta_painel/painel.css
 ============================================
-PAINEL — Blue Cosmic (só painel raiz)
+PAINEL — Blue Cosmic (claro + escuro + mobile)
 ============================================ */
 
 /* ==================== LAYOUT ==================== */
@@ -45,64 +45,76 @@ PAINEL — Blue Cosmic (só painel raiz)
 
 /* ==================== STATS ==================== */
 .painel-stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: var(--esp-3);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
 }
 
 .stat-card {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(59, 130, 246, 0.15);
-    border-radius: var(--raio-md);
-    padding: var(--esp-3);
     display: flex;
     align-items: center;
-    gap: 12px;
-    transition: transform var(--transicao), box-shadow var(--transicao);
-}
-
-.stat-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.15);
-    border-color: rgba(59, 130, 246, 0.3);
+    gap: 10px;
+    padding: 10px 12px;
+    border: 1px solid rgba(59, 130, 246, 0.15);
+    border-radius: var(--raio-md);
+    background: rgba(255, 255, 255, 0.03);
+    flex: 1 1 160px;
+    min-width: 0;
+    max-width: 100%;
 }
 
 .stat-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: var(--raio-md);
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.1rem;
+    font-size: 0.85rem;
     flex-shrink: 0;
 }
 
-.stat-icon-ativo { background-color: rgba(34, 197, 94, 0.15); color: #22c55e; }
-.stat-icon-inativo { background-color: rgba(107, 114, 128, 0.15); color: #9ca3af; }
-.stat-icon-total { background-color: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+.stat-icon-ativo { background: rgba(34, 197, 94, 0.15); color: #22c55e; }
+.stat-icon-inativo { background: rgba(107, 114, 128, 0.15); color: #9ca3af; }
+.stat-icon-total { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
 
-.stat-info { display: flex; flex-direction: column; }
+.stat-info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    flex: 1;
+    overflow: hidden;   /* ← NOVO: não estica */
+}
 
 .stat-valor {
-    font-size: 1.4rem;
+    font-size: 1.15rem;
     font-weight: 800;
     color: var(--cor-texto);
     line-height: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .stat-label {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     color: var(--cor-texto-mutado);
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-top: 4px;
+    letter-spacing: 0.3px;
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-/* ==================== CONTEÚDO DENTRO DOS BLOCOS ==================== */
+/* ==================== SUA PÁGINA PÚBLICA ==================== */
 .perfil-card-conteudo {
     color: rgba(255, 255, 255, 0.7);
     font-size: 0.9rem;
+    line-height: 1.5;
 }
 
 .perfil-card-conteudo p {
@@ -117,13 +129,7 @@ PAINEL — Blue Cosmic (só painel raiz)
     color: #60a5fa;
     font-weight: 600;
     margin-top: 4px;
-    transition: gap var(--transicao), color var(--transicao);
-}
-
-.perfil-link:hover {
-    gap: 10px;
-    text-decoration: underline;
-    color: #06b6d4;
+    word-break: break-all;
 }
 
 .perfil-link strong {
@@ -134,57 +140,56 @@ PAINEL — Blue Cosmic (só painel raiz)
 
 .perfil-link i {
     font-size: 0.75rem;
+    flex-shrink: 0;
 }
 
-/* ==================== LISTA DE LINKS ==================== */
+/* ==================== ÚLTIMOS LINKS ==================== */
 .painel-links-lista {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
     list-style: none;
     padding: 0;
     margin: 0;
+    width: 100%;
 }
 
 .painel-link-item {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    gap: 12px;
+    align-items: flex-start;
+    gap: 8px;
     padding: 10px 12px;
-    border-radius: var(--raio-sm);
     border: 1px solid rgba(59, 130, 246, 0.15);
+    border-radius: var(--raio-sm);
     background: rgba(255, 255, 255, 0.02);
-    transition: border-color var(--transicao), transform var(--transicao);
-}
-
-.painel-link-item:hover {
-    border-color: rgba(59, 130, 246, 0.4);
-    transform: translateX(4px);
+    width: 100%;
 }
 
 .painel-link-info {
     display: flex;
-    align-items: center;
-    gap: 12px;
-    min-width: 0;
+    align-items: flex-start;
+    gap: 8px;
     flex: 1;
+    min-width: 0;
 }
 
 .painel-link-info > i {
-    width: 32px;
-    height: 32px;
+    width: 24px;
+    height: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: var(--raio-sm);
-    background-color: rgba(59, 130, 246, 0.15);
+    background: rgba(59, 130, 246, 0.15);
     color: #60a5fa;
     flex-shrink: 0;
-    font-size: 0.9rem;
+    font-size: 0.75rem;
+    margin-top: 1px;
 }
 
 .painel-link-info > div {
+    flex: 1;
     min-width: 0;
     display: flex;
     flex-direction: column;
@@ -198,35 +203,39 @@ PAINEL — Blue Cosmic (só painel raiz)
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    display: block;
 }
 
 .painel-link-url {
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     color: var(--cor-texto-mutado);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     font-family: var(--fonte-mono);
+    display: block;
 }
 
 .painel-link-status {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     font-weight: 700;
-    padding: 3px 9px;
+    padding: 2px 8px;
     border-radius: var(--raio-full);
     flex-shrink: 0;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.4px;
+    white-space: nowrap;
+    align-self: flex-start;
 }
 
 .painel-link-status.ativo {
-    background-color: rgba(34, 197, 94, 0.15);
+    background: rgba(34, 197, 94, 0.15);
     color: #22c55e;
     border: 1px solid rgba(34, 197, 94, 0.3);
 }
 
 .painel-link-status.inativo {
-    background-color: rgba(107, 114, 128, 0.15);
+    background: rgba(107, 114, 128, 0.15);
     color: #9ca3af;
     border: 1px solid rgba(107, 114, 128, 0.3);
 }
@@ -249,17 +258,80 @@ PAINEL — Blue Cosmic (só painel raiz)
 .painel-vazio p {
     margin-bottom: 12px;
     font-size: 0.85rem;
-    color: var(--cor-texto-mutado);
 }
 
-/* ==================== RESPONSIVO ==================== */
-@media (max-width: 576px) {
+/* ==================== MOBILE ==================== */
+@media (max-width: 768px) {
+    .painel-hero {
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--esp-3);
+        margin-bottom: var(--esp-4);
+    }
+
     .painel-hero-texto h1 {
         font-size: 1.35rem;
     }
+
+    .painel-hero-texto p {
+        font-size: 0.85rem;
+    }
+
+    .painel-hero-acoes .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Stats: 1 card por linha (sem width: 100% no base) */
+    .painel-stats {
+        gap: 6px;
+    }
+
+    .stat-card {
+        flex: 1 1 100%;
+        padding: 10px;
+    }
+
+    .stat-icon {
+        width: 28px;
+        height: 28px;
+        font-size: 0.75rem;
+    }
+
+    .stat-valor {
+        font-size: 1.1rem;
+    }
+
+    .stat-label {
+        font-size: 0.55rem;
+    }
+
+    .perfil-card-conteudo {
+        font-size: 0.85rem;
+    }
+
+    .perfil-link {
+        font-size: 0.85rem;
+    }
+
+    .perfil-link strong {
+        font-size: 0.85rem;
+    }
+
+    .painel-links-lista {
+        gap: 0;
+    }
+
     .painel-link-item {
-        flex-direction: column;
-        align-items: flex-start;
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+        border-top: none;
+        padding: 10px 12px;
+    }
+
+    .painel-link-item:last-child {
+        border-bottom: none;
     }
 }
 
@@ -498,15 +570,11 @@ MÓDULO APARÊNCIA — Cosmic compacto
     flex-shrink: 0;
 }
 
-.cor-input input[type="color"]::-webkit-color-swatch-wrapper {
-    padding: 0;
-}
-
+.cor-input input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
 .cor-input input[type="color"]::-webkit-color-swatch {
     border: 1px solid var(--vidro-borda);
     border-radius: 4px;
 }
-
 .cor-input input[type="color"]::-moz-color-swatch {
     border: 1px solid var(--vidro-borda);
     border-radius: 4px;
@@ -565,11 +633,7 @@ MÓDULO APARÊNCIA — Cosmic compacto
     grid-template-columns: 1fr 1fr;
     gap: 8px;
 }
-
-.estilo-grid-2 .form-grupo {
-    margin-bottom: 0;
-}
-
+.estilo-grid-2 .form-grupo { margin-bottom: 0; }
 .estilo-grid-2 .form-grupo label {
     font-size: 0.62rem;
     margin-bottom: 2px;
@@ -577,7 +641,6 @@ MÓDULO APARÊNCIA — Cosmic compacto
     text-transform: uppercase;
     letter-spacing: 0.3px;
 }
-
 .estilo-grid-2 .form-select {
     padding: 6px 10px;
     font-size: 0.78rem;
@@ -625,34 +688,27 @@ MÓDULO APARÊNCIA — Cosmic compacto
 .template-preview {
     width: 56px;
     height: 56px;
+    min-height: 56px;            /* ⬅️ GARANTE altura mesmo se bg falhar */
     border-radius: 6px;
     border: 1px solid var(--vidro-borda);
+    background: #f5f7fa;          /* ⬅️ fallback visível (cinza claro) */
+    background-size: cover;
+    background-position: center;
 }
 
-.template-preview-wellness {
-    background: linear-gradient(135deg, #fdf2f8 0%, #ec4899 100%);
-}
-.template-preview-cosmic {
-    background: linear-gradient(135deg, #0a0f1e 0%, #3b82f6 100%);
-}
-.template-preview-fresh {
-    background: linear-gradient(135deg, #f0fdf4 0%, #10b981 100%);
-}
-.template-preview-classic {
-    background: linear-gradient(135deg, #f8fafc 0%, #1e40af 100%);
-}
-.template-preview-sunset {
-    background: linear-gradient(135deg, #fff7ed 0%, #f97316 100%);
-}
+/* Presets de classe (fallback se o inline falhar) */
+.template-preview-wellness { background: linear-gradient(135deg, #fdf2f8 0%, #ec4899 100%); }
+.template-preview-cosmic   { background: linear-gradient(135deg, #0a0f1e 0%, #3b82f6 100%); }
+.template-preview-fresh    { background: linear-gradient(135deg, #f0fdf4 0%, #10b981 100%); }
+.template-preview-classic  { background: linear-gradient(135deg, #f8fafc 0%, #1e40af 100%); }
+.template-preview-sunset   { background: linear-gradient(135deg, #fff7ed 0%, #f97316 100%); }
 
-/* ==================== GRID DE 2 COLUNAS (Cores, Tipografia) ==================== */
+/* ==================== GRID ==================== */
 .config-grid-2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 12px;
 }
-
-/* ==================== GRID DE 3 COLUNAS (Tamanhos e efeitos) ==================== */
 .config-grid-3 {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -660,24 +716,13 @@ MÓDULO APARÊNCIA — Cosmic compacto
 }
 
 @media (max-width: 992px) {
-    .config-grid-3 {
-        grid-template-columns: 1fr 1fr;
-    }
+    .config-grid-3 { grid-template-columns: 1fr 1fr; }
 }
-
 @media (max-width: 768px) {
-    .config-grid-2,
-    .config-grid-3 {
-        grid-template-columns: 1fr;
-    }
+    .config-grid-2, .config-grid-3 { grid-template-columns: 1fr; }
 }
-
-/* ==================== RESPONSIVO ==================== */
 @media (max-width: 576px) {
-    .cores-grid-2,
-    .estilo-grid-2 {
-        grid-template-columns: 1fr;
-    }
+    .cores-grid-2, .estilo-grid-2 { grid-template-columns: 1fr; }
 }
 
 /* ===== config.css ===== */

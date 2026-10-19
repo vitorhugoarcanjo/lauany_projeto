@@ -193,31 +193,91 @@ FOOTER GLOBAL — Cosmic (claro + escuro)
     color: var(--cor-texto);
 }
 
+/* ============================================
+   MOBILE — FOOTER OTIMIZADO
+   ============================================ */
 @media (max-width: 992px) {
     .footer-fixo-padrao {
         left: 0;
         padding: 0 var(--esp-4);
-    }
-    .footer-centro {
-        display: none;
+        /* safe area pra iPhone (notch) */
+        padding-bottom: env(safe-area-inset-bottom, 0);
+        height: calc(var(--footer-altura) + env(safe-area-inset-bottom, 0));
     }
 }
 
 @media (max-width: 576px) {
     .footer-fixo-padrao {
-        gap: var(--esp-2);
+        gap: 8px;
+        padding: 0 12px;
+        padding-bottom: env(safe-area-inset-bottom, 0);
+        height: calc(60px + env(safe-area-inset-bottom, 0));
+        /* sem blur no mobile (causa bug de camada GPU) */
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background: var(--cor-fundo);
     }
-    .btn-footer {
-        padding: 8px 12px;
-        font-size: var(--fs-micro);
+
+    .footer-fixo-padrao::before {
+        display: none;   /* remove a linha animada no mobile (economiza GPU) */
     }
-    .btn-footer span {
-        display: none;
+
+    /* ============ ESQUERDA: botão de ação ============ */
+    .footer-esquerda {
+        flex-shrink: 0;
     }
-    .btn-footer i {
-        margin: 0;
+
+    .footer-esquerda .btn-footer {
+        padding: 10px 14px;
+        font-size: 0.8rem;
+        min-height: 44px;
+        min-width: 44px;
     }
+
+    .footer-esquerda .btn-footer span {
+        display: inline;   /* MANTÉM o texto no mobile */
+        font-size: 0.75rem;
+    }
+
+    .footer-esquerda .btn-footer i {
+        font-size: 0.9rem;
+    }
+
+    /* ============ CENTRO: versão + status (compacto) ============ */
+    .footer-centro {
+        display: flex;   /* MANTÉM visível no mobile */
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        flex: 1;
+        min-width: 0;
+    }
+
+    .footer-titulo {
+        display: none;   /* esconde o título (economiza espaço) */
+    }
+
+    .footer-meta {
+        font-size: 0.68rem;
+        gap: 4px;
+        justify-content: center;
+    }
+
+    /* ============ DIREITA: totalizador (compacto) ============ */
+    .footer-direita {
+        flex-shrink: 0;
+    }
+
+    .totalizador-footer-padrao {
+        gap: 8px;
+    }
+
+    .total-item-footer label {
+        font-size: 0.6rem;
+    }
+
     .total-item-footer span {
-        font-size: var(--fs-small);
+        font-size: 0.8rem;
     }
 }

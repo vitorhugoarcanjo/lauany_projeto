@@ -12,7 +12,6 @@
 
 {% block footer_titulo %}APARÊNCIA{% endblock %}
 
-{# BOTÃO NA ESQUERDA #}
 {% block footer_esquerda %}
 <button type="button" class="btn-footer btn-footer-primary" id="btnSalvarFooter">
     <i class="fas fa-save"></i>
@@ -21,9 +20,7 @@
 {% endblock %}
 
 {% block conteudo %}
-
 <section class="tela-grid">
-
     <div>
         <form id="formAparencia" class="aparencia-form">
 
@@ -35,48 +32,22 @@
                 </div>
 
                 <div class="templates-grid">
-                    <button type="button" class="template-card {% if aparencia.template == 'wellness' %}active{% endif %}"
-                            data-template="wellness"
-                            data-primaria="#ec4899" data-secundaria="#25d366"
-                            data-fundo="#fdf2f8" data-texto="#1e293b">
-                        <div class="template-preview template-preview-wellness"></div>
-                        <span>Wellness</span>
+                    {% for t in templates %}
+                    {% set _bg = t.config_default.get('efeitos', {}).get('background')
+                                 or t.config_default.get('cores', {}).get('fundo')
+                                 or '#f5f7fa' %}
+                    <button type="button"
+                            class="template-card {% if aparencia.template_slug == t.slug %}active{% endif %}"
+                            data-template="{{ t.slug }}"
+                            data-config='{{ t.config_default | tojson }}'>
+                        <div class="template-preview" style="background: {{ _bg }};"></div>
+                        <span>{{ t.nome }}</span>
                     </button>
-
-                    <button type="button" class="template-card {% if aparencia.template == 'cosmic' or not aparencia.template %}active{% endif %}"
-                            data-template="cosmic"
-                            data-primaria="#3b82f6" data-secundaria="#06b6d4"
-                            data-fundo="#0a0f1e" data-texto="#f0f0f0">
-                        <div class="template-preview template-preview-cosmic"></div>
-                        <span>Cosmic</span>
-                    </button>
-
-                    <button type="button" class="template-card {% if aparencia.template == 'fresh' %}active{% endif %}"
-                            data-template="fresh"
-                            data-primaria="#10b981" data-secundaria="#06b6d4"
-                            data-fundo="#f0fdf4" data-texto="#064e3b">
-                        <div class="template-preview template-preview-fresh"></div>
-                        <span>Fresh</span>
-                    </button>
-
-                    <button type="button" class="template-card {% if aparencia.template == 'classic' %}active{% endif %}"
-                            data-template="classic"
-                            data-primaria="#1e40af" data-secundaria="#64748b"
-                            data-fundo="#f8fafc" data-texto="#0f172a">
-                        <div class="template-preview template-preview-classic"></div>
-                        <span>Classic</span>
-                    </button>
-
-                    <button type="button" class="template-card {% if aparencia.template == 'sunset' %}active{% endif %}"
-                            data-template="sunset"
-                            data-primaria="#f97316" data-secundaria="#ec4899"
-                            data-fundo="#fff7ed" data-texto="#431407">
-                        <div class="template-preview template-preview-sunset"></div>
-                        <span>Sunset</span>
-                    </button>
+                    {% endfor %}
                 </div>
 
-                <input type="hidden" name="template" id="template_hidden" value="{{ aparencia.template or 'cosmic' }}">
+                <input type="hidden" name="template_slug" id="template_slug_hidden"
+                       value="{{ aparencia.template_slug }}">
             </div>
 
             <!-- CORES -->
@@ -90,29 +61,33 @@
                     <div class="cor-item">
                         <label for="cor_primaria">Cor dos botões</label>
                         <div class="cor-input">
-                            <input type="color" id="cor_primaria" name="cor_primaria" value="{{ aparencia.cor_primaria }}">
-                            <span class="cor-hex" id="corPrimariaHex">{{ aparencia.cor_primaria }}</span>
+                            <input type="color" id="cor_primaria" name="cor_primaria"
+                                   value="{{ aparencia.config_final.cores.primaria or '#3b82f6' }}">
+                            <span class="cor-hex" id="corPrimariaHex">{{ aparencia.config_final.cores.primaria or '#3b82f6' }}</span>
                         </div>
                     </div>
                     <div class="cor-item">
                         <label for="cor_secundaria">Cor secundária</label>
                         <div class="cor-input">
-                            <input type="color" id="cor_secundaria" name="cor_secundaria" value="{{ aparencia.cor_secundaria }}">
-                            <span class="cor-hex" id="corSecundariaHex">{{ aparencia.cor_secundaria }}</span>
+                            <input type="color" id="cor_secundaria" name="cor_secundaria"
+                                   value="{{ aparencia.config_final.cores.secundaria or '#06b6d4' }}">
+                            <span class="cor-hex" id="corSecundariaHex">{{ aparencia.config_final.cores.secundaria or '#06b6d4' }}</span>
                         </div>
                     </div>
                     <div class="cor-item">
                         <label for="cor_fundo">Cor de fundo</label>
                         <div class="cor-input">
-                            <input type="color" id="cor_fundo" name="cor_fundo" value="{{ aparencia.cor_fundo or '#ffffff' }}">
-                            <span class="cor-hex" id="corFundoHex">{{ aparencia.cor_fundo or 'padrão' }}</span>
+                            <input type="color" id="cor_fundo" name="cor_fundo"
+                                   value="{{ aparencia.config_final.cores.fundo or '#f5f7fa' }}">
+                            <span class="cor-hex" id="corFundoHex">{{ aparencia.config_final.cores.fundo or '#f5f7fa' }}</span>
                         </div>
                     </div>
                     <div class="cor-item">
                         <label for="cor_texto">Cor do texto</label>
                         <div class="cor-input">
-                            <input type="color" id="cor_texto" name="cor_texto" value="{{ aparencia.cor_texto or '#1a1a1a' }}">
-                            <span class="cor-hex" id="corTextoHex">{{ aparencia.cor_texto or 'padrão' }}</span>
+                            <input type="color" id="cor_texto" name="cor_texto"
+                                   value="{{ aparencia.config_final.cores.texto or '#1a1a1a' }}">
+                            <span class="cor-hex" id="corTextoHex">{{ aparencia.config_final.cores.texto or '#1a1a1a' }}</span>
                         </div>
                     </div>
                 </div>
@@ -129,63 +104,78 @@
                     <div class="form-grupo">
                         <label for="tamanho_foto">Foto de perfil</label>
                         <select id="tamanho_foto" name="tamanho_foto" class="form-select">
-                            <option value="pequena" {% if aparencia.tamanho_foto == 'pequena' %}selected{% endif %}>Pequena (112px)</option>
-                            <option value="medio" {% if aparencia.tamanho_foto == 'medio' %}selected{% endif %}>Média (144px)</option>
-                            <option value="grande" {% if aparencia.tamanho_foto == 'grande' %}selected{% endif %}>Grande (176px)</option>
+                            {% for valor, label in escala_tamanhos.foto %}
+                            <option value="{{ valor }}"
+                                {% if aparencia.config_final.layout.tamanho_foto == valor %}selected{% endif %}>
+                                {{ label }}
+                            </option>
+                            {% endfor %}
                         </select>
                     </div>
 
                     <div class="form-grupo">
                         <label for="tamanho_link">Altura dos links</label>
                         <select id="tamanho_link" name="tamanho_link" class="form-select">
-                            <option value="pequeno" {% if aparencia.tamanho_link == 'pequeno' %}selected{% endif %}>Pequeno (48px)</option>
-                            <option value="medio" {% if aparencia.tamanho_link == 'medio' %}selected{% endif %}>Médio (56px)</option>
-                            <option value="grande" {% if aparencia.tamanho_link == 'grande' %}selected{% endif %}>Grande (64px)</option>
+                            {% for valor, label in escala_tamanhos.link %}
+                            <option value="{{ valor }}"
+                                {% if aparencia.config_final.layout.tamanho_link == valor %}selected{% endif %}>
+                                {{ label }}
+                            </option>
+                            {% endfor %}
                         </select>
                     </div>
 
                     <div class="form-grupo">
                         <label for="espacamento_links">Espaçamento entre links</label>
                         <select id="espacamento_links" name="espacamento_links" class="form-select">
-                            <option value="compacto" {% if aparencia.espacamento_links == 'compacto' %}selected{% endif %}>Compacto (8px)</option>
-                            <option value="medio" {% if aparencia.espacamento_links == 'medio' %}selected{% endif %}>Médio (14px)</option>
-                            <option value="espacoso" {% if aparencia.espacamento_links == 'espacoso' %}selected{% endif %}>Espaçoso (20px)</option>
+                            {% for valor, label in escala_tamanhos.gap %}
+                            <option value="{{ valor }}"
+                                {% if aparencia.config_final.layout.espacamento_links == valor %}selected{% endif %}>
+                                {{ label }}
+                            </option>
+                            {% endfor %}
                         </select>
                     </div>
 
                     <div class="form-grupo">
                         <label for="borda_link">Borda dos links</label>
                         <select id="borda_link" name="borda_link" class="form-select">
-                            <option value="sem" {% if aparencia.borda_link == 'sem' %}selected{% endif %}>Sem borda</option>
-                            <option value="fina" {% if aparencia.borda_link == 'fina' %}selected{% endif %}>Fina (2px)</option>
-                            <option value="media" {% if aparencia.borda_link == 'media' %}selected{% endif %}>Média (3px)</option>
-                            <option value="grossa" {% if aparencia.borda_link == 'grossa' %}selected{% endif %}>Grossa (4px)</option>
+                            {% for valor, label in escala_tamanhos.borda %}
+                            <option value="{{ valor }}"
+                                {% if aparencia.config_final.layout.borda_link == valor %}selected{% endif %}>
+                                {{ label }}
+                            </option>
+                            {% endfor %}
                         </select>
                     </div>
 
                     <div class="form-grupo">
                         <label for="hover_efeito">Efeito ao passar o mouse</label>
                         <select id="hover_efeito" name="hover_efeito" class="form-select">
-                            <option value="nenhum" {% if aparencia.hover_efeito == 'nenhum' %}selected{% endif %}>Nenhum</option>
-                            <option value="subir" {% if aparencia.hover_efeito == 'subir' %}selected{% endif %}>Subir</option>
-                            <option value="escalar" {% if aparencia.hover_efeito == 'escalar' %}selected{% endif %}>Escalar</option>
-                            <option value="brilho" {% if aparencia.hover_efeito == 'brilho' %}selected{% endif %}>Brilho</option>
+                            {% for valor, label in escala_tamanhos.hover %}
+                            <option value="{{ valor }}"
+                                {% if aparencia.config_final.efeitos.hover_efeito == valor %}selected{% endif %}>
+                                {{ label }}
+                            </option>
+                            {% endfor %}
                         </select>
                     </div>
 
                     <div class="form-grupo">
                         <label for="animacao_entrada">Animação de entrada</label>
                         <select id="animacao_entrada" name="animacao_entrada" class="form-select">
-                            <option value="nenhuma" {% if aparencia.animacao_entrada == 'nenhuma' %}selected{% endif %}>Nenhuma</option>
-                            <option value="fade" {% if aparencia.animacao_entrada == 'fade' %}selected{% endif %}>Fade (aparece)</option>
-                            <option value="slide" {% if aparencia.animacao_entrada == 'slide' %}selected{% endif %}>Slide (desliza)</option>
-                            <option value="scale" {% if aparencia.animacao_entrada == 'scale' %}selected{% endif %}>Scale (cresce)</option>
+                            {% for valor, label in escala_tamanhos.anim %}
+                            <option value="{{ valor }}"
+                                {% if aparencia.config_final.efeitos.animacao_entrada == valor %}selected{% endif %}>
+                                {{ label }}
+                            </option>
+                            {% endfor %}
                         </select>
                     </div>
                 </div>
             </div>
 
-            <!-- ESTILO -->
+            <!-- TIPOGRAFIA -->
             <div class="tela-bloco">
                 <div class="tela-bloco-titulo">
                     <i class="fas fa-font"></i>
@@ -196,38 +186,38 @@
                     <div class="form-grupo">
                         <label for="fonte">Fonte</label>
                         <select id="fonte" name="fonte" class="form-select">
-                            <option value="padrao" {% if aparencia.fonte == 'padrao' %}selected{% endif %}>Padrão</option>
-                            <option value="serif" {% if aparencia.fonte == 'serif' %}selected{% endif %}>Serifada</option>
-                            <option value="mono" {% if aparencia.fonte == 'mono' %}selected{% endif %}>Monospace</option>
-                            <option value="handwritten" {% if aparencia.fonte == 'handwritten' %}selected{% endif %}>Manuscrita</option>
+                            {% for valor, label in escala_tamanhos.fonte %}
+                            <option value="{{ valor }}"
+                                {% if aparencia.config_final.tipografia.fonte == valor %}selected{% endif %}>
+                                {{ label }}
+                            </option>
+                            {% endfor %}
                         </select>
                     </div>
 
                     <div class="form-grupo">
                         <label for="estilo_botao">Formato dos botões</label>
                         <select id="estilo_botao" name="estilo_botao" class="form-select">
-                            <option value="arredondado" {% if aparencia.estilo_botao == 'arredondado' %}selected{% endif %}>Arredondado</option>
-                            <option value="quadrado" {% if aparencia.estilo_botao == 'quadrado' %}selected{% endif %}>Quadrado</option>
-                            <option value="pilula" {% if aparencia.estilo_botao == 'pilula' %}selected{% endif %}>Pílula</option>
+                            {% for valor, label in escala_tamanhos.estilo %}
+                            <option value="{{ valor }}"
+                                {% if aparencia.config_final.tipografia.estilo_botao == valor %}selected{% endif %}>
+                                {{ label }}
+                            </option>
+                            {% endfor %}
                         </select>
                     </div>
                 </div>
             </div>
 
-            <input type="hidden" name="tema" id="tema_hidden" value="{{ aparencia.tema }}">
-
-            {# ⚠️ BOTÃO DE SALVAR REMOVIDO — fica só no footer #}
-
         </form>
     </div>
 
     <div class="tela-preview-col">
-        {% set url_publica = url_for('publico.pagina_publica', username=perfil.username) if perfil and perfil.username else None %}
+        {% set url_publica = url_for('publico.pagina_publica', username=perfil.username)
+                             if perfil and perfil.username else None %}
         {% include 'components/mockup_preview.html.jinja' %}
     </div>
-
 </section>
-
 {% endblock %}
 
 {% block js_extra %}{% endblock %}

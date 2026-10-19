@@ -1,10 +1,46 @@
-# rotas\pasta_links\crud\pasta_edit\services.py
-
+# rotas/pasta_links/crud/pasta_edit/services.py
 """EDITAR LINK — Services"""
 
 import logging
+from urllib.parse import quote
 
 logger = logging.getLogger(__name__)
+
+
+def montar_url(tipo, dados):
+    """Mesma lógica do insert"""
+    tipo = (tipo or 'link').strip().lower()
+
+    if tipo == 'whatsapp':
+        tel = ''.join(c for c in (dados.get('telefone') or '') if c.isdigit())
+        if not tel:
+            return None
+        if not tel.startswith('55') and len(tel) in (10, 11):
+            tel = '55' + tel
+        msg = (dados.get('mensagem') or '').strip()
+        url = f"https://wa.me/{tel}"
+        if msg:
+            url += f"?text={quote(msg)}"
+        return url
+
+    if tipo == 'email':
+        email = (dados.get('email_destino') or '').strip()
+        if not email:
+            return None
+        assunto = (dados.get('assunto') or '').strip()
+        url = f"mailto:{email}"
+        if assunto:
+            url += f"?subject={quote(assunto)}"
+        return url
+
+    # ⚠️ link — valida ESQUEMA (evita XSS/javascript:)
+    url = (dados.get('url') or '').strip()
+    if not url:
+        return None
+    if not (url.startswith('http://') or url.startswith('https://')
+            or url.startswith('mailto:') or url.startswith('tel:')):
+        return None
+    return url
 
 
 class EditarLinkService:
@@ -16,6 +52,7 @@ class EditarLinkService:
             SELECT
                 id, sequencia_links,
                 titulo, url, icone, descricao,
+                tipo, telefone, mensagem, email_destino, assunto,
                 ordem, abrir_nova_aba, destaque, cor_especial,
                 ativo
             FROM links
@@ -29,6 +66,7 @@ class EditarLinkService:
         colunas = [
             'id', 'sequencia_links',
             'titulo', 'url', 'icone', 'descricao',
+            'tipo', 'telefone', 'mensagem', 'email_destino', 'assunto',
             'ordem', 'abrir_nova_aba', 'destaque', 'cor_especial',
             'ativo'
         ]
@@ -44,6 +82,11 @@ class EditarLinkService:
                     url = %s,
                     icone = %s,
                     descricao = %s,
+                    tipo = %s,
+                    telefone = %s,
+                    mensagem = %s,
+                    email_destino = %s,
+                    assunto = %s,
                     ordem = %s,
                     abrir_nova_aba = %s,
                     destaque = %s,
@@ -54,6 +97,11 @@ class EditarLinkService:
                 dados['url'],
                 dados['icone'],
                 dados['descricao'] or None,
+                dados.get('tipo') or 'link',
+                dados.get('telefone') or None,
+                dados.get('mensagem') or None,
+                dados.get('email_destino') or None,
+                dados.get('assunto') or None,
                 dados['ordem'],
                 dados['abrir_nova_aba'],
                 dados['destaque'],

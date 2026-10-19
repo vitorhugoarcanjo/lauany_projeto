@@ -22,6 +22,13 @@ def tabela_links(cursor):
                 icone TEXT,
                 descricao TEXT,
 
+                -- Tipo e campos específicos (WhatsApp, E-mail, Link)
+                tipo TEXT DEFAULT 'link',
+                telefone TEXT,
+                mensagem TEXT,
+                email_destino TEXT,
+                assunto TEXT,
+
                 -- Comportamento
                 abrir_nova_aba INTEGER DEFAULT 1,
                 destaque INTEGER DEFAULT 0,
@@ -54,6 +61,16 @@ def tabela_links(cursor):
         novas.append("destaque INTEGER DEFAULT 0")
     if 'cor_especial' not in colunas:
         novas.append("cor_especial TEXT")
+    if 'tipo' not in colunas:
+        novas.append("tipo TEXT DEFAULT 'link'")
+    if 'telefone' not in colunas:
+        novas.append("telefone TEXT")
+    if 'mensagem' not in colunas:
+        novas.append("mensagem TEXT")
+    if 'email_destino' not in colunas:
+        novas.append("email_destino TEXT")
+    if 'assunto' not in colunas:
+        novas.append("assunto TEXT")
 
     for col in novas:
         try:

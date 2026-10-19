@@ -1,114 +1,134 @@
-/* static/js/modules/pasta_painel/modulos/aparencia/aparencia.js */
-
-(function() {
+/* static/js/modules/pasta_painel/modulos/aparencia/aparencia.js
+   Rascunho ao vivo preservado. SEM merge no cliente — o que tá no input É o config.
+   O template só PRE-POPULA. O merge real acontece no backend (AparenciaFinalService).
+*/
+(function () {
     'use strict';
 
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const form = document.getElementById('formAparencia');
         if (!form) return;
 
-        const inputCorPrimaria = document.getElementById('cor_primaria');
-        const inputCorSecundaria = document.getElementById('cor_secundaria');
-        const inputCorFundo = document.getElementById('cor_fundo');
-        const inputCorTexto = document.getElementById('cor_texto');
-        const inputFonte = document.getElementById('fonte');
-        const inputEstiloBotao = document.getElementById('estilo_botao');
-        const inputTamanhoFoto = document.getElementById('tamanho_foto');
-        const inputTamanhoLink = document.getElementById('tamanho_link');
-        const inputEspacamento = document.getElementById('espacamento_links');
-        const inputBordaLink = document.getElementById('borda_link');
-        const inputHoverEfeito = document.getElementById('hover_efeito');
-        const inputAnimacaoEntrada = document.getElementById('animacao_entrada');
+        const $ = (id) => document.getElementById(id);
 
-        const btnSalvarFooter = document.getElementById('btnSalvarFooter');
+        const inputCorPrimaria    = $('cor_primaria');
+        const inputCorSecundaria  = $('cor_secundaria');
+        const inputCorFundo       = $('cor_fundo');
+        const inputCorTexto       = $('cor_texto');
+        const inputFonte          = $('fonte');
+        const inputEstiloBotao    = $('estilo_botao');
+        const inputTamanhoFoto    = $('tamanho_foto');
+        const inputTamanhoLink    = $('tamanho_link');
+        const inputEspacamento    = $('espacamento_links');
+        const inputBordaLink      = $('borda_link');
+        const inputHoverEfeito    = $('hover_efeito');
+        const inputAnimacaoEntrada= $('animacao_entrada');
+        const inputTemplateSlug   = $('template_slug_hidden');
 
-        const hexPrimaria = document.getElementById('corPrimariaHex');
-        const hexSecundaria = document.getElementById('corSecundariaHex');
-        const hexFundo = document.getElementById('corFundoHex');
-        const hexTexto = document.getElementById('corTextoHex');
+        const btnSalvarFooter     = $('btnSalvarFooter');
 
-        function atualizarMockup() {
-            if (!window.Mockup) return;
+        const hexPrimaria   = $('corPrimariaHex');
+        const hexSecundaria = $('corSecundariaHex');
+        const hexFundo      = $('corFundoHex');
+        const hexTexto      = $('corTextoHex');
 
-            // Cores
-            Mockup.setCores(
-                inputCorPrimaria?.value,
-                inputCorSecundaria?.value,
-                inputCorFundo?.value,
-                inputCorTexto?.value
-            );
-
-            // Estilo, fonte, tamanhos
-            if (inputEstiloBotao) Mockup.setEstiloBotao(inputEstiloBotao.value);
-            if (inputFonte) Mockup.setFonte(inputFonte.value);
-            if (Mockup.setTamanhos) {
-                Mockup.setTamanhos(
-                    inputTamanhoFoto?.value,
-                    inputTamanhoLink?.value,
-                    inputEspacamento?.value
-                );
-            }
-
-            // NOVO: borda, hover, animação
-            if (inputBordaLink && Mockup.setBorda) Mockup.setBorda(inputBordaLink.value);
-            if (inputHoverEfeito && Mockup.setHover) Mockup.setHover(inputHoverEfeito.value);
-            if (inputAnimacaoEntrada && Mockup.setAnimacao) Mockup.setAnimacao(inputAnimacaoEntrada.value);
+        // ===== CONFIG USER (o que tá no input É o config) =====
+        function pegarConfigUser() {
+            return {
+                cores: {
+                    primaria:   inputCorPrimaria?.value,
+                    secundaria: inputCorSecundaria?.value,
+                    fundo:      inputCorFundo?.value,
+                    texto:      inputCorTexto?.value,
+                },
+                tipografia: {
+                    fonte:        inputFonte?.value,
+                    estilo_botao: inputEstiloBotao?.value,
+                },
+                layout: {
+                    tamanho_foto:       inputTamanhoFoto?.value,
+                    tamanho_link:       inputTamanhoLink?.value,
+                    espacamento_links:  inputEspacamento?.value,
+                    borda_link:         inputBordaLink?.value,
+                },
+                efeitos: {
+                    hover_efeito:     inputHoverEfeito?.value,
+                    animacao_entrada: inputAnimacaoEntrada?.value,
+                },
+            };
         }
 
-        // Listeners de cor
-        if (inputCorPrimaria) inputCorPrimaria.addEventListener('input', function() {
-            if (hexPrimaria) hexPrimaria.textContent = this.value;
-            atualizarMockup();
-        });
-        if (inputCorSecundaria) inputCorSecundaria.addEventListener('input', function() {
-            if (hexSecundaria) hexSecundaria.textContent = this.value;
-            atualizarMockup();
-        });
-        if (inputCorFundo) inputCorFundo.addEventListener('input', function() {
-            if (hexFundo) hexFundo.textContent = this.value;
-            atualizarMockup();
-        });
-        if (inputCorTexto) inputCorTexto.addEventListener('input', function() {
-            if (hexTexto) hexTexto.textContent = this.value;
-            atualizarMockup();
+        // ===== APLICA NO PREVIEW (sem merge — input é verdade) =====
+        function atualizarMockup() {
+            if (!window.Mockup) return;
+            window.Mockup.aplicar(pegarConfigUser());
+        }
+
+        // ===== LISTENERS DE CORES (input + change, todos navegadores) =====
+        [
+            { el: inputCorPrimaria,   hex: hexPrimaria },
+            { el: inputCorSecundaria, hex: hexSecundaria },
+            { el: inputCorFundo,      hex: hexFundo },
+            { el: inputCorTexto,      hex: hexTexto },
+        ].forEach(function (par) {
+            if (!par.el) return;
+            const handler = function () {
+                if (par.hex) par.hex.textContent = par.el.value;
+                atualizarMockup();
+            };
+            par.el.addEventListener('input',  handler);
+            par.el.addEventListener('change', handler);
         });
 
-        // Listeners de estilo + tamanhos + borda + hover + animação
+        // ===== LISTENERS DE ESTILO =====
         [
             inputFonte, inputEstiloBotao,
             inputTamanhoFoto, inputTamanhoLink, inputEspacamento,
-            inputBordaLink, inputHoverEfeito, inputAnimacaoEntrada
-        ].forEach(el => {
+            inputBordaLink, inputHoverEfeito, inputAnimacaoEntrada,
+        ].forEach(function (el) {
             if (el) el.addEventListener('change', atualizarMockup);
         });
 
-        // Templates
-        document.querySelectorAll('.template-card').forEach(card => {
-            card.addEventListener('click', function() {
+        // ===== TEMPLATES — pré-popula os inputs =====
+        document.querySelectorAll('.template-card').forEach(function (card) {
+            card.addEventListener('click', function () {
                 document.querySelectorAll('.template-card').forEach(c => c.classList.remove('active'));
                 this.classList.add('active');
 
-                const template = this.dataset.template;
-                const primaria = this.dataset.primaria;
-                const secundaria = this.dataset.secundaria;
-                const fundo = this.dataset.fundo;
-                const texto = this.dataset.texto;
+                const slug = this.dataset.template;
+                if (inputTemplateSlug) inputTemplateSlug.value = slug;
 
-                const templateHidden = document.getElementById('template_hidden');
-                if (templateHidden) templateHidden.value = template;
+                let configDefault = {};
+                try { configDefault = JSON.parse(this.dataset.config || '{}'); } catch (e) {}
 
-                if (inputCorPrimaria && primaria) { inputCorPrimaria.value = primaria; if (hexPrimaria) hexPrimaria.textContent = primaria; }
-                if (inputCorSecundaria && secundaria) { inputCorSecundaria.value = secundaria; if (hexSecundaria) hexSecundaria.textContent = secundaria; }
-                if (inputCorFundo && fundo) { inputCorFundo.value = fundo; if (hexFundo) hexFundo.textContent = fundo; }
-                if (inputCorTexto && texto) { inputCorTexto.value = texto; if (hexTexto) hexTexto.textContent = texto; }
+                const cores = configDefault.cores || {};
+                if (inputCorPrimaria   && cores.primaria)   { inputCorPrimaria.value   = cores.primaria;   if (hexPrimaria)   hexPrimaria.textContent   = cores.primaria; }
+                if (inputCorSecundaria && cores.secundaria) { inputCorSecundaria.value = cores.secundaria; if (hexSecundaria) hexSecundaria.textContent = cores.secundaria; }
+                if (inputCorFundo      && cores.fundo)      { inputCorFundo.value      = cores.fundo;      if (hexFundo)      hexFundo.textContent      = cores.fundo; }
+                if (inputCorTexto      && cores.texto)      { inputCorTexto.value      = cores.texto;      if (hexTexto)      hexTexto.textContent      = cores.texto; }
+
+                const tipografia = configDefault.tipografia || {};
+                if (inputFonte       && tipografia.fonte)        inputFonte.value       = tipografia.fonte;
+                if (inputEstiloBotao && tipografia.estilo_botao) inputEstiloBotao.value = tipografia.estilo_botao;
+
+                const layout = configDefault.layout || {};
+                if (inputTamanhoFoto && layout.tamanho_foto)       inputTamanhoFoto.value = layout.tamanho_foto;
+                if (inputTamanhoLink && layout.tamanho_link)       inputTamanhoLink.value = layout.tamanho_link;
+                if (inputEspacamento && layout.espacamento_links)  inputEspacamento.value = layout.espacamento_links;
+                if (inputBordaLink   && layout.borda_link)         inputBordaLink.value   = layout.borda_link;
+
+                const efeitos = configDefault.efeitos || {};
+                if (inputHoverEfeito     && efeitos.hover_efeito)     inputHoverEfeito.value     = efeitos.hover_efeito;
+                if (inputAnimacaoEntrada && efeitos.animacao_entrada) inputAnimacaoEntrada.value = efeitos.animacao_entrada;
 
                 atualizarMockup();
             });
         });
 
-        // Submit
+        // ===== SUBMIT =====
         function submeter() {
-            const formData = new FormData(form);
+            const templateSlug = inputTemplateSlug?.value || 'cosmic';
+            const config       = pegarConfigUser();
 
             if (btnSalvarFooter) {
                 btnSalvarFooter.disabled = true;
@@ -118,8 +138,11 @@
 
             fetch('/painel/aparencia/salvar', {
                 method: 'POST',
-                body: formData,
-                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest',
+                },
+                body: JSON.stringify({ template_slug: templateSlug, config: config }),
             })
             .then(r => r.json().then(j => ({ ok: r.ok, data: j })))
             .then(({ ok, data }) => {
@@ -141,18 +164,11 @@
             });
         }
 
-        form.addEventListener('submit', function(ev) {
-            ev.preventDefault();
-            submeter();
-        });
+        form.addEventListener('submit', function (ev) { ev.preventDefault(); submeter(); });
+        if (btnSalvarFooter) btnSalvarFooter.addEventListener('click', submeter);
 
-        if (btnSalvarFooter) {
-            btnSalvarFooter.addEventListener('click', function() {
-                submeter();
-            });
-        }
-
+        // ===== INICIALIZA =====
         atualizarMockup();
-        console.log('✅ Aparência carregada');
+        console.log('✅ Aparência carregada (input = config, sem merge no cliente)');
     });
 })();

@@ -9,6 +9,26 @@
 
 <div class="form-body">
 
+    <!-- SELETOR DE TIPO -->
+    <div class="form-grupo">
+        <label>Tipo de link</label>
+        <div class="tipo-selector js-tipo-selector">
+            <button type="button" class="tipo-btn js-tipo-btn {% if not l.tipo or l.tipo == 'link' %}active{% endif %}" data-tipo="link">
+                <i class="fas fa-link"></i>
+                <span>Link</span>
+            </button>
+            <button type="button" class="tipo-btn js-tipo-btn {% if l.tipo == 'whatsapp' %}active{% endif %}" data-tipo="whatsapp">
+                <i class="fab fa-whatsapp"></i>
+                <span>WhatsApp</span>
+            </button>
+            <button type="button" class="tipo-btn js-tipo-btn {% if l.tipo == 'email' %}active{% endif %}" data-tipo="email">
+                <i class="fas fa-envelope"></i>
+                <span>E-mail</span>
+            </button>
+        </div>
+        <input type="hidden" name="tipo" id="tipo" class="js-tipo" value="{{ l.tipo or 'link' }}">
+    </div>
+
     <!-- TÍTULO -->
     <div class="form-grupo">
         <label for="titulo">Título <span class="obrigatorio">*</span></label>
@@ -25,20 +45,80 @@
         >
     </div>
 
-    <!-- URL -->
-    <div class="form-grupo">
-        <label for="url">URL <span class="obrigatorio">*</span></label>
-        <input
-            type="url"
-            id="url"
-            name="url"
-            class="form-input js-url"
-            placeholder="https://..."
-            maxlength="500"
-            autocomplete="off"
-            value="{{ l.url or '' }}"
-            required
-        >
+    <!-- ==================== CAMPO: LINK ==================== -->
+    <div class="js-campo js-campo-link" {% if l.tipo and l.tipo != 'link' %}hidden{% endif %}>
+        <div class="form-grupo">
+            <label for="url">URL <span class="obrigatorio">*</span></label>
+            <input
+                type="url"
+                id="url"
+                name="url"
+                class="form-input js-url"
+                placeholder="https://..."
+                maxlength="500"
+                autocomplete="off"
+                value="{{ l.url or '' }}"
+            >
+        </div>
+    </div>
+
+    <!-- ==================== CAMPO: WHATSAPP ==================== -->
+    <div class="js-campo js-campo-whatsapp" {% if l.tipo != 'whatsapp' %}hidden{% endif %}>
+        <div class="form-grupo">
+            <label for="telefone">Telefone (com DDD e país) <span class="obrigatorio">*</span></label>
+            <input
+                type="tel"
+                id="telefone"
+                name="telefone"
+                class="form-input js-telefone"
+                placeholder="(11) 99999-9999"
+                maxlength="20"
+                autocomplete="tel"
+                value="{{ l.telefone or '' }}"
+            >
+            <small class="form-hint">Brasil: DDD + número. Ex: (11) 99999-9999</small>
+        </div>
+        <div class="form-grupo">
+            <label for="mensagem">Mensagem pré-preenchida <span class="opcional">(opcional)</span></label>
+            <textarea
+                id="mensagem"
+                name="mensagem"
+                class="form-input form-textarea js-mensagem"
+                placeholder="Olá! Vim pelo seu link..."
+                maxlength="300"
+                rows="2"
+            >{{ l.mensagem or '' }}</textarea>
+            <small class="form-hint">Aparece já digitada no WhatsApp.</small>
+        </div>
+    </div>
+
+    <!-- ==================== CAMPO: E-MAIL ==================== -->
+    <div class="js-campo js-campo-email" {% if l.tipo != 'email' %}hidden{% endif %}>
+        <div class="form-grupo">
+            <label for="email_destino">E-mail <span class="obrigatorio">*</span></label>
+            <input
+                type="email"
+                id="email_destino"
+                name="email_destino"
+                class="form-input js-email"
+                placeholder="seu@email.com"
+                maxlength="100"
+                autocomplete="email"
+                value="{{ l.email_destino or '' }}"
+            >
+        </div>
+        <div class="form-grupo">
+            <label for="assunto">Assunto <span class="opcional">(opcional)</span></label>
+            <input
+                type="text"
+                id="assunto"
+                name="assunto"
+                class="form-input js-assunto"
+                placeholder="Assunto do e-mail"
+                maxlength="100"
+                value="{{ l.assunto or '' }}"
+            >
+        </div>
     </div>
 
     <!-- DESCRIÇÃO -->
@@ -78,7 +158,7 @@
             </div>
             <small class="form-hint">
                 Classe do Font Awesome (sem o <code>fas</code>).
-                Ex: <code>fa-link</code>, <code>fa-globe</code>, <code>fa-whatsapp</code>.
+                Ex: <code>fa-link</code>, <code>fa-whatsapp</code>.
             </small>
         </div>
 

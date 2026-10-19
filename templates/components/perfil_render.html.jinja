@@ -1,0 +1,55 @@
+{# templates/components/perfil_render.html.jinja
+   Componente ÚNICO de renderização do perfil público.
+   Rodapé FIXO fora do container (modular, reusável).
+#}
+{% set _cfg   = perfil.config_final or {} %}
+{% set _meta  = escala_meta(_cfg) %}
+
+<div class="perfil-container"
+     style="{{ escala_vars_style(_cfg, contexto='publica') }}"
+     data-anim="{{ _meta.animacao }}">
+
+    <header class="perfil-header">
+        <div class="perfil-foto">
+            {% if perfil.foto %}
+                <img src="{{ url_for('static', filename=perfil.foto) }}"
+                     alt="{{ perfil.nome_display }}"
+                     style="object-position: center {{ perfil.foto_posicao or 'top' }};">
+            {% else %}
+                <i class="fas fa-user perfil-foto-placeholder"></i>
+            {% endif %}
+        </div>
+        <h1 class="perfil-nome">{{ perfil.nome_display }}</h1>
+        {% if perfil.bio %}<p class="perfil-bio">{{ perfil.bio }}</p>{% endif %}
+    </header>
+
+    <div class="perfil-links">
+        {% if perfil.links %}
+            {% for link in perfil.links %}
+            <a href="{{ link.url }}"
+               class="perfil-link {% if link.destaque %}destaque{% endif %}"
+               style="--i: {{ loop.index0 }};"
+               {% if link.abrir_nova_aba %}target="_blank" rel="noopener noreferrer"{% endif %}>
+                <span class="perfil-link-icone"><i class="fas {{ link.icone or 'fa-link' }}"></i></span>
+                <span class="perfil-link-texto">
+                    <strong>{{ link.titulo }}</strong>
+                    {% if link.descricao %}<small>{{ link.descricao }}</small>{% endif %}
+                </span>
+                <span class="perfil-link-seta"><i class="fas fa-arrow-right"></i></span>
+            </a>
+            {% endfor %}
+        {% else %}
+            <div class="perfil-vazio">
+                <i class="fas fa-link"></i>
+                <p>Nenhum link ainda.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+{# ⬇️ Rodapé FIXO fora do container (position: fixed funciona sem conflito) #}
+<footer class="perfil-rodape">
+    <a href="/" target="_blank" rel="noopener">
+        <i class="fas fa-link"></i> Feito pelo <strong>MeuLinks</strong>
+    </a>
+</footer>

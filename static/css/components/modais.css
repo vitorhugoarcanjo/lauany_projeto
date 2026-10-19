@@ -6,15 +6,16 @@ MODAIS — Global (claro + escuro)
 .modal-overlay {
     position: fixed;
     inset: 0;
-    z-index: 9999;
-    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 99999;              /* ← MAIOR que footer/header/sidebar */
+    background-color: rgba(0, 0, 0, 0.7);
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    padding: 24px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     animation: modalFadeIn 0.2s ease;
+    overflow-y: auto;            /* ← permite scroll se o modal for grande */
 }
 
 @keyframes modalFadeIn {
@@ -30,7 +31,7 @@ MODAIS — Global (claro + escuro)
     border: 1px solid var(--vidro-borda);
     border-radius: var(--raio-lg);
     width: 100%;
-    max-width: 520px;
+    max-width: 680px;            /* ← mais largo (era 520px) */
     max-height: 90vh;
     overflow-y: auto;
     box-shadow:
@@ -39,6 +40,7 @@ MODAIS — Global (claro + escuro)
     animation: modalSlideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     flex-direction: column;
+    margin: auto;                /* ← centraliza quando tem scroll */
 }
 
 .modal-box::before {
@@ -64,7 +66,7 @@ MODAIS — Global (claro + escuro)
 }
 
 .modal-box-sm {
-    max-width: 400px;
+    max-width: 420px;
 }
 
 @keyframes modalSlideUp {
@@ -85,6 +87,7 @@ MODAIS — Global (claro + escuro)
     align-items: center;
     padding: 20px 24px;
     border-bottom: 1px solid var(--vidro-borda);
+    flex-shrink: 0;
 }
 
 .modal-header h2 {
@@ -128,6 +131,7 @@ MODAIS — Global (claro + escuro)
 .modal-body {
     padding: 24px;
     flex: 1;
+    overflow-y: auto;            /* ← rola se o conteúdo for grande */
 }
 
 .modal-body p {
@@ -150,17 +154,58 @@ MODAIS — Global (claro + escuro)
     background-color: var(--vidro-bg-sec);
     border-bottom-left-radius: var(--raio-lg);
     border-bottom-right-radius: var(--raio-lg);
+    flex-shrink: 0;
+}
+
+/* Botão cancelar (ao lado do salvar) */
+.modal-footer .btn-ghost {
+    background: transparent;
+    border: 1px solid var(--cor-borda);
+    color: var(--cor-texto-mutado);
+}
+
+.modal-footer .btn-ghost:hover {
+    background: var(--cor-fundo);
+    color: var(--cor-texto);
 }
 
 /* ==================== RESPONSIVO ==================== */
+@media (max-width: 768px) {
+    .modal-overlay {
+        padding: 12px;
+        align-items: flex-end;    /* ← mobile: modal "sobe" do fundo */
+    }
+
+    .modal-box {
+        max-width: 100%;
+        max-height: 92vh;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+}
+
 @media (max-width: 576px) {
     .modal-box {
         max-height: 95vh;
     }
-    .modal-footer {
-        flex-direction: column-reverse;
+
+    .modal-header {
+        padding: 16px 20px;
     }
+
+    .modal-body {
+        padding: 20px;
+    }
+
+    .modal-footer {
+        flex-direction: row-reverse;   /* botão principal à direita */
+        gap: 6px;
+        padding: 14px 20px;
+    }
+
     .modal-footer .btn {
-        width: 100%;
+        flex: 1;
+        font-size: 0.8rem;
+        padding: 10px 12px;
     }
 }

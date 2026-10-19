@@ -213,6 +213,7 @@ SIDEBAR — Cosmic (claro + escuro)
     min-height: 100vh;
     position: relative;
     z-index: 1;
+    width: 100%;   /* ← garante 100% da largura */
 }
 
 .content {
@@ -229,7 +230,6 @@ SIDEBAR — Cosmic (claro + escuro)
     position: fixed;
     inset: 0;
     background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(4px);
     z-index: 99;
     opacity: 0;
     transition: opacity var(--transicao);
@@ -251,8 +251,6 @@ SIDEBAR — Cosmic (claro + escuro)
     height: 44px;
     border-radius: 10px;
     background: var(--vidro-bg);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
     color: var(--cor-texto);
     box-shadow: 0 4px 20px var(--vidro-sombra);
     align-items: center;
@@ -265,17 +263,48 @@ SIDEBAR — Cosmic (claro + escuro)
 @media (max-width: 992px) {
     .sidebar {
         transform: translateX(-100%);
+        background: var(--cor-fundo);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        z-index: 9999;
+        box-shadow: 4px 0 40px rgba(0, 0, 0, 0.4);
+        visibility: hidden;
+        transition: transform var(--transicao-lenta), visibility 0s 0.3s;
     }
+
     .sidebar.active {
         transform: translateX(0);
+        visibility: visible;
+        transition: transform var(--transicao-lenta), visibility 0s 0s;
     }
+
     .sidebar-close {
         display: flex;
     }
+
     .menu-toggle {
         display: flex;
+        background: var(--cor-fundo);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
     }
+
+    /* ⚠️ FIX: content ocupa 100% (sem margin-left, sem estouro) */
+    .layout {
+        display: block;
+        width: 100%;
+    }
+
     .content {
         margin-left: 0;
+        width: 100%;
+        flex: none;
+    }
+
+    .sidebar-overlay {
+        background-color: rgba(0, 0, 0, 0.75);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        z-index: 1;
     }
 }

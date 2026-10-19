@@ -12,11 +12,18 @@
 
 {% block footer_titulo %}PERFIL{% endblock %}
 
+{# BOTÃO NO FOOTER (igual Aparência) #}
+{% block footer_esquerda %}
+<button type="button" class="btn-footer btn-footer-primary" id="btnSalvarPerfilFooter">
+    <i class="fas fa-save"></i>
+    <span>SALVAR</span>
+</button>
+{% endblock %}
+
 {% block conteudo %}
 
 <section class="tela-grid">
 
-    <!-- COLUNA ESQUERDA: FORM -->
     <div>
         <form id="formPerfil" class="pp-form" enctype="multipart/form-data">
 
@@ -163,17 +170,7 @@
                 </details>
             </div>
 
-            <!-- AÇÕES -->
-            <div class="tela-bloco">
-                <button type="submit" class="tela-acao-salvar" id="btnSalvarPerfil">
-                    <span class="btn-texto">
-                        <i class="fas fa-save"></i> Salvar alterações
-                    </span>
-                    <span class="btn-loading" hidden>
-                        <i class="fas fa-spinner fa-spin"></i> Salvando...
-                    </span>
-                </button>
-            </div>
+            {# ⚠️ BOTÃO DE SALVAR REMOVIDO — fica só no footer #}
 
         </form>
     </div>

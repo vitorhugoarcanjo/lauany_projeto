@@ -13,12 +13,12 @@ html {
     scroll-behavior: smooth;
     font-size: 16px;
     -webkit-text-size-adjust: 100%;
-    overflow-y: scroll;              /* ← NOVO: força scrollbar sempre visível */
-    scrollbar-width: thin;           /* ← NOVO: Firefox */
-    scrollbar-color: var(--cor-borda) transparent;  /* ← NOVO: Firefox */
+    overflow-y: scroll;
+    overflow-x: hidden;              /* ⚠️ FIX: evita scroll horizontal */
+    scrollbar-width: thin;
+    scrollbar-color: var(--cor-borda) transparent;
 }
 
-/* ← NOVO: scrollbar fina (Chrome/Safari/Edge) */
 html::-webkit-scrollbar {
     width: 6px;
 }

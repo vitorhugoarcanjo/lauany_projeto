@@ -1,18 +1,47 @@
 /* static/js/modules/pasta_links/modals/link-editar.js
 ============================================
-MODAL EDITAR LINK — abre/fecha/submete
+MODAL EDITAR LINK
 ============================================ */
 
 (function() {
     'use strict';
 
     let formInstance = null;
-    let submitVinculado = false;
+
+    function fechar() {
+        const modal = document.querySelector('#modal-editar-container [data-modal]')
+                    || document.querySelector('body > [data-modal]');
+
+        if (modal) {
+            modal.style.animation = 'modalFadeOut 0.15s ease forwards';
+            setTimeout(() => {
+                modal.remove();
+                document.body.style.overflow = '';
+            }, 150);
+        }
+        formInstance = null;
+    }
+
+    function recarregarTabela() {
+        if (window.htmx) {
+            htmx.ajax('GET', '/links/', '#tabela-container');
+        } else {
+            setTimeout(() => window.location.reload(), 400);
+        }
+    }
+
+    function portal() {
+        document.querySelectorAll('body > [data-modal]').forEach(m => m.remove());
+
+        const modal = document.querySelector('#modal-editar-container [data-modal]');
+        if (!modal) return;
+        if (modal.parentElement === document.body) return;
+        document.body.appendChild(modal);
+    }
 
     function instanciar() {
         const formEl = document.getElementById('formEditarLink');
         if (!formEl) return null;
-        if (formInstance && formInstance.form === formEl) return formInstance;
 
         formInstance = new window.LinkForm(formEl, {
             mode: 'edit',
@@ -26,76 +55,13 @@ MODAL EDITAR LINK — abre/fecha/submete
         return formInstance;
     }
 
-    function fechar() {
-        const modal = document.querySelector('#modal-editar-container [data-modal]');
-        if (modal) {
-            modal.style.animation = 'modalFadeOut 0.15s ease forwards';
-            setTimeout(() => {
-                modal.remove();
-                document.body.style.overflow = '';
-            }, 150);
-        }
-        formInstance = null;
-        submitVinculado = false;
-    }
-
-    function recarregarTabela() {
-        if (window.htmx) {
-            htmx.ajax('GET', '/links', '#tabela-container');
-        } else {
-            setTimeout(() => window.location.reload(), 400);
-        }
-    }
-
-    // ==========================================================
-    // Vincula o submit
-    // ==========================================================
-    function vincularSubmit(formEl) {
-        if (!formEl) return;
-        if (submitVinculado && formEl.dataset.submitVinculado === '1') return;
-
-        formEl.addEventListener('submit', function(ev) {
-            ev.preventDefault();
-            ev.stopPropagation();
-            ev.stopImmediatePropagation();
-
-            const f = instanciar();
-            if (!f) return;
-
-            const linkId = formEl.dataset.linkId;
-            const btn = document.getElementById('btnSalvarEdicao');
-
-            if (btn) {
-                btn.classList.add('loading');
-                btn.disabled = true;
-            }
-
-            f.submit('/links/edit_link/salvar/' + linkId)
-                .catch((err) => console.error('❌ Erro submit editar:', err))
-                .finally(() => {
-                    if (btn) {
-                        btn.classList.remove('loading');
-                        btn.disabled = false;
-                    }
-                });
-
-            return false;
-        }, true);
-
-        formEl.dataset.submitVinculado = '1';
-        submitVinculado = true;
-    }
-
-    // ==========================================================
-    // Inicializa
-    // ==========================================================
     function inicializarModal() {
         const formEl = document.getElementById('formEditarLink');
         if (!formEl) return;
 
         document.body.style.overflow = 'hidden';
+        portal();
         instanciar();
-        vincularSubmit(formEl);
     }
 
     document.body.addEventListener('htmx:afterSwap', function(e) {

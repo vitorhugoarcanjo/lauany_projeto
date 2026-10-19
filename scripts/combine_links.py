@@ -14,11 +14,8 @@ from datetime import datetime
 
 
 CSS_FILES = [
-    # Módulo links (FAB, etc)
-    'static/css/modules/pasta_links/links.css',
-
-    # Componente de tabela (usado aqui)
-    'static/css/components/tabela-painel.css',
+    'static/css/components/tabela-painel.css',         # ← primeiro (base)
+    'static/css/modules/pasta_links/links.css',        # ← depois (específico)
 ]
 
 JS_FILES = [

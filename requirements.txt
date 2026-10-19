@@ -1,6 +1,26 @@
+# ==================== CORE ====================
 Flask==3.0.3
-python-dotenv==1.0.1
-Jinja2==3.1.4
 Werkzeug==3.0.3
-Markdown==3.7
+Jinja2==3.1.4
+MarkupSafe==2.1.5
+itsdangerous==2.2.0
+click==8.1.7
+blinker==1.8.2
+
+# ==================== BANCO ====================
+psycopg2-binary==2.9.9
+
+# ==================== AMBIENTE ====================
+python-dotenv==1.0.1
+
+# ==================== E-MAIL ====================
+Flask-Mail==0.9.1
+
+# ==================== UPLOAD DE FOTO ====================
 Pillow==10.4.0
+
+# ==================== SERVIDOR DE PRODUÇÃO ====================
+gunicorn==22.0.0
+
+# ==================== VALIDAÇÃO JSON ====================
+jsonschema==4.23.0

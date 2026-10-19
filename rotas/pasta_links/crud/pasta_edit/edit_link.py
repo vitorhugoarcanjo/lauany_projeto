@@ -1,4 +1,4 @@
-# rotas\pasta_links\crud\pasta_edit\edit_link.py
+# rotas/pasta_links/crud/pasta_edit/edit_link.py
 """EDITAR LINK — View"""
 
 import logging
@@ -9,7 +9,7 @@ from rotas.middleware.autenticacao import login_required
 from rotas.auditoria_geral.pasta_links.services_auditoria import AuditoriaService
 from utils.database.conexao_global import ini_conexao
 
-from .services import EditarLinkService
+from .services import EditarLinkService, montar_url
 from .validacoes import validar_dados_edicao
 
 logger = logging.getLogger(__name__)
@@ -40,16 +40,34 @@ def salvar_edicao_link(link_id):
     try:
         payload = request.json or {}
 
+        tipo = (payload.get('tipo') or 'link').strip().lower()
+
         dados = {
+            'tipo': tipo,
             'titulo': (payload.get('titulo') or '').strip(),
-            'url': (payload.get('url') or '').strip(),
             'icone': (payload.get('icone') or 'fa-link').strip(),
             'descricao': (payload.get('descricao') or '').strip(),
             'ordem': int(payload.get('ordem') or 0),
             'abrir_nova_aba': 1 if payload.get('abrir_nova_aba', True) else 0,
             'destaque': 1 if payload.get('destaque', False) else 0,
             'cor_especial': (payload.get('cor_especial') or '').strip() or None,
+            # campos por tipo
+            'url': (payload.get('url') or '').strip(),
+            'telefone': (payload.get('telefone') or '').strip(),
+            'mensagem': (payload.get('mensagem') or '').strip(),
+            'email_destino': (payload.get('email_destino') or '').strip(),
+            'assunto': (payload.get('assunto') or '').strip(),
         }
+
+        # ⚠️ MONTA A URL BASEADO NO TIPO
+        url_final = montar_url(tipo, dados)
+        if not url_final:
+            return jsonify({
+                'success': False,
+                'error': f'Dados incompletos para o tipo "{tipo}".'
+            }), 400
+
+        dados['url'] = url_final
 
         # Valida
         erros = validar_dados_edicao(dados)
@@ -70,10 +88,15 @@ def salvar_edicao_link(link_id):
         # Auditoria — diff campo a campo
         alteracoes = []
         campos = [
+            ('tipo', 'Tipo'),
             ('titulo', 'Título'),
             ('url', 'URL'),
             ('icone', 'Ícone'),
             ('descricao', 'Descrição'),
+            ('telefone', 'Telefone'),
+            ('mensagem', 'Mensagem'),
+            ('email_destino', 'E-mail'),
+            ('assunto', 'Assunto'),
             ('ordem', 'Ordem'),
             ('abrir_nova_aba', 'Nova aba'),
             ('destaque', 'Destaque'),
@@ -84,7 +107,6 @@ def salvar_edicao_link(link_id):
             antes = link_antigo.get(campo_bd)
             depois = dados.get(campo_bd)
 
-            # Normaliza pra comparação
             if antes is None:
                 antes = ''
             if depois is None:
@@ -97,7 +119,6 @@ def salvar_edicao_link(link_id):
                     'depois': str(depois) if depois != '' else '(vazio)',
                 })
 
-        # Só registra auditoria se houve mudança
         if alteracoes:
             AuditoriaService.registrar(
                 link_id=link_id,

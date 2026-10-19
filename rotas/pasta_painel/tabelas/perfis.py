@@ -1,4 +1,5 @@
-"""Tabela: perfis"""
+"""Tabela: perfis (com JSONB)"""
+
 
 def tabela_perfis(cursor):
     cursor.execute("""
@@ -22,26 +23,13 @@ def tabela_perfis(cursor):
                 nome_exibicao TEXT,
                 bio TEXT,
                 foto TEXT,
+                foto_posicao VARCHAR(20) DEFAULT 'top',
 
                 -- ==========================================
-                -- APARÊNCIA (cores e estilo)
+                -- APARÊNCIA (JSONB)
                 -- ==========================================
-                tema TEXT DEFAULT 'claro',
-                cor_primaria TEXT DEFAULT '#3b82f6',
-                cor_secundaria TEXT DEFAULT '#06b6d4',
-                cor_fundo TEXT,
-                cor_texto TEXT,
-                cor_botao TEXT,
-                fonte TEXT DEFAULT 'padrao',
-                estilo_botao TEXT DEFAULT 'arredondado',
-                template VARCHAR(30) DEFAULT 'cosmic',
-                tamanho_foto VARCHAR(20) DEFAULT 'medio',
-                tamanho_link VARCHAR(20) DEFAULT 'medio',
-                espacamento_links VARCHAR(20) DEFAULT 'medio',
-                borda_link VARCHAR(20) DEFAULT 'media',
-                hover_efeito VARCHAR(20) DEFAULT 'subir',
-                animacao_entrada VARCHAR(20) DEFAULT 'fade',
-                foto_posicao VARCHAR(20) DEFAULT 'top',
+                template_slug VARCHAR(50) DEFAULT 'cosmic',
+                config JSONB NOT NULL DEFAULT '{}'::jsonb,
 
                 -- ==========================================
                 -- SEO
@@ -58,7 +46,7 @@ def tabela_perfis(cursor):
                 FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
             )
         """)
-        print("✅ Tabela perfis criada")
+        print("✅ Tabela perfis criada (com JSONB)")
         return
 
     # ==========================================================
@@ -73,6 +61,10 @@ def tabela_perfis(cursor):
     novas = []
     if 'foto_posicao' not in colunas:
         novas.append("foto_posicao VARCHAR(20) DEFAULT 'top'")
+    if 'template_slug' not in colunas:
+        novas.append("template_slug VARCHAR(50) DEFAULT 'cosmic'")
+    if 'config' not in colunas:
+        novas.append("config JSONB NOT NULL DEFAULT '{}'::jsonb")
 
     for col in novas:
         try:

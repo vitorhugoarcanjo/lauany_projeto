@@ -1,6 +1,6 @@
 /* static/css/components/tela-padrao.css
 ============================================
-TELA PADRÃO — Cosmic Dashboard (claro + escuro)
+TELA PADRÃO — Cosmic Dashboard (claro + escuro + mobile)
 ============================================ */
 
 /* ==================== FUNDO CÓSMICO ==================== */
@@ -114,7 +114,6 @@ TELA PADRÃO — Cosmic Dashboard (claro + escuro)
     flex-shrink: 0;
 }
 
-/* ==================== AÇÕES DO HEADER ==================== */
 .tela-header-acoes {
     display: flex;
     align-items: center;
@@ -162,7 +161,6 @@ TELA PADRÃO — Cosmic Dashboard (claro + escuro)
     align-items: start;
 }
 
-/* Variante: 1 coluna (telas sem preview) */
 .tela-grid-1col {
     display: grid;
     grid-template-columns: 1fr;
@@ -170,7 +168,7 @@ TELA PADRÃO — Cosmic Dashboard (claro + escuro)
     align-items: start;
 }
 
-/* ==================== BLOCO (GLASSMORPHISM) ==================== */
+/* ==================== BLOCO ==================== */
 .tela-bloco {
     position: relative;
     background: var(--vidro-bg);
@@ -180,29 +178,8 @@ TELA PADRÃO — Cosmic Dashboard (claro + escuro)
     border-radius: 14px;
     padding: 0.85rem 1rem;
     margin-bottom: 0.75rem;
-    overflow: hidden;
+    overflow: visible;   /* ⚠️ FIX: NÃO corta conteúdo */
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.tela-bloco::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg,
-        transparent,
-        rgba(59, 130, 246, 0.6),
-        rgba(6, 182, 212, 0.6),
-        transparent);
-    opacity: 0.7;
-    animation: blocoShine 5s ease-in-out infinite;
-}
-
-@keyframes blocoShine {
-    0%, 100% { opacity: 0.3; }
-    50%      { opacity: 1; }
 }
 
 .tela-bloco:hover {
@@ -250,34 +227,13 @@ TELA PADRÃO — Cosmic Dashboard (claro + escuro)
     font-weight: 700;
     color: #ffffff;
     background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
-    background-size: 200% 200%;
     border: none;
     cursor: pointer;
-    overflow: hidden;
-    animation: salvarGradient 5s ease infinite;
+    width: 100%;
     box-shadow:
         0 4px 20px rgba(59, 130, 246, 0.4),
         inset 0 1px 0 rgba(255, 255, 255, 0.15);
     transition: transform 0.2s ease, box-shadow 0.3s ease;
-    width: 100%;
-}
-
-@keyframes salvarGradient {
-    0%, 100% { background-position: 0% 50%; }
-    50%      { background-position: 100% 50%; }
-}
-
-.tela-acao-salvar::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.15), transparent);
-    transform: translateX(-100%);
-    transition: transform 0.6s;
-}
-
-.tela-acao-salvar:hover::before {
-    transform: translateX(100%);
 }
 
 .tela-acao-salvar:hover {
@@ -301,51 +257,68 @@ TELA PADRÃO — Cosmic Dashboard (claro + escuro)
     top: 76px;
 }
 
-/* ==================== RESPONSIVO ==================== */
 @media (max-width: 992px) {
+    .tela-cosmos-bg {
+        display: none;
+    }
+
     .tela-header {
         left: 0;
         padding: 0 var(--esp-4);
+        padding-left: 76px;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background: var(--cor-fundo);
     }
+
     .tela-conteudo {
         padding-left: var(--esp-4);
         padding-right: var(--esp-4);
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
     }
+
+    /* ⚠️ FIX: minmax(0, 1fr) em vez de 1fr */
     .tela-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);   /* ← ESSENCIAL */
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
     }
+
     .tela-preview-col {
         position: static;
         order: -1;
         margin-bottom: 1rem;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
     }
-}
 
-@media (max-width: 576px) {
-    .tela-header {
-        height: 56px;
+    .tela-bloco {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background: var(--cor-card);
+        padding: 0.75rem 0.85rem;
+        margin-bottom: 0.6rem;
+        border-radius: 12px;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+        overflow: visible;
     }
-    .tela-header-titulo {
-        font-size: 0.85rem;
-    }
-    .tela-header-titulo i {
-        width: 24px;
-        height: 24px;
-        font-size: 0.7rem;
-    }
-    .tela-conteudo {
-        padding-top: 70px;
-    }
-    .tela-preview-col {
-        top: auto;
-    }
-}
 
-@media (prefers-reduced-motion: reduce) {
-    .tela-cosmos-bg::before,
-    .tela-cosmos-bg::after,
-    .tela-bloco::before,
-    .tela-acao-salvar {
-        animation: none !important;
+    .tela-bloco-titulo {
+        margin-bottom: 0.5rem;
+        font-size: 0.65rem;
+    }
+
+    .tela-bloco-titulo i {
+        width: 22px;
+        height: 22px;
+        font-size: 0.65rem;
     }
 }

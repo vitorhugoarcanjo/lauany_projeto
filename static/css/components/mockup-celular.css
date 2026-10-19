@@ -1,7 +1,7 @@
 /* static/css/components/mockup-celular.css
-============================================
-MOCKUP DE CELULAR — Compartilhado
-============================================ */
+   Mockup do celular — 100% var(--perfil-*).
+   Mesmas variáveis de perfil-publico.css → impossível divergir.
+============================================================ */
 
 /* ==================== CONTAINER ==================== */
 .mockup-preview {
@@ -33,10 +33,7 @@ MOCKUP DE CELULAR — Compartilhado
     letter-spacing: 0.05em;
 }
 
-.mockup-preview-acoes {
-    display: flex;
-    gap: 4px;
-}
+.mockup-preview-acoes { display: flex; gap: 4px; }
 
 .mockup-acao {
     display: inline-flex;
@@ -55,22 +52,19 @@ MOCKUP DE CELULAR — Compartilhado
     cursor: pointer;
     white-space: nowrap;
 }
-
 .mockup-acao:hover {
     border-color: var(--cor-marca);
     color: var(--cor-marca);
 }
-
 .mockup-acao-primaria {
     background: var(--cor-marca);
     border-color: var(--cor-marca);
-    color: #ffffff;
+    color: #fff;
 }
-
 .mockup-acao-primaria:hover {
     background: var(--cor-marca-hover);
     border-color: var(--cor-marca-hover);
-    color: #ffffff;
+    color: #fff;
 }
 
 /* ==================== CELULAR ==================== */
@@ -86,10 +80,7 @@ MOCKUP DE CELULAR — Compartilhado
     transform: perspective(1200px) rotateY(-3deg);
     transition: transform 0.4s ease;
 }
-
-.mockup-celular:hover {
-    transform: perspective(1200px) rotateY(0deg);
-}
+.mockup-celular:hover { transform: perspective(1200px) rotateY(0deg); }
 
 .mockup-celular-notch {
     width: 90px;
@@ -103,8 +94,10 @@ MOCKUP DE CELULAR — Compartilhado
 
 /* ==================== TELA ==================== */
 .mockup-celular-tela {
-    background: var(--perfil-cor-fundo, linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%));
+    background: var(--perfil-background-efetivo, #f5f7fa);
     color: var(--perfil-cor-texto, #0f172a);
+    font-family: var(--perfil-fonte, -apple-system, BlinkMacSystemFont,
+                 'Segoe UI', Roboto, Arial, sans-serif);
     border-radius: 24px;
     padding: 1.5rem 1rem 1rem;
     height: var(--mockup-altura, 480px);
@@ -117,8 +110,8 @@ MOCKUP DE CELULAR — Compartilhado
 
 /* ==================== FOTO ==================== */
 .mockup-celular-foto {
-    width: var(--mockup-foto-tamanho, 72px);
-    height: var(--mockup-foto-tamanho, 72px);
+    width: var(--perfil-foto-tamanho, 80px);
+    height: var(--perfil-foto-tamanho, 80px);
     border-radius: 50%;
     overflow: hidden;
     background: linear-gradient(135deg,
@@ -128,14 +121,13 @@ MOCKUP DE CELULAR — Compartilhado
     align-items: center;
     justify-content: center;
     color: #fff;
-    font-size: calc(var(--mockup-foto-tamanho, 72px) * 0.3);
+    font-size: calc(var(--perfil-foto-tamanho, 80px) * 0.3);
     margin-bottom: 0.75rem;
     box-shadow: 0 4px 14px rgba(59,130,246,0.3);
     flex-shrink: 0;
     border: 3px solid var(--perfil-cor-primaria, #3b82f6);
     transition: all 0.3s ease;
 }
-
 .mockup-celular-foto img {
     width: 100%;
     height: 100%;
@@ -153,7 +145,6 @@ MOCKUP DE CELULAR — Compartilhado
     word-break: break-word;
     line-height: 1.2;
 }
-
 .mockup-celular-bio {
     font-size: 0.72rem;
     color: var(--perfil-cor-texto, #64748b);
@@ -174,52 +165,46 @@ MOCKUP DE CELULAR — Compartilhado
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: var(--mockup-gap, 8px);
+    gap: var(--perfil-gap, 8px);
     margin-bottom: auto;
     overflow: hidden;
 }
-
 .mockup-celular-link {
     display: flex;
     align-items: center;
     gap: 0.5rem;
     padding: 0 0.75rem;
-    min-height: var(--mockup-link-tamanho, 34px);
+    min-height: var(--perfil-link-tamanho, 42px);
     background: var(--perfil-cor-primaria, #3b82f6);
-    color: #ffffff;
-    border-radius: var(--perfil-raio-link, 10px);
+    color: #fff;
+    border-radius: var(--perfil-raio-link, 12px);
     font-size: 0.72rem;
     font-weight: 600;
-    border: var(--mockup-borda-tamanho, 2px) solid var(--perfil-cor-primaria, #3b82f6);
+    border: var(--perfil-borda-tamanho, 2px) solid var(--perfil-cor-primaria, #3b82f6);
     box-shadow: 0 1px 3px rgba(0,0,0,0.15);
     transition: all 0.3s ease;
 }
-
 .mockup-celular-link:hover {
-    transform: var(--mockup-hover-transform, none);
-    filter: var(--mockup-hover-brilho, none);
+    transform: var(--perfil-hover-transform, none);
+    filter: var(--perfil-hover-brilho, none);
 }
-
 .mockup-celular-link i:first-child {
     font-size: 0.7rem;
     width: 14px;
     text-align: center;
     flex-shrink: 0;
 }
-
 .mockup-celular-link span {
     flex: 1;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-
 .mockup-celular-link i:last-child {
     font-size: 0.65rem;
     opacity: 0.7;
     flex-shrink: 0;
 }
-
 .mockup-celular-link-vazio {
     background: rgba(0,0,0,0.06);
     color: var(--perfil-cor-texto, #94a3b8);
@@ -227,23 +212,31 @@ MOCKUP DE CELULAR — Compartilhado
     font-style: italic;
 }
 
-/* ==================== RODAPÉ ==================== */
+/* ==================== RODAPÉ (pílula compacta, igual à pública) ==================== */
+/* Branding do MeuLinks — pílula neutra, não ocupa a largura toda.               */
 .mockup-celular-rodape {
-    margin-top: 1rem;
-    font-size: 0.6rem;
-    color: var(--perfil-cor-texto, #94a3b8);
-    opacity: 0.6;
-    text-align: center;
-    padding: 0.4rem;
-    background: rgba(0,0,0,0.04);
+    margin-top: auto;              /* empurra pra baixo, dentro da tela */
+    margin-bottom: 8px;
+    align-self: center;            /* centraliza horizontalmente */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
     border-radius: 999px;
-    width: 100%;
+    padding: 4px 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+
+    font-size: 0.6rem;
+    color: #64748b;
+    white-space: nowrap;
     flex-shrink: 0;
 }
-
 .mockup-celular-rodape i {
-    color: var(--perfil-cor-primaria, #3b82f6);
+    color: #94a3b8;
     margin-right: 0.2rem;
+    font-size: 0.55rem;
 }
 
 /* ==================== AVISO ==================== */
@@ -260,55 +253,34 @@ MOCKUP DE CELULAR — Compartilhado
     border-radius: 6px;
     line-height: 1.4;
 }
-
 .mockup-preview-aviso i {
     color: var(--cor-marca);
     margin-top: 2px;
     flex-shrink: 0;
 }
 
-/* ==================== ANIMAÇÕES ==================== */
+/* ==================== ANIMAÇÕES (dinâmicas por --i) ==================== */
 .mockup-celular-tela.anim-fade .mockup-celular-link {
     opacity: 0;
     transform: translateY(20px);
     animation: mockupFadeIn 0.6s forwards;
+    animation-delay: calc(var(--i, 0) * 0.1s);
 }
-.mockup-celular-tela.anim-fade .mockup-celular-link:nth-child(1) { animation-delay: 0.1s; }
-.mockup-celular-tela.anim-fade .mockup-celular-link:nth-child(2) { animation-delay: 0.2s; }
-.mockup-celular-tela.anim-fade .mockup-celular-link:nth-child(3) { animation-delay: 0.3s; }
-.mockup-celular-tela.anim-fade .mockup-celular-link:nth-child(4) { animation-delay: 0.4s; }
-
-@keyframes mockupFadeIn {
-    to { opacity: 1; transform: translateY(0); }
-}
-
 .mockup-celular-tela.anim-slide .mockup-celular-link {
     opacity: 0;
     transform: translateX(-30px);
     animation: mockupSlideIn 0.5s forwards;
+    animation-delay: calc(var(--i, 0) * 0.1s);
 }
-.mockup-celular-tela.anim-slide .mockup-celular-link:nth-child(1) { animation-delay: 0.1s; }
-.mockup-celular-tela.anim-slide .mockup-celular-link:nth-child(2) { animation-delay: 0.2s; }
-.mockup-celular-tela.anim-slide .mockup-celular-link:nth-child(3) { animation-delay: 0.3s; }
-.mockup-celular-tela.anim-slide .mockup-celular-link:nth-child(4) { animation-delay: 0.4s; }
-
-@keyframes mockupSlideIn {
-    to { opacity: 1; transform: translateX(0); }
-}
-
 .mockup-celular-tela.anim-scale .mockup-celular-link {
     opacity: 0;
     transform: scale(0.85);
     animation: mockupScaleIn 0.5s forwards;
+    animation-delay: calc(var(--i, 0) * 0.1s);
 }
-.mockup-celular-tela.anim-scale .mockup-celular-link:nth-child(1) { animation-delay: 0.1s; }
-.mockup-celular-tela.anim-scale .mockup-celular-link:nth-child(2) { animation-delay: 0.2s; }
-.mockup-celular-tela.anim-scale .mockup-celular-link:nth-child(3) { animation-delay: 0.3s; }
-.mockup-celular-tela.anim-scale .mockup-celular-link:nth-child(4) { animation-delay: 0.4s; }
-
-@keyframes mockupScaleIn {
-    to { opacity: 1; transform: scale(1); }
-}
+@keyframes mockupFadeIn  { to { opacity: 1; transform: translateY(0); } }
+@keyframes mockupSlideIn { to { opacity: 1; transform: translateX(0); } }
+@keyframes mockupScaleIn { to { opacity: 1; transform: scale(1); } }
 
 /* ==================== RESPONSIVO ==================== */
 @media (max-width: 992px) {
@@ -320,13 +292,8 @@ MOCKUP DE CELULAR — Compartilhado
     }
     :root { --mockup-altura: 420px; }
 }
-
 @media (max-width: 480px) {
     :root { --mockup-altura: 400px; }
     .mockup-acao span { display: none; }
-    .mockup-acao {
-        width: 32px;
-        height: 32px;
-        padding: 0;
-    }
+    .mockup-acao { width: 32px; height: 32px; padding: 0; }
 }

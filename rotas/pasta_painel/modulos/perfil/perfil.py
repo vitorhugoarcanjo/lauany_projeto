@@ -130,7 +130,6 @@ def salvar_perfil():
 
         conexao.commit()
 
-        # ⚠️ FIX: só remove a antiga se o caminho for DIFERENTE do novo
         if acao_foto == 'atualizar' and perfil_atual:
             if perfil_atual.get('foto') and perfil_atual['foto'] != caminho_foto:
                 _remover_foto_antiga(perfil_atual)

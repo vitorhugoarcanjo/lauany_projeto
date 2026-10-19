@@ -2,6 +2,7 @@
 
 import logging
 from rotas.pasta_painel.queries import PainelQueries
+from rotas.pasta_painel.services.aparencia_final_service import AparenciaFinalService
 
 logger = logging.getLogger(__name__)
 
@@ -28,8 +29,11 @@ class PainelService:
         if not row:
             return None
         return {
-            'id': row[0], 'username': row[1], 'bio': row[2], 'foto': row[3],
-            'cor_primaria': row[4], 'cor_secundaria': row[5], 'tema': row[6],
+            'id': row[0],
+            'username': row[1],
+            'bio': row[2],
+            'foto': row[3],
+            'template_slug': row[4] or 'cosmic',
         }
 
     def buscar_perfil_visual(self, usuario_id):
@@ -39,30 +43,19 @@ class PainelService:
             return None
 
         perfil = {
-            'username': row[0],
-            'nome_exibicao': row[1],
-            'nome': row[2],
-            'bio': row[3],
-            'foto': row[4],
-            'foto_posicao': row[5] or 'top',
-            'titulo_pagina': row[6],
-            'meta_descricao': row[7],
-            'cor_primaria': row[8] or '#3b82f6',
-            'cor_secundaria': row[9] or '#06b6d4',
-            'cor_fundo': row[10],
-            'cor_texto': row[11],
-            'cor_botao': row[12],
-            'tema': row[13] or 'claro',
-            'fonte': row[14] or 'padrao',
-            'estilo_botao': row[15] or 'arredondado',
-            'template': row[16] or 'cosmic',
-            'tamanho_foto': row[17] or 'medio',
-            'tamanho_link': row[18] or 'medio',
-            'espacamento_links': row[19] or 'medio',
-            'borda_link': row[20] or 'media',
-            'hover_efeito': row[21] or 'subir',
-            'animacao_entrada': row[22] or 'fade',
-            'ativo': row[23],
+            'id': row[0],
+            'usuario_id': row[1],
+            'username': row[2],
+            'nome_exibicao': row[3],
+            'nome': row[4],
+            'bio': row[5],
+            'foto': row[6],
+            'foto_posicao': row[7] or 'top',
+            'titulo_pagina': row[8],
+            'meta_descricao': row[9],
+            'template_slug': row[10] or 'cosmic',
+            'config': row[11] or {},
+            'ativo': row[12],
             'links_preview': [],
         }
 
@@ -72,6 +65,10 @@ class PainelService:
             or perfil['username']
             or 'Sem nome'
         )
+
+        aparencia_final_service = AparenciaFinalService(self.conexao, self.cursor)
+        aparencia_final = aparencia_final_service.buscar_por_usuario(usuario_id)
+        perfil['config_final'] = aparencia_final['config_final'] if aparencia_final else {}
 
         perfil['links_preview'] = self._buscar_links_preview(usuario_id, limite=4)
         return perfil

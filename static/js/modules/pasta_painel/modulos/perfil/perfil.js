@@ -19,7 +19,7 @@ PERFIL — usa Mockup global
         const inputRemoverFoto = document.getElementById('remover_foto');
         const fotoPreview = document.getElementById('fotoPreview');
         const btnRemoverFoto = document.getElementById('btnRemoverFoto');
-        const btnSalvar = document.getElementById('btnSalvarPerfil');
+        const btnSalvar = document.getElementById('btnSalvarPerfilFooter');  // ← ID NOVO
         const inputFotoPosicao = document.getElementById('foto_posicao');
 
         function atualizarMockup() {
@@ -121,15 +121,12 @@ PERFIL — usa Mockup global
                 const reader = new FileReader();
                 reader.onload = (e) => {
                     const src = e.target.result;
-
-                    // ⚠️ FIX: pega a posição ATUAL do select e aplica
                     const posicao = inputFotoPosicao ? inputFotoPosicao.value : 'top';
 
                     if (fotoPreview) {
                         fotoPreview.innerHTML = `<img src="${src}" alt="Preview" style="object-position: center ${posicao};">`;
                     }
                     if (window.Mockup) {
-                        // Seta a foto (Mockup.setFoto já pega a posição do select)
                         Mockup.setFoto(src);
                     }
                 };
@@ -159,18 +156,24 @@ PERFIL — usa Mockup global
             });
         }
 
+        // ⚠️ BOTÃO DO FOOTER: chama submit do form
+        if (btnSalvar) {
+            btnSalvar.addEventListener('click', function() {
+                form.requestSubmit();
+            });
+        }
+
         // SUBMIT
         form.addEventListener('submit', function(ev) {
             ev.preventDefault();
 
             const formData = new FormData(form);
 
+            // Loading no botão do footer
             if (btnSalvar) {
                 btnSalvar.disabled = true;
-                const texto = btnSalvar.querySelector('.btn-texto');
-                const loading = btnSalvar.querySelector('.btn-loading');
-                if (texto) texto.hidden = true;
-                if (loading) loading.hidden = false;
+                const texto = btnSalvar.querySelector('span');
+                if (texto) texto.textContent = 'SALVANDO...';
             }
 
             fetch('/painel/perfil/salvar', {
@@ -196,10 +199,8 @@ PERFIL — usa Mockup global
             .finally(() => {
                 if (btnSalvar) {
                     btnSalvar.disabled = false;
-                    const texto = btnSalvar.querySelector('.btn-texto');
-                    const loading = btnSalvar.querySelector('.btn-loading');
-                    if (texto) texto.hidden = false;
-                    if (loading) loading.hidden = true;
+                    const texto = btnSalvar.querySelector('span');
+                    if (texto) texto.textContent = 'SALVAR';
                 }
             });
         });
